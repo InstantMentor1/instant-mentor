@@ -8,6 +8,13 @@ alter table public.payments
   add column if not exists currency text not null default 'INR',
   add column if not exists updated_at timestamptz not null default now();
 
+alter table public.user_subscriptions
+  add column if not exists credit_period_started_at timestamptz;
+
+update public.user_subscriptions
+set credit_period_started_at = start_date
+where credit_period_started_at is null;
+
 alter table public.payments drop constraint if exists payments_status_check;
 alter table public.payments add constraint payments_status_check
   check (status in ('created', 'pending', 'paid', 'failed', 'refunded'));

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { getAuthContext } from "@/lib/auth";
 import { sendNewSessionAdminEmail } from "@/lib/session-email";
 import { createSupabaseAdminClient } from "@/lib/supabase/server";
+import { getActiveSessionSubscription } from "@/lib/subscription-access";
 import type { SessionRequest } from "@/lib/sessions";
 import { isSessionType, isTechnicalTrack } from "@/lib/constants";
 
@@ -24,14 +25,7 @@ export async function POST(request: Request) {
   }
 
   const admin = createSupabaseAdminClient();
-  const { data: subscription } = await admin
-    .from("user_subscriptions")
-    .select("id,session_credits_total,session_credits_used,plans(price,session_credits)")
-    .eq("user_id", user.id)
-    .eq("status", "active")
-    .order("created_at", { ascending: false })
-    .limit(1)
-    .maybeSingle();
+  const subscription = await getActiveSessionSubscription(user.id);
   if (!subscription) {
     const { data: access } = await admin
       .from("user_access")

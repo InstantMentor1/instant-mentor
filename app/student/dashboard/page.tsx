@@ -5,12 +5,13 @@ import RazorpayCheckout from "@/components/RazorpayCheckout";
 import SessionCard from "@/components/SessionCard";
 import { requireAuth } from "@/lib/auth";
 import type { SessionRequest } from "@/lib/sessions";
+import { getActiveSessionSubscription } from "@/lib/subscription-access";
 
 export default async function StudentDashboard() {
   const { supabase, profile } = await requireAuth(["Student"]);
-  const [{ data }, { data: subscription }, { count: webinarCount }, { data: access }] = await Promise.all([
+  const [{ data }, subscription, { count: webinarCount }, { data: access }] = await Promise.all([
     supabase.from("session_requests").select("*").order("created_at", { ascending: false }),
-    supabase.from("user_subscriptions").select("*,plans(name)").eq("status", "active").order("created_at", { ascending: false }).limit(1).maybeSingle(),
+    getActiveSessionSubscription(profile.user_id),
     supabase.from("webinars").select("*", { count: "exact", head: true }).eq("status", "upcoming"),
     supabase.from("user_access").select("*").maybeSingle(),
   ]);

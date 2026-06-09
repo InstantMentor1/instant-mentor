@@ -44,6 +44,7 @@ export async function activatePaymentAccess(
     status: "active",
     start_date: startedAt.toISOString(),
     end_date: expiresAt,
+    credit_period_started_at: startedAt.toISOString(),
     session_credits_total: product.credits,
     session_credits_used: 0,
   });

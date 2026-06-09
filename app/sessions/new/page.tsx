@@ -2,17 +2,12 @@ import Link from "next/link";
 import DashboardHeader from "@/components/DashboardHeader";
 import NewSessionForm from "@/components/NewSessionForm";
 import { requireAuth } from "@/lib/auth";
+import { getActiveSessionSubscription } from "@/lib/subscription-access";
 
 export default async function NewSessionPage() {
   const { supabase, profile } = await requireAuth(["Student"]);
-  const [{ data: subscription }, { data: access }] = await Promise.all([
-    supabase
-      .from("user_subscriptions")
-      .select("session_credits_total,session_credits_used")
-      .eq("status", "active")
-      .order("created_at", { ascending: false })
-      .limit(1)
-      .maybeSingle(),
+  const [subscription, { data: access }] = await Promise.all([
+    getActiveSessionSubscription(profile.user_id),
     supabase.from("user_access").select("early_access_confirmed").maybeSingle(),
   ]);
   const remaining = subscription

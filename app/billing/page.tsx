@@ -2,6 +2,7 @@ import DashboardHeader from "@/components/DashboardHeader";
 import EarlyAccessConfirmationCard from "@/components/EarlyAccessConfirmationCard";
 import PlanSelector from "@/components/PlanSelector";
 import { requireAuth } from "@/lib/auth";
+import { getActiveSessionSubscription } from "@/lib/subscription-access";
 
 const planOrder = ["Single Session", "Launch Offer", "Regular Plan", "Premium Plan"];
 const planDescriptions: Record<string, string> = {
@@ -13,13 +14,18 @@ const planDescriptions: Record<string, string> = {
 
 export default async function BillingPage() {
   const { supabase, profile } = await requireAuth(["Student"]);
-  const [{ data: plans }, { data: subscription }, { data: access }] = await Promise.all([
+  const [{ data: plans }, subscription, { data: access }] = await Promise.all([
     supabase.from("plans").select("*").eq("is_active", true),
-    supabase.from("user_subscriptions").select("*,plans(name)").eq("status", "active").order("created_at", { ascending: false }).limit(1).maybeSingle(),
+    getActiveSessionSubscription(profile.user_id),
     supabase.from("user_access").select("*").maybeSingle(),
   ]);
   const orderedPlans = [...(plans ?? [])].sort((a, b) => planOrder.indexOf(a.name) - planOrder.indexOf(b.name));
   const earlyAccessConfirmed = Boolean(access?.early_access_confirmed || subscription);
+  const activePlan = subscription
+    ? Array.isArray(subscription.plans)
+      ? subscription.plans[0]
+      : subscription.plans
+    : null;
 
   return (
     <section className="bg-slate-50 py-10">
@@ -27,7 +33,7 @@ export default async function BillingPage() {
         <DashboardHeader profile={profile} title="Plans and billing" description="Razorpay Standard Checkout runs in test mode. Access changes only after server-side payment verification." />
         {subscription && (
           <div className="mb-6 rounded-2xl border border-teal-200 bg-teal-50 p-5">
-            <strong>Active:</strong> {subscription.plans?.name} · {subscription.session_credits_total - subscription.session_credits_used} credits remaining
+            <strong>Active:</strong> {activePlan?.name} · {subscription.session_credits_total - subscription.session_credits_used} credits remaining
           </div>
         )}
         {!earlyAccessConfirmed && (
