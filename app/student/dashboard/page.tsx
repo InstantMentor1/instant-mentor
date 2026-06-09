@@ -26,7 +26,7 @@ export default async function StudentDashboard() {
         <DashboardHeader profile={profile} title={`Welcome, ${profile.full_name}`} description="Manage your technical mentorship sessions and private conversations." />
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {[
-            { label: "Technical track", value: profile.technical_track ?? "Not selected", icon: BookOpenCheck },
+            { label: "Technical tracks", value: profile.technical_tracks?.length ? profile.technical_tracks.join(", ") : profile.technical_track ?? "Not selected", icon: BookOpenCheck },
             { label: "Session credits", value: subscription ? `${remainingCredits} remaining` : "No active plan", icon: Coins },
             { label: "Pending", value: String(pending.length), icon: CalendarClock },
             { label: "Completed", value: String(completed.length), icon: CheckCircle2 },

@@ -14,6 +14,7 @@ export type AuthProfile = {
   role: AppRole;
   college_or_company: string | null;
   technical_track: string | null;
+  technical_tracks: string[];
   linkedin_or_portfolio: string | null;
   created_at: string;
 };
