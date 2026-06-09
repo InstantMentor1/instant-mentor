@@ -1,11 +1,13 @@
 import Link from "next/link";
-import { ArrowRight, BookOpenCheck, MessageCircleQuestion, Users } from "lucide-react";
+import { ArrowRight, BookOpenCheck, MessageCircleQuestion, Network, Radio, Users } from "lucide-react";
 import SectionHeader from "@/components/SectionHeader";
 
 const communityActions = [
-  { title: "Ask focused questions", text: "Bring a specific doubt, decision, or preparation challenge.", icon: MessageCircleQuestion },
-  { title: "Learn across tracks", text: "Discover useful perspectives beyond your immediate coursework.", icon: BookOpenCheck },
-  { title: "Grow with peers", text: "Build consistency alongside students working toward similar goals.", icon: Users },
+  { title: "Study Groups", text: "Build consistency with students preparing for similar subjects, roles, and interviews.", icon: BookOpenCheck },
+  { title: "Career Communities", text: "Follow the tracks that matter to your next internship, placement, or career move.", icon: Users },
+  { title: "Peer Discussions", text: "Compare approaches, share useful resources, and learn how others solve practical problems.", icon: MessageCircleQuestion },
+  { title: "Mentor AMAs", text: "Join focused conversations where professionals answer career and technical questions.", icon: Radio },
+  { title: "Networking Opportunities", text: "Meet ambitious peers and professionals through relevant sessions and track-based activity.", icon: Network },
 ];
 
 export default function CommunityPreview({ tracks }: { tracks: readonly string[] }) {
@@ -15,8 +17,8 @@ export default function CommunityPreview({ tracks }: { tracks: readonly string[]
         <div>
           <SectionHeader
             eyebrow="Community learning"
-            title="A focused network for technical growth"
-            description="Follow relevant tracks, prepare better questions, and learn from the challenges other students are solving."
+            title="You’re Not Learning Alone"
+            description="Instant Mentor brings focused peer learning and professional guidance into the same trusted environment."
           />
           <div className="flex flex-wrap gap-2">
             {tracks.slice(0, 8).map((track) => (
@@ -29,9 +31,9 @@ export default function CommunityPreview({ tracks }: { tracks: readonly string[]
             Create Student Account <ArrowRight size={17} />
           </Link>
         </div>
-        <div className="grid gap-4">
+        <div className="grid gap-4 sm:grid-cols-2">
           {communityActions.map(({ title, text, icon: Icon }) => (
-            <article key={title} className="card flex items-start gap-4 p-6">
+            <article key={title} className={`card flex items-start gap-4 p-6 ${title === "Networking Opportunities" ? "sm:col-span-2" : ""}`}>
               <span className="shrink-0 rounded-2xl bg-teal-50 p-3 text-teal-700" aria-hidden="true">
                 <Icon size={23} />
               </span>

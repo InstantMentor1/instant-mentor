@@ -3,6 +3,7 @@ import CTASection from "@/components/CTASection";
 import PageHero from "@/components/PageHero";
 import PricingCards from "@/components/PricingCards";
 import SectionHeader from "@/components/SectionHeader";
+import SingleSessionBanner from "@/components/SingleSessionBanner";
 import { getAuthContext } from "@/lib/auth";
 import { faqs } from "@/lib/data";
 
@@ -23,6 +24,7 @@ export default async function PricingPage() {
       />
       <section className="section-pad bg-slate-50">
         <div className="container-shell">
+          <SingleSessionBanner />
           <PricingCards role={profile?.role ?? null} />
           <p className="mt-8 text-center text-sm text-slate-500">Payments are currently confirmed manually by the Instant Mentor team.</p>
         </div>

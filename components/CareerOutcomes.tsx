@@ -1,36 +1,36 @@
-import { CheckCircle2 } from "lucide-react";
+import { BriefcaseBusiness, Code2, Compass, GraduationCap, Presentation, Wrench } from "lucide-react";
 import SectionHeader from "@/components/SectionHeader";
 
 const outcomes = [
-  "A clearer technical learning roadmap",
-  "Stronger resumes, portfolios, and project narratives",
-  "More focused interview and placement preparation",
-  "Better understanding of roles and industry expectations",
-  "Practical next steps instead of generic career advice",
-  "A trusted professional perspective on difficult decisions",
+  { title: "Land Your First Internship", text: "Turn broad preparation into a role-focused roadmap, stronger applications, and clearer next steps.", icon: BriefcaseBusiness },
+  { title: "Crack Campus Placements", text: "Prepare your resume, interview stories, technical fundamentals, and placement strategy with direction.", icon: GraduationCap },
+  { title: "Become Industry Ready", text: "Understand how professionals approach tools, teamwork, trade-offs, and real delivery expectations.", icon: Wrench },
+  { title: "Build Real Projects", text: "Choose useful project scopes, explain your decisions, and improve the quality of your portfolio narrative.", icon: Code2 },
+  { title: "Explore Career Paths", text: "Compare roles and tracks with context before investing months in the wrong learning plan.", icon: Compass },
+  { title: "Learn From Professionals", text: "Get practical perspective from people who have worked through the decisions you are facing.", icon: Presentation },
 ];
 
 export default function CareerOutcomes() {
   return (
     <section className="section-pad bg-teal-900 text-white" aria-labelledby="career-outcomes-title">
-      <div className="container-shell grid gap-12 lg:grid-cols-[.85fr_1.15fr] lg:items-center">
-        <div>
-          <p className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-teal-100">Career outcomes</p>
-          <h2 id="career-outcomes-title" className="text-3xl font-black tracking-tight sm:text-4xl">
-            Turn mentorship into a practical growth plan
-          </h2>
-          <p className="mt-5 max-w-xl leading-7 text-teal-50">
-            Instant Mentor is designed to help students make better-informed decisions and prepare with direction. Mentorship improves readiness; it does not guarantee placement.
-          </p>
-        </div>
-        <div className="grid gap-4 sm:grid-cols-2">
-          {outcomes.map((outcome) => (
-            <div key={outcome} className="flex items-start gap-3 rounded-2xl border border-white/15 bg-white/10 p-5 font-semibold text-teal-50">
-              <CheckCircle2 size={19} className="mt-0.5 shrink-0 text-teal-200" aria-hidden="true" />
-              {outcome}
-            </div>
+      <div className="container-shell">
+        <SectionHeader
+          eyebrow="Career outcomes"
+          title="Prepare for the moments that shape your career"
+          description="Mentorship is most valuable when it changes what you do next. These are the transformations Instant Mentor is designed to support, not guaranteed placement claims."
+          centered
+          inverted
+        />
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {outcomes.map(({ title, text, icon: Icon }) => (
+            <article key={title} className="rounded-2xl border border-white/15 bg-white/10 p-6">
+              <Icon size={24} className="text-teal-100" aria-hidden="true" />
+              <h3 className="mt-5 text-lg font-extrabold">{title}</h3>
+              <p className="mt-2 text-sm leading-6 text-teal-50">{text}</p>
+            </article>
           ))}
         </div>
+        <p className="mt-6 text-center text-xs text-teal-100">Individual outcomes depend on preparation, participation, and market conditions.</p>
       </div>
     </section>
   );

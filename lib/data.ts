@@ -100,10 +100,11 @@ export const plans = [
 ];
 
 export const faqs = [
-  { question: "Who can join Instant Mentor?", answer: "Verified students, faculty, mentors, and industry experts." },
-  { question: "Is it only for one subject?", answer: "No. Instant Mentor is built across domains, starting with selected high-demand areas." },
-  { question: "How are students verified?", answer: "Through an eligible institutional email and, when needed, a manual account review." },
-  { question: "Are doubts unlimited?", answer: "Students get unlimited community access with fair-use priority doubt credits depending on their plan." },
-  { question: "Can mentors earn money?", answer: "Yes. Mentors and faculty can earn through doubt-clearing, live sessions, webinars, and revenue-sharing models." },
-  { question: "Is this a course platform?", answer: "No. Instant Mentor combines doubt support, mentorship, webinars, community learning, and career guidance." },
+  { question: "How does mentorship work?", answer: "Create an eligible student account, choose a plan or single session, submit a focused request, and wait for a mentor whose expertise fits the topic to review it." },
+  { question: "Is the first session free?", answer: "No. The lowest-cost option is a ₹69 single doubt-solving session. This lets you try the experience without committing to a monthly plan." },
+  { question: "How are mentors verified?", answer: "The Instant Mentor team reviews professional identity, relevant experience, expertise areas, and available professional profile evidence before marking a mentor as verified." },
+  { question: "Who can join?", answer: "Engineering students, placement aspirants, fresh graduates, early-career professionals with eligible institutional accounts, and experienced professional or faculty mentors can apply." },
+  { question: "How do subscriptions work?", answer: "Monthly plans provide a defined number of session credits and plan-specific webinar pricing. The Launch Offer has a minimum six-month purchase; Single Session is purchased separately." },
+  { question: "Can I switch mentors?", answer: "Session requests are matched and accepted based on mentor expertise. If a request is not a fit, it can be reviewed for another suitable mentor rather than forcing an unsuitable match." },
+  { question: "What domains are available?", answer: "Current tracks include Full Stack Development, AI and Machine Learning, Data Analytics, Cloud and DevOps, Cybersecurity, UI/UX, core engineering, placement preparation, resume support, and career roadmaps." },
 ];

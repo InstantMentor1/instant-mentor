@@ -10,6 +10,7 @@ export type PublicWebinar = {
   price: number;
   durationMinutes: number;
   maxParticipants: number;
+  seatsLeft: number;
   mentorName: string;
 };
 
@@ -86,7 +87,7 @@ export default function UpcomingWebinars({
                     <div className="flex items-center gap-3">
                       <Users size={17} className="text-teal-700" aria-hidden="true" />
                       <dt className="sr-only">Capacity</dt>
-                      <dd>Up to {webinar.maxParticipants} participants</dd>
+                      <dd>{webinar.seatsLeft} of {webinar.maxParticipants} seats remaining</dd>
                     </div>
                   </dl>
                   <div className="mt-auto flex items-end justify-between gap-4 pt-6">

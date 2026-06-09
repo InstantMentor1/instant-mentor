@@ -1,10 +1,12 @@
 import Link from "next/link";
-import { ArrowRight, Megaphone, Network, Presentation } from "lucide-react";
+import { ArrowRight, Award, BadgeCheck, Gift, Megaphone, Network } from "lucide-react";
 
-const responsibilities = [
-  { title: "Build awareness", icon: Megaphone },
-  { title: "Connect student communities", icon: Network },
-  { title: "Support campus sessions", icon: Presentation },
+const benefits = [
+  { title: "Leadership Experience", text: "Represent a student-focused product and coordinate useful campus activity.", icon: Megaphone },
+  { title: "Networking", text: "Build relationships with motivated students, mentors, and the Instant Mentor team.", icon: Network },
+  { title: "Referral Rewards", text: "Access rewards when a published ambassador campaign is active.", icon: Gift },
+  { title: "Certificates", text: "Receive recognition after completing verified ambassador contributions.", icon: Award },
+  { title: "Founder Access", text: "Share campus feedback directly with the founding team during selected reviews.", icon: BadgeCheck },
 ];
 
 export default function CampusAmbassadorSection() {
@@ -23,16 +25,17 @@ export default function CampusAmbassadorSection() {
             Help students discover verified mentors, focused webinars, and better career conversations. Ambassador responsibilities and benefits are shared transparently during selection.
           </p>
           <Link href={emailHref} className="btn-primary mt-7">
-            Register your interest <ArrowRight size={17} />
+            Become a Campus Ambassador <ArrowRight size={17} />
           </Link>
         </div>
-        <div className="grid gap-4 sm:grid-cols-3">
-          {responsibilities.map(({ title, icon: Icon }) => (
-            <article key={title} className="card p-6 text-center">
-              <span className="mx-auto inline-flex rounded-2xl bg-teal-50 p-3 text-teal-700" aria-hidden="true">
+        <div className="grid gap-4 sm:grid-cols-2">
+          {benefits.map(({ title, text, icon: Icon }) => (
+            <article key={title} className={`card p-6 ${title === "Founder Access" ? "sm:col-span-2" : ""}`}>
+              <span className="inline-flex rounded-2xl bg-teal-50 p-3 text-teal-700" aria-hidden="true">
                 <Icon size={24} />
               </span>
               <h3 className="mt-4 font-extrabold text-ink">{title}</h3>
+              <p className="mt-2 text-sm leading-6 text-slate-600">{text}</p>
             </article>
           ))}
         </div>
