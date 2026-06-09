@@ -33,7 +33,16 @@ export async function POST(request: Request) {
     .limit(1)
     .maybeSingle();
   if (!subscription) {
-    return NextResponse.json({ error: "Choose a plan to unlock session requests." }, { status: 402 });
+    const { data: access } = await admin
+      .from("user_access")
+      .select("early_access_confirmed")
+      .eq("user_id", user.id)
+      .maybeSingle();
+    return NextResponse.json({
+      error: access?.early_access_confirmed
+        ? "You have confirmed early access. Please choose a session plan to request mentor sessions."
+        : "Confirm your early-access interest, then choose a session plan to request mentor sessions.",
+    }, { status: 402 });
   }
   if (subscription.session_credits_used >= subscription.session_credits_total) {
     return NextResponse.json({ error: "You have used all session credits. Upgrade your plan or buy a single session." }, { status: 402 });

@@ -62,7 +62,6 @@ export async function middleware(request: NextRequest) {
       (path === "/webinars/create" && !isMentor && profile.role !== "Admin");
     const rolePublicRedirect =
       sharedPublicPages.includes(path) ||
-      (profile.role === "Student" && path === "/mentors") ||
       (isMentor && path === "/students") ||
       (profile.role === "Admin" && ["/", "/students", "/mentors"].includes(path));
 

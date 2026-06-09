@@ -5,6 +5,7 @@ import PageHero from "@/components/PageHero";
 import SectionHeader from "@/components/SectionHeader";
 import { redirect } from "next/navigation";
 import { getAuthContext } from "@/lib/auth";
+import { dashboardForRole } from "@/lib/auth-shared";
 
 const benefits = [
   { title: "Create an expert profile", text: "Showcase your credentials, experience, domains, and teaching strengths.", icon: CircleUserRound },
@@ -23,15 +24,17 @@ export const metadata: Metadata = {
 
 export default async function MentorsPage() {
   const { profile } = await getAuthContext();
-  if (profile?.role === "Student") redirect("/student/dashboard");
+  if (profile?.role === "Admin") redirect("/admin/dashboard");
+  const dashboardHref = profile ? dashboardForRole(profile.role) : "/signup";
+  const dashboardLabel = profile?.role === "Student" ? "Open Student Dashboard" : "Open Mentor Dashboard";
   return (
     <>
       <PageHero
         eyebrow="For faculty and experts"
         title="Turn your knowledge into impact and income."
         description="Help motivated students solve real problems, make better career decisions, and learn from experience that only you can share."
-        ctaLabel={profile ? "Open Mentor Dashboard" : "Apply as Mentor"}
-        ctaHref={profile ? "/mentor/dashboard" : "/signup"}
+        ctaLabel={profile ? dashboardLabel : "Apply as Mentor"}
+        ctaHref={dashboardHref}
       />
       <section className="section-pad bg-slate-50">
         <div className="container-shell">

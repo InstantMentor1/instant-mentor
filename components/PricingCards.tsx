@@ -4,6 +4,7 @@ import type { AppRole } from "@/lib/auth-shared";
 import { plans } from "@/lib/data";
 
 const studentLabels: Record<string, string> = {
+  "Early Access Confirmation": "Confirm Interest for ₹1",
   "Single Session": "Buy Single Session",
   "Launch Offer": "Choose Launch Offer",
   "Regular Plan": "Choose Regular Plan",
@@ -25,7 +26,7 @@ export default function PricingCards({ role = null }: { role?: AppRole | null })
           Manage plans from Admin Dashboard.
         </p>
       )}
-      <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+      <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-5">
         {plans.map((plan) => (
           <article
             key={plan.name}
@@ -58,7 +59,7 @@ export default function PricingCards({ role = null }: { role?: AppRole | null })
             </ul>
             {!role && (
               <Link href="/signup" className={plan.popular ? "btn-secondary border-white bg-white text-teal-800" : "btn-primary"}>
-                Create Student Account
+                {studentLabels[plan.name] ?? "Create Student Account"}
               </Link>
             )}
             {role === "Student" && (

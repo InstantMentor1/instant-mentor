@@ -22,7 +22,6 @@ import MentorVerificationExplainer from "@/components/MentorVerificationExplaine
 import PricingCards from "@/components/PricingCards";
 import ReferralSection from "@/components/ReferralSection";
 import SectionHeader from "@/components/SectionHeader";
-import SingleSessionBanner from "@/components/SingleSessionBanner";
 import SuccessStories from "@/components/SuccessStories";
 import TrustMetrics, { type MarketplaceMetrics } from "@/components/TrustMetrics";
 import UpcomingWebinars, { type PublicWebinar } from "@/components/UpcomingWebinars";
@@ -96,7 +95,7 @@ export default async function Home() {
             </p>
             {!dashboardHref && (
               <Link href="/pricing" className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-teal-700 hover:text-teal-900">
-                Start with one focused session for ₹69 <ArrowRight size={15} />
+                Pay ₹1 to confirm early-access interest <ArrowRight size={15} />
               </Link>
             )}
           </div>
@@ -261,9 +260,8 @@ export default async function Home() {
       <section className="section-pad">
         <div className="container-shell">
           <SectionHeader eyebrow="Simple monthly access" title="Choose the support that fits your goals" centered />
-          <SingleSessionBanner />
           <PricingCards role={profile?.role ?? null} />
-          <p className="mt-8 text-center text-sm text-slate-500">Payments are currently confirmed manually by the Instant Mentor team.</p>
+          <p className="mt-8 text-center text-sm text-slate-500">Razorpay checkout is introduced in test mode. The ₹1 confirmation does not include mentor sessions.</p>
         </div>
       </section>
 

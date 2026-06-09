@@ -47,6 +47,17 @@ export const domains = domainNames.map((name) => ({
 
 export const plans = [
   {
+    name: "Early Access Confirmation",
+    price: "₹1",
+    suffix: " one-time",
+    description: "Confirm interest and unlock dashboard exploration. Mentor sessions are not included.",
+    features: [
+      "Explore mentors and webinars",
+      "View session plans",
+      "Does not include a mentor session",
+    ],
+  },
+  {
     name: "Single Session",
     price: "₹69",
     suffix: "/session",
@@ -61,7 +72,8 @@ export const plans = [
     name: "Launch Offer",
     price: "₹299",
     suffix: "/month",
-    description: "Minimum 6-month purchase. Total ₹1,794 for 6 months. Best for: Early students starting with mentor support",
+    description: "Billed as ₹1,794 for 6 months. Best for: Early students starting with mentor support",
+    popular: true,
     features: [
       "5 doubt-solving sessions/month",
       "Pre-session chat access",
@@ -74,7 +86,6 @@ export const plans = [
     price: "₹399",
     suffix: "/month",
     description: "Best for: Consistent monthly mentor access",
-    popular: true,
     features: [
       "5 doubt-solving sessions/month",
       "Pre-session chat access",
@@ -101,7 +112,7 @@ export const plans = [
 
 export const faqs = [
   { question: "How does mentorship work?", answer: "Create an eligible student account, choose a plan or single session, submit a focused request, and wait for a mentor whose expertise fits the topic to review it." },
-  { question: "Is the first session free?", answer: "No. The lowest-cost option is a ₹69 single doubt-solving session. This lets you try the experience without committing to a monthly plan." },
+  { question: "Is the first session free?", answer: "No. The ₹1 payment confirms early-access interest and does not include a mentor session. The lowest-cost session option is a ₹69 single doubt-solving session." },
   { question: "How are mentors verified?", answer: "The Instant Mentor team reviews professional identity, relevant experience, expertise areas, and available professional profile evidence before marking a mentor as verified." },
   { question: "Who can join?", answer: "Engineering students, placement aspirants, fresh graduates, early-career professionals with eligible institutional accounts, and experienced professional or faculty mentors can apply." },
   { question: "How do subscriptions work?", answer: "Monthly plans provide a defined number of session credits and plan-specific webinar pricing. The Launch Offer has a minimum six-month purchase; Single Session is purchased separately." },

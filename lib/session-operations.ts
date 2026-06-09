@@ -98,9 +98,20 @@ export async function handleSessionAction(request: Request, action: string, rout
       .limit(1)
       .maybeSingle();
     if (subscription) {
+      const nextCreditsUsed = subscription.session_credits_used + 1;
       await admin.from("user_subscriptions").update({
-        session_credits_used: subscription.session_credits_used + 1,
+        session_credits_used: nextCreditsUsed,
       }).eq("id", subscription.id);
+      const { data: access } = await admin
+        .from("user_access")
+        .select("session_credits")
+        .eq("user_id", updated.student_id)
+        .maybeSingle();
+      if (access) {
+        await admin.from("user_access").update({
+          session_credits: Math.max(Number(access.session_credits) - 1, 0),
+        }).eq("user_id", updated.student_id);
+      }
     }
     const gross = Number(updated.price);
     const commission = gross * Number(updated.platform_commission_percent) / 100;

@@ -1,7 +1,5 @@
-"use client";
-
-import { useState } from "react";
-import { Loader2 } from "lucide-react";
+import RazorpayCheckout from "@/components/RazorpayCheckout";
+import type { PaymentProductType } from "@/lib/payment-products";
 
 const labels: Record<string, string> = {
   "Single Session": "Buy Single Session",
@@ -10,29 +8,28 @@ const labels: Record<string, string> = {
   "Premium Plan": "Upgrade to Premium",
 };
 
-export default function PlanSelector({ planId, planName }: { planId: string; planName: string }) {
-  const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
+const productTypes: Record<string, PaymentProductType> = {
+  "Single Session": "single_session",
+  "Launch Offer": "launch_offer",
+  "Regular Plan": "regular_plan",
+  "Premium Plan": "premium_plan",
+};
 
-  async function selectPlan() {
-    if (loading) return;
-    setLoading(true);
-    const response = await fetch("/api/billing/select-plan", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ planId }),
-    });
-    const result = await response.json();
-    setMessage(result.message ?? result.error);
-    setLoading(false);
-  }
+export default function PlanSelector({
+  planName,
+  disabled = false,
+}: {
+  planName: string;
+  disabled?: boolean;
+}) {
+  const productType = productTypes[planName];
+  if (!productType) return null;
 
   return (
-    <>
-      <button onClick={selectPlan} disabled={loading} className="btn-primary w-full">
-        {loading && <Loader2 size={16} className="animate-spin" />} {labels[planName] ?? "Select Plan"}
-      </button>
-      {message && <p className="mt-3 text-sm text-slate-600">{message}</p>}
-    </>
+    <RazorpayCheckout
+      productType={productType}
+      label={disabled ? "Confirm ₹1 Interest First" : labels[planName] ?? "Select Plan"}
+      disabled={disabled}
+    />
   );
 }
