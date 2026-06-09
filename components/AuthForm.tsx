@@ -3,7 +3,7 @@
 import { FormEvent, useState } from "react";
 import Link from "next/link";
 import { AlertCircle, Loader2 } from "lucide-react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { technicalTracks } from "@/lib/constants";
 
 type AuthFormProps = {
@@ -14,7 +14,6 @@ const fieldClass =
   "mt-2 w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none focus:border-teal-600 focus:ring-4 focus:ring-teal-100";
 
 export default function AuthForm({ mode }: AuthFormProps) {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
@@ -56,8 +55,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
           setMessage(result.warning ? `${result.message} ${result.warning}` : result.message);
           throw new Error(loginResult.error);
         }
-        router.push(loginResult.redirectTo);
-        router.refresh();
+        window.location.assign(loginResult.redirectTo);
         return;
       }
 
@@ -69,8 +67,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
       const result = await response.json();
       if (!response.ok) throw new Error(result.error);
       const next = searchParams.get("next");
-      router.push(next?.startsWith("/") ? next : result.redirectTo);
-      router.refresh();
+      window.location.assign(next?.startsWith("/") ? next : result.redirectTo);
     } catch (submissionError) {
       setError(
         submissionError instanceof Error
