@@ -11,7 +11,7 @@ export default async function LoginPage() {
     <section className="section-pad bg-hero-glow">
       <div className="container-shell">
         <div className="mb-8 text-center">
-          <span className="eyebrow">Early Access Beta</span>
+          <span className="eyebrow">Member access</span>
           <h1 className="text-4xl font-black">Sign in to Instant Mentor</h1>
           <p className="mt-3 text-slate-600">Your dashboard, sessions, messages, and meeting links stay private.</p>
         </div>

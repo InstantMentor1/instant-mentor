@@ -20,7 +20,7 @@ export default async function AdminDashboard() {
   return (
     <section className="bg-slate-50 py-10">
       <div className="container-shell">
-        <DashboardHeader profile={profile} title="Admin control room" description="Manage beta users, mentor assignment, and private session operations." />
+        <DashboardHeader profile={profile} title="Admin control room" description="Manage users, mentor assignment, and private session operations." />
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {[
             { label: "Students", value: studentCount ?? 0, icon: GraduationCap },

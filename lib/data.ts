@@ -102,7 +102,7 @@ export const plans = [
 export const faqs = [
   { question: "Who can join Instant Mentor?", answer: "Verified students, faculty, mentors, and industry experts." },
   { question: "Is it only for one subject?", answer: "No. Instant Mentor is built across domains, starting with selected high-demand areas." },
-  { question: "How will students be verified?", answer: "Through college ID, institutional email, or manual verification during MVP." },
+  { question: "How are students verified?", answer: "Through an eligible institutional email and, when needed, a manual account review." },
   { question: "Are doubts unlimited?", answer: "Students get unlimited community access with fair-use priority doubt credits depending on their plan." },
   { question: "Can mentors earn money?", answer: "Yes. Mentors and faculty can earn through doubt-clearing, live sessions, webinars, and revenue-sharing models." },
   { question: "Is this a course platform?", answer: "No. Instant Mentor combines doubt support, mentorship, webinars, community learning, and career guidance." },

@@ -13,7 +13,7 @@ export default async function AdminUsersPage() {
   return (
     <section className="bg-slate-50 py-10">
       <div className="container-shell">
-        <DashboardHeader profile={profile} title="Beta users" description="Review student, mentor, and verification details." />
+        <DashboardHeader profile={profile} title="Platform users" description="Review student, mentor, and verification details." />
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {(users ?? []).map((user) => (
             <article key={user.id} className="card p-6">

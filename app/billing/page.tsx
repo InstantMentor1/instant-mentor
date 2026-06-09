@@ -21,7 +21,7 @@ export default async function BillingPage() {
   return (
     <section className="bg-slate-50 py-10">
       <div className="container-shell">
-        <DashboardHeader profile={profile} title="Plans and billing" description="Select a plan. Payments are confirmed manually during early access." />
+        <DashboardHeader profile={profile} title="Plans and billing" description="Select a plan. Payments are currently confirmed manually by the Instant Mentor team." />
         {subscription && <div className="mb-6 rounded-2xl border border-teal-200 bg-teal-50 p-5"><strong>Active:</strong> {subscription.plans?.name} · {subscription.session_credits_total - subscription.session_credits_used} credits remaining</div>}
         <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
           {orderedPlans.map((plan) => (

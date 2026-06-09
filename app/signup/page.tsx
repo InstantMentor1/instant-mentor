@@ -11,8 +11,8 @@ export default async function SignupPage() {
     <section className="section-pad bg-hero-glow">
       <div className="container-shell">
         <div className="mb-8 text-center">
-          <span className="eyebrow">Technical Beta</span>
-          <h1 className="text-4xl font-black">Create your early access account</h1>
+          <span className="eyebrow">Create your account</span>
+          <h1 className="text-4xl font-black">Join Instant Mentor</h1>
           <p className="mt-3 text-slate-600">Students and mentors receive separate, protected workspaces.</p>
         </div>
         <AuthForm mode="signup" />

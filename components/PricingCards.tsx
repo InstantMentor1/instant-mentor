@@ -58,7 +58,7 @@ export default function PricingCards({ role = null }: { role?: AppRole | null })
             </ul>
             {!role && (
               <Link href="/signup" className={plan.popular ? "btn-secondary border-white bg-white text-teal-800" : "btn-primary"}>
-                Get Early Access
+                Create Student Account
               </Link>
             )}
             {role === "Student" && (

@@ -1,4 +1,5 @@
 import { BriefcaseBusiness, Check, Compass, GraduationCap, MessageCircleQuestion, Presentation, Users } from "lucide-react";
+import type { Metadata } from "next";
 import CTASection from "@/components/CTASection";
 import PageHero from "@/components/PageHero";
 import SectionHeader from "@/components/SectionHeader";
@@ -14,16 +15,23 @@ const benefits = [
   { title: "Prepare for internships and jobs", text: "Strengthen your resume, interview readiness, and professional confidence.", icon: BriefcaseBusiness },
 ];
 
+export const metadata: Metadata = {
+  title: "Mentorship for Students",
+  description:
+    "Request focused technical help, career guidance, resume support, and placement preparation from reviewed mentors.",
+};
+
 export default async function StudentsPage() {
   const { profile } = await getAuthContext();
-  if (profile && ["Mentor", "Faculty"].includes(profile.role)) redirect("/mentor/dashboard");
+  if (profile && ["Mentor", "Faculty", "Institution"].includes(profile.role)) redirect("/mentor/dashboard");
   return (
     <>
       <PageHero
         eyebrow="For students"
         title="Get expert help whenever you feel stuck."
         description="Your degree gives you a curriculum. Instant Mentor gives you the people, answers, and guidance to move through it with confidence."
-        ctaLabel="Join as a Student"
+        ctaLabel={profile ? "Open Student Dashboard" : "Create Student Account"}
+        ctaHref={profile ? "/student/dashboard" : "/signup"}
       />
       <section className="section-pad bg-slate-50">
         <div className="container-shell">
@@ -55,7 +63,7 @@ export default async function StudentsPage() {
           </div>
         </div>
       </section>
-      <CTASection />
+      <CTASection role={profile?.role ?? null} />
     </>
   );
 }

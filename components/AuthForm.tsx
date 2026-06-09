@@ -152,7 +152,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
 
       <button className="btn-primary sm:col-span-2" disabled={loading}>
         {loading && <Loader2 size={17} className="animate-spin" />}
-        {mode === "login" ? "Sign In" : "Create Early Access Account"}
+        {mode === "login" ? "Sign In" : "Create Account"}
       </button>
       <p className="text-center text-sm text-slate-600 sm:col-span-2">
         {mode === "login" ? "Need an account?" : "Already registered?"}{" "}

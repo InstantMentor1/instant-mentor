@@ -30,7 +30,7 @@ export default function Navbar() {
           { href: "/messages", label: "Messages" },
           { href: "/profile", label: "Profile" },
         ]
-      : profile?.role === "Mentor" || profile?.role === "Faculty"
+      : profile?.role === "Mentor" || profile?.role === "Faculty" || profile?.role === "Institution"
         ? [
             { href: "/mentor/dashboard", label: "Dashboard" },
             { href: "/mentor/sessions", label: "Session Requests" },
@@ -78,7 +78,7 @@ export default function Navbar() {
       ) : (
         <>
           <Link href="/login" onClick={() => setOpen(false)} className="text-sm font-semibold text-slate-600 hover:text-teal-700">Login</Link>
-          <Link href="/signup" onClick={() => setOpen(false)} className="btn-primary !px-5 !py-2.5">Get Early Access</Link>
+          <Link href="/signup" onClick={() => setOpen(false)} className="btn-primary !px-5 !py-2.5">Create Student Account</Link>
         </>
       )}
     </>

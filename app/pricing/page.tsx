@@ -1,9 +1,16 @@
+import type { Metadata } from "next";
 import CTASection from "@/components/CTASection";
 import PageHero from "@/components/PageHero";
 import PricingCards from "@/components/PricingCards";
 import SectionHeader from "@/components/SectionHeader";
 import { getAuthContext } from "@/lib/auth";
 import { faqs } from "@/lib/data";
+
+export const metadata: Metadata = {
+  title: "Student Mentorship Pricing",
+  description:
+    "Compare single-session and monthly mentorship plans for technical guidance, placement preparation, and discounted webinars.",
+};
 
 export default async function PricingPage() {
   const { profile } = await getAuthContext();
@@ -17,7 +24,7 @@ export default async function PricingPage() {
       <section className="section-pad bg-slate-50">
         <div className="container-shell">
           <PricingCards role={profile?.role ?? null} />
-          <p className="mt-8 text-center text-sm text-slate-500">Early-access payments are confirmed manually by the Instant Mentor team.</p>
+          <p className="mt-8 text-center text-sm text-slate-500">Payments are currently confirmed manually by the Instant Mentor team.</p>
         </div>
       </section>
       <section className="section-pad">
@@ -33,7 +40,7 @@ export default async function PricingPage() {
           </div>
         </div>
       </section>
-      <CTASection />
+      <CTASection role={profile?.role ?? null} />
     </>
   );
 }

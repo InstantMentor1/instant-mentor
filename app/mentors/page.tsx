@@ -1,4 +1,5 @@
 import { BadgeIndianRupee, CircleUserRound, MessageCircleQuestion, Presentation, Radio, Users } from "lucide-react";
+import type { Metadata } from "next";
 import CTASection from "@/components/CTASection";
 import PageHero from "@/components/PageHero";
 import SectionHeader from "@/components/SectionHeader";
@@ -14,6 +15,12 @@ const benefits = [
   { title: "Build your community", text: "Grow a trusted audience around your knowledge and professional voice.", icon: Users },
 ];
 
+export const metadata: Metadata = {
+  title: "Become an Instant Mentor",
+  description:
+    "Apply to mentor engineering students, host paid webinars, share professional expertise, and build meaningful student impact.",
+};
+
 export default async function MentorsPage() {
   const { profile } = await getAuthContext();
   if (profile?.role === "Student") redirect("/student/dashboard");
@@ -23,7 +30,8 @@ export default async function MentorsPage() {
         eyebrow="For faculty and experts"
         title="Turn your knowledge into impact and income."
         description="Help motivated students solve real problems, make better career decisions, and learn from experience that only you can share."
-        ctaLabel="Become a Mentor"
+        ctaLabel={profile ? "Open Mentor Dashboard" : "Apply as Mentor"}
+        ctaHref={profile ? "/mentor/dashboard" : "/signup"}
       />
       <section className="section-pad bg-slate-50">
         <div className="container-shell">
@@ -54,7 +62,7 @@ export default async function MentorsPage() {
           </div>
         </div>
       </section>
-      <CTASection />
+      <CTASection role={profile?.role ?? null} />
     </>
   );
 }

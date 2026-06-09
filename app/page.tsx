@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import type { Metadata } from "next";
 import {
   ArrowRight,
   BadgeCheck,
@@ -11,12 +12,23 @@ import {
   Users,
   X,
 } from "lucide-react";
+import CampusAmbassadorSection from "@/components/CampusAmbassadorSection";
+import CareerOutcomes from "@/components/CareerOutcomes";
+import CommunityPreview from "@/components/CommunityPreview";
 import CTASection from "@/components/CTASection";
+import MentorShowcase, { type PublicMentor } from "@/components/MentorShowcase";
+import MentorVerificationExplainer from "@/components/MentorVerificationExplainer";
 import PricingCards from "@/components/PricingCards";
+import ReferralSection from "@/components/ReferralSection";
 import SectionHeader from "@/components/SectionHeader";
+import SuccessStories from "@/components/SuccessStories";
+import TrustStrip from "@/components/TrustStrip";
+import UpcomingWebinars, { type PublicWebinar } from "@/components/UpcomingWebinars";
+import { technicalTracks } from "@/lib/constants";
 import { domains, features } from "@/lib/data";
 import { getAuthContext } from "@/lib/auth";
 import { dashboardForRole } from "@/lib/auth-shared";
+import { createSupabaseAdminClient } from "@/lib/supabase/server";
 
 const problems = [
   "Students struggle to find the right mentor.",
@@ -43,9 +55,18 @@ const mentorBenefits = [
   "Share real-world expertise",
 ];
 
+export const metadata: Metadata = {
+  title: "Live Mentorship for Engineering Students",
+  description:
+    "Get technical support, career guidance, placement preparation, and live webinars from reviewed industry professionals.",
+};
+
 export default async function Home() {
   const { profile } = await getAuthContext();
   const dashboardHref = profile ? dashboardForRole(profile.role) : null;
+  const { mentors, webinars } = await getMarketplacePreview();
+  const webinarHref = profile ? "/webinars" : "/signup";
+
   return (
     <>
       <section className="overflow-hidden bg-hero-glow">
@@ -63,7 +84,7 @@ export default async function Home() {
                 <Link href={dashboardHref} className="btn-primary">Open {profile?.role === "Admin" ? "Admin " : ""}Dashboard <ArrowRight size={17} /></Link>
               ) : (
                 <>
-                  <Link href="/signup" className="btn-primary">Get Early Access <ArrowRight size={17} /></Link>
+                  <Link href="/signup" className="btn-primary">Create Student Account <ArrowRight size={17} /></Link>
                   <Link href="/signup" className="btn-secondary">Apply as Mentor</Link>
                 </>
               )}
@@ -95,6 +116,8 @@ export default async function Home() {
           </div>
         </div>
       </section>
+
+      <TrustStrip />
 
       <section className="section-pad bg-slate-50">
         <div className="container-shell grid items-center gap-12 lg:grid-cols-2">
@@ -128,6 +151,8 @@ export default async function Home() {
         </div>
       </section>
 
+      <MentorShowcase mentors={mentors} />
+
       <section className="section-pad bg-slate-50">
         <div className="container-shell">
           <SectionHeader eyebrow="Simple by design" title="How Instant Mentor works" centered />
@@ -141,6 +166,14 @@ export default async function Home() {
           </div>
         </div>
       </section>
+
+      <CommunityPreview tracks={technicalTracks} />
+
+      <UpcomingWebinars webinars={webinars} ctaHref={webinarHref} />
+
+      <CareerOutcomes />
+
+      <SuccessStories />
 
       <section className="section-pad">
         <div className="container-shell">
@@ -170,6 +203,8 @@ export default async function Home() {
           </div>
         </div>
       </section>
+
+      <MentorVerificationExplainer />
 
       <section className="section-pad">
         <div className="container-shell">
@@ -220,11 +255,99 @@ export default async function Home() {
         <div className="container-shell">
           <SectionHeader eyebrow="Simple monthly access" title="Choose the support that fits your goals" centered />
           <PricingCards role={profile?.role ?? null} />
-          <p className="mt-8 text-center text-sm text-slate-500">Early-access payments are confirmed manually by the Instant Mentor team.</p>
+          <p className="mt-8 text-center text-sm text-slate-500">Payments are currently confirmed manually by the Instant Mentor team.</p>
         </div>
       </section>
 
-      <CTASection />
+      <ReferralSection role={profile?.role ?? null} />
+      <CampusAmbassadorSection />
+      <CTASection role={profile?.role ?? null} />
     </>
   );
+}
+
+async function getMarketplacePreview(): Promise<{
+  mentors: PublicMentor[];
+  webinars: PublicWebinar[];
+}> {
+  try {
+    const admin = createSupabaseAdminClient();
+    const [{ data: mentorRows, error: mentorError }, { data: webinarRows, error: webinarError }] =
+      await Promise.all([
+        admin
+          .from("mentor_profiles")
+          .select("user_id,bio,verification_status,expertise_areas,expertise,experience_years")
+          .eq("verification_status", "verified")
+          .limit(4),
+        admin
+          .from("webinars")
+          .select("id,mentor_id,title,technical_track,scheduled_at,price,duration_minutes,max_participants")
+          .eq("status", "upcoming")
+          .gte("scheduled_at", new Date().toISOString())
+          .order("scheduled_at", { ascending: true })
+          .limit(3),
+      ]);
+
+    if (mentorError) console.error("Unable to load public mentor preview", mentorError);
+    if (webinarError) console.error("Unable to load public webinar preview", webinarError);
+
+    const userIds = Array.from(
+      new Set([
+        ...(mentorRows ?? []).map((mentor) => mentor.user_id),
+        ...(webinarRows ?? []).map((webinar) => webinar.mentor_id),
+      ]),
+    );
+
+    const { data: profiles, error: profileError } = userIds.length
+      ? await admin
+          .from("profiles")
+          .select("user_id,full_name,college_or_company,technical_track,technical_tracks")
+          .in("user_id", userIds)
+      : { data: [], error: null };
+
+    if (profileError) console.error("Unable to load public marketplace profiles", profileError);
+
+    const profileByUserId = new Map((profiles ?? []).map((item) => [item.user_id, item]));
+    const mentors: PublicMentor[] = (mentorRows ?? [])
+      .map((mentor) => {
+        const mentorProfile = profileByUserId.get(mentor.user_id);
+        if (!mentorProfile) return null;
+        const tracks =
+          mentorProfile.technical_tracks?.length > 0
+            ? mentorProfile.technical_tracks
+            : mentor.expertise?.length > 0
+              ? mentor.expertise
+              : mentor.expertise_areas?.length > 0
+                ? mentor.expertise_areas
+                : mentorProfile.technical_track
+                  ? [mentorProfile.technical_track]
+                  : [];
+
+        return {
+          id: mentor.user_id,
+          fullName: mentorProfile.full_name,
+          organization: mentorProfile.college_or_company,
+          tracks,
+          bio: mentor.bio,
+          experienceYears: mentor.experience_years,
+        };
+      })
+      .filter((mentor): mentor is PublicMentor => mentor !== null);
+
+    const webinars: PublicWebinar[] = (webinarRows ?? []).map((webinar) => ({
+      id: webinar.id,
+      title: webinar.title,
+      track: webinar.technical_track,
+      scheduledAt: webinar.scheduled_at,
+      price: Number(webinar.price),
+      durationMinutes: webinar.duration_minutes,
+      maxParticipants: webinar.max_participants,
+      mentorName: profileByUserId.get(webinar.mentor_id)?.full_name ?? "Instant Mentor professional",
+    }));
+
+    return { mentors, webinars };
+  } catch (error) {
+    console.error("Unable to load homepage marketplace preview", error);
+    return { mentors: [], webinars: [] };
+  }
 }

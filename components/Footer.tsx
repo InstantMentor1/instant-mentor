@@ -25,7 +25,7 @@ export default function Footer() {
             <Link href="/students" className="hover:text-white">For Students</Link>
             <Link href="/mentors" className="hover:text-white">For Mentors</Link>
             <Link href="/pricing" className="hover:text-white">Pricing</Link>
-            <Link href="/signup" className="hover:text-white">Get Early Access</Link>
+            <Link href="/signup" className="hover:text-white">Create Student Account</Link>
           </div>
         </div>
         <div>

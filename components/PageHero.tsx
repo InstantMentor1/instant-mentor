@@ -13,8 +13,8 @@ export default function PageHero({
   eyebrow,
   title,
   description,
-  ctaLabel = "Get Early Access",
-  ctaHref = "/waitlist",
+  ctaLabel = "Create Student Account",
+  ctaHref = "/signup",
 }: PageHeroProps) {
   return (
     <section className="overflow-hidden bg-hero-glow">
