@@ -1,0 +1,10 @@
+.git
+.next
+.next-local
+.next-marketplace
+.vercel
+node_modules
+.env
+.env.*
+!.env.example
+*.log
