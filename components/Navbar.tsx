@@ -10,9 +10,9 @@ import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 
 const publicLinks = [
   { href: "/", label: "Home" },
-  { href: "/students", label: "For Students" },
-  { href: "/mentors", label: "For Mentors" },
-  { href: "/pricing", label: "Pricing" },
+  { href: "/services", label: "Explore Services" },
+  { href: "/for-experts", label: "For Experts" },
+  { href: "/categories", label: "Categories" },
 ];
 
 export default function Navbar() {
@@ -25,27 +25,30 @@ export default function Navbar() {
     profile?.role === "Student"
       ? [
           { href: "/student/dashboard", label: "Dashboard" },
-          { href: "/sessions/new", label: "Request Session" },
-          { href: "/webinars", label: "Webinars" },
+          { href: "/services", label: "Explore Services" },
+          { href: "/bookings", label: "My Bookings" },
           { href: "/messages", label: "Messages" },
           { href: "/profile", label: "Profile" },
         ]
       : profile?.role === "Mentor" || profile?.role === "Faculty" || profile?.role === "Institution"
         ? [
             { href: "/mentor/dashboard", label: "Dashboard" },
-            { href: "/mentor/sessions", label: "Session Requests" },
-            { href: "/webinars/create", label: "Create Webinar" },
+            { href: "/mentor/services", label: "My Service Menu" },
+            { href: "/mentor/bookings", label: "Bookings" },
             { href: "/messages", label: "Messages" },
             { href: "/mentor/earnings", label: "Earnings" },
+            { href: "/mentor/reviews", label: "Reviews" },
             { href: "/profile", label: "Profile" },
           ]
         : profile?.role === "Admin"
           ? [
               { href: "/admin/dashboard", label: "Admin Dashboard" },
               { href: "/admin/users", label: "Users" },
-              { href: "/admin/sessions", label: "Sessions" },
-              { href: "/admin/webinars", label: "Webinars" },
+              { href: "/admin/experts", label: "Experts" },
+              { href: "/admin/services", label: "Services" },
+              { href: "/admin/bookings", label: "Bookings" },
               { href: "/admin/payments", label: "Payments" },
+              { href: "/admin/categories", label: "Categories" },
             ]
           : publicLinks;
 
@@ -78,7 +81,7 @@ export default function Navbar() {
       ) : (
         <>
           <Link href="/login" onClick={() => setOpen(false)} className="text-sm font-semibold text-slate-600 hover:text-teal-700">Login</Link>
-          <Link href="/signup" onClick={() => setOpen(false)} className="btn-primary !px-5 !py-2.5">Create Student Account</Link>
+          <Link href="/signup" onClick={() => setOpen(false)} className="btn-primary !px-5 !py-2.5">Get Started</Link>
         </>
       )}
     </>

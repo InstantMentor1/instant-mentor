@@ -12,34 +12,34 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://instant-mentor.verc
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Instant Mentor | Ask doubts. Get mentored.",
+    default: "Instant Mentor | Expert Service Marketplace",
     template: "%s | Instant Mentor",
   },
   description:
-    "Live mentorship for engineering students, fresh graduates, and early-career professionals seeking technical support, career guidance, and placement preparation.",
+    "Book verified experts for career, education, skills, academic, startup, and business guidance with transparent pricing and clear deliverables.",
   keywords: [
-    "engineering mentorship",
-    "career guidance for students",
-    "technical mentor India",
-    "placement preparation",
-    "resume interview support",
-    "student webinars",
+    "expert service marketplace",
+    "career expert India",
+    "resume review service",
+    "mock interview expert",
+    "business consultation",
+    "technical mentorship",
   ],
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     url: siteUrl,
     siteName: "Instant Mentor",
-    title: "Instant Mentor | Real mentors for technical and career growth",
+    title: "Instant Mentor | Book the right expert",
     description:
-      "Connect with reviewed professionals for doubt-solving, career guidance, placement preparation, and live webinars.",
+      "Compare and book verified expert services with transparent prices, durations, and deliverables.",
     images: [{ url: "/assets/instant-mentor-logo.png", alt: "Instant Mentor" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Instant Mentor | Real mentors for technical and career growth",
+    title: "Instant Mentor | Book the right expert",
     description:
-      "Connect with reviewed professionals for doubt-solving, career guidance, placement preparation, and live webinars.",
+      "Compare and book verified expert services with transparent prices, durations, and deliverables.",
     images: ["/assets/instant-mentor-logo.png"],
   },
   robots: { index: true, follow: true },
@@ -57,7 +57,7 @@ export default async function RootLayout({
     logo: `${siteUrl}/assets/instant-mentor-logo.png`,
     email: "hello.instantmentor@gmail.com",
     description:
-      "A live mentorship platform for engineering students, fresh graduates, and early-career professionals.",
+      "An expert-service marketplace for career, education, skills, business, and industry guidance.",
   };
   const websiteSchema = {
     "@context": "https://schema.org",

@@ -1,0 +1,103 @@
+import { NextResponse } from "next/server";
+import { requireApiAuth } from "@/lib/api-auth";
+import { createSupabaseAdminClient } from "@/lib/supabase/server";
+
+export async function POST(request: Request) {
+  const auth = await requireApiAuth(["Student"]);
+  if (auth.error) return auth.error;
+  const body = await request.json().catch(() => ({}));
+  const serviceId = String(body.service_id ?? "");
+  const userGoal = String(body.user_goal ?? "").trim();
+  const requirementDetails = String(body.requirement_details ?? "").trim();
+  const preferredDate = String(body.preferred_date ?? "");
+  const preferredTime = String(body.preferred_time ?? "").trim();
+  const attachmentLink = String(body.attachment_link ?? "").trim();
+
+  if (!serviceId) return NextResponse.json({ error: "Service is required." }, { status: 400 });
+  if (!userGoal) return NextResponse.json({ error: "Your goal is required." }, { status: 400 });
+  if (!requirementDetails) return NextResponse.json({ error: "Detailed requirements are required." }, { status: 400 });
+  if (!preferredDate) return NextResponse.json({ error: "Preferred date is required." }, { status: 400 });
+  if (!preferredTime) return NextResponse.json({ error: "Preferred time is required." }, { status: 400 });
+
+  const keyId = process.env.RAZORPAY_KEY_ID;
+  const keySecret = process.env.RAZORPAY_KEY_SECRET;
+  const publicKeyId = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID;
+  if (!keyId || !keySecret || !publicKeyId) {
+    console.error("Razorpay service booking configuration missing");
+    return NextResponse.json({ error: "Online payment is not configured right now." }, { status: 503 });
+  }
+  if (![keyId, publicKeyId].every((key) => key.startsWith("rzp_test_"))) {
+    return NextResponse.json({ error: "Only Razorpay test mode is enabled." }, { status: 503 });
+  }
+
+  const admin = createSupabaseAdminClient();
+  const { data: service } = await admin.from("expert_services").select("*").eq("id", serviceId).eq("status", "active").maybeSingle();
+  if (!service) return NextResponse.json({ error: "This service is unavailable." }, { status: 404 });
+
+  const { data: booking, error: bookingError } = await admin.from("service_bookings").insert({
+    service_id: service.id,
+    user_id: auth.user.id,
+    expert_id: service.expert_id,
+    user_goal: userGoal,
+    requirement_details: requirementDetails,
+    preferred_date: preferredDate,
+    preferred_time: preferredTime,
+    attachment_link: attachmentLink || null,
+    price: service.price,
+    status: "pending",
+    payment_status: "pending",
+  }).select("id").single();
+  if (bookingError) {
+    console.error("Unable to create service booking", bookingError);
+    return NextResponse.json({ error: "Unable to create your booking." }, { status: 500 });
+  }
+
+  const { data: payment, error: paymentError } = await admin.from("payments").insert({
+    user_id: auth.user.id,
+    service_booking_id: booking.id,
+    product_type: "expert_service",
+    amount: service.price,
+    currency: "INR",
+    status: "created",
+    payment_method: "razorpay",
+  }).select("id").single();
+  if (paymentError) {
+    console.error("Unable to create service payment", paymentError);
+    await admin.from("service_bookings").delete().eq("id", booking.id);
+    return NextResponse.json({ error: "Unable to start payment." }, { status: 500 });
+  }
+
+  const gatewayResponse = await fetch("https://api.razorpay.com/v1/orders", {
+    method: "POST",
+    headers: {
+      Authorization: `Basic ${Buffer.from(`${keyId}:${keySecret}`).toString("base64")}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      amount: Math.round(Number(service.price) * 100),
+      currency: "INR",
+      receipt: `svc_${booking.id.replaceAll("-", "").slice(0, 30)}`,
+      notes: { booking_id: booking.id, service_id: service.id, user_id: auth.user.id },
+    }),
+  });
+  if (!gatewayResponse.ok) {
+    console.error("Razorpay service order failed", await gatewayResponse.text());
+    await Promise.all([
+      admin.from("payments").update({ status: "failed" }).eq("id", payment.id),
+      admin.from("service_bookings").update({ payment_status: "failed" }).eq("id", booking.id),
+    ]);
+    return NextResponse.json({ error: "Razorpay could not create the test order." }, { status: 502 });
+  }
+
+  const order = await gatewayResponse.json() as { id: string; amount: number; currency: string };
+  await admin.from("payments").update({ razorpay_order_id: order.id }).eq("id", payment.id);
+  return NextResponse.json({
+    bookingId: booking.id,
+    orderId: order.id,
+    amount: order.amount,
+    currency: order.currency,
+    keyId: publicKeyId,
+    serviceName: service.title,
+    customer: { name: auth.profile.full_name, email: auth.profile.email, contact: auth.profile.phone ?? "" },
+  });
+}

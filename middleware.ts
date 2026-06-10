@@ -7,6 +7,9 @@ const protectedPrefixes = [
   "/mentor/dashboard",
   "/mentor/sessions",
   "/mentor/earnings",
+  "/mentor/services",
+  "/mentor/bookings",
+  "/mentor/reviews",
   "/admin",
   "/sessions",
   "/messages",
@@ -15,6 +18,7 @@ const protectedPrefixes = [
   "/webinars",
   "/masterclasses",
   "/career-support",
+  "/bookings",
 ];
 
 const sharedPublicPages = ["/login", "/signup", "/early-access", "/waitlist", "/pricing"];
@@ -59,6 +63,8 @@ export async function middleware(request: NextRequest) {
       (path.startsWith("/mentor") && !isMentor) ||
       (path.startsWith("/admin") && profile.role !== "Admin") ||
       (path === "/sessions/new" && profile.role !== "Student") ||
+      (path === "/bookings" && profile.role !== "Student") ||
+      (path.endsWith("/book") && path.startsWith("/services/") && profile.role !== "Student") ||
       (path === "/webinars/create" && !isMentor && profile.role !== "Admin");
     const rolePublicRedirect =
       sharedPublicPages.includes(path) ||

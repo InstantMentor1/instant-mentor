@@ -1,100 +1,37 @@
 import Link from "next/link";
-import { BookOpenCheck, CalendarClock, CheckCircle2, Coins } from "lucide-react";
+import { CalendarClock, CheckCircle2, Search, WalletCards } from "lucide-react";
 import DashboardHeader from "@/components/DashboardHeader";
-import RazorpayCheckout from "@/components/RazorpayCheckout";
-import SessionCard from "@/components/SessionCard";
 import { requireAuth } from "@/lib/auth";
-import type { SessionRequest } from "@/lib/sessions";
-import { getActiveSessionSubscription } from "@/lib/subscription-access";
 
 export default async function StudentDashboard() {
   const { supabase, profile } = await requireAuth(["Student"]);
-  const [{ data }, subscription, { count: webinarCount }, { data: access }] = await Promise.all([
-    supabase.from("session_requests").select("*").order("created_at", { ascending: false }),
-    getActiveSessionSubscription(profile.user_id),
-    supabase.from("webinars").select("*", { count: "exact", head: true }).eq("status", "upcoming"),
-    supabase.from("user_access").select("*").maybeSingle(),
+  const [{ data: bookings }, { count: serviceCount }] = await Promise.all([
+    supabase.from("service_bookings").select("*,expert_services(title,category,duration_minutes)").order("created_at", { ascending: false }).limit(6),
+    supabase.from("expert_services").select("*", { count: "exact", head: true }).eq("status", "active"),
   ]);
-  const sessions = (data ?? []) as SessionRequest[];
-  const pending = sessions.filter((session) => session.status === "pending");
-  const upcoming = sessions.filter((session) => ["accepted", "scheduled"].includes(session.status));
-  const completed = sessions.filter((session) => session.status === "completed");
-  const totalCredits = subscription?.session_credits_total ?? 0;
-  const usedCredits = subscription?.session_credits_used ?? 0;
-  const remainingCredits = Math.max(totalCredits - usedCredits, 0);
-  const earlyAccessConfirmed = Boolean(access?.early_access_confirmed || subscription);
-
-  if (!earlyAccessConfirmed) {
-    return (
-      <section className="bg-slate-50 py-10">
-        <div className="container-shell">
-          <DashboardHeader profile={profile} title={`Welcome, ${profile.full_name}`} description="Confirm your interest before exploring the early-access student dashboard." />
-          <div className="card mx-auto max-w-2xl p-8 text-center">
-            <h2 className="text-2xl font-black text-ink">Confirm your interest with ₹1 to unlock early-access dashboard exploration.</h2>
-            <p className="mx-auto mt-4 max-w-xl leading-7 text-slate-600">
-              This confirmation unlocks dashboard exploration, mentors, webinars, and plans. It does not include a live mentor session or session credit.
-            </p>
-            <div className="mx-auto mt-6 max-w-sm">
-              <RazorpayCheckout productType="early_access" label="Confirm Interest for ₹1" />
-            </div>
-          </div>
-        </div>
-      </section>
-    );
-  }
+  const items = bookings ?? [];
+  const upcoming = items.filter((booking) => ["accepted", "scheduled"].includes(booking.status));
+  const completed = items.filter((booking) => booking.status === "completed");
+  const pending = items.filter((booking) => booking.status === "pending");
 
   return (
     <section className="bg-slate-50 py-10">
       <div className="container-shell">
-        <DashboardHeader profile={profile} title={`Welcome, ${profile.full_name}`} description="Manage your technical mentorship sessions and private conversations." />
+        <DashboardHeader profile={profile} title={`Welcome, ${profile.full_name}`} description="Browse expert menus and manage outcome-focused service bookings." />
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {[
-            { label: "Technical tracks", value: profile.technical_tracks?.length ? profile.technical_tracks.join(", ") : profile.technical_track ?? "Not selected", icon: BookOpenCheck },
-            { label: "Session credits", value: subscription ? `${remainingCredits} remaining` : "No active plan", icon: Coins },
-            { label: "Pending", value: String(pending.length), icon: CalendarClock },
-            { label: "Completed", value: String(completed.length), icon: CheckCircle2 },
-          ].map(({ label, value, icon: Icon }) => (
-            <div key={label} className="card p-5"><Icon className="text-teal-700" /><p className="mt-4 text-xs font-bold uppercase text-slate-500">{label}</p><p className="mt-1 text-xl font-black">{value}</p></div>
-          ))}
+            { label: "Services available", value: serviceCount ?? 0, icon: Search },
+            { label: "Pending requests", value: pending.length, icon: CalendarClock },
+            { label: "Upcoming", value: upcoming.length, icon: WalletCards },
+            { label: "Completed", value: completed.length, icon: CheckCircle2 },
+          ].map(({ label, value, icon: Icon }) => <div key={label} className="card p-5"><Icon className="text-teal-700" /><p className="mt-4 text-xs font-bold uppercase text-slate-500">{label}</p><p className="mt-1 text-3xl font-black">{value}</p></div>)}
         </div>
-        {subscription && (
-          <div className="mt-5 rounded-2xl border border-teal-200 bg-teal-50 p-5 text-sm font-semibold text-teal-900">
-            Total credits: {totalCredits} · Used: {usedCredits} · Remaining: {remainingCredits}
-          </div>
-        )}
-        {!subscription && (
-          <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-5">
-            <p className="font-semibold text-amber-900">Your Early Access Confirmation is active. Choose a plan to start requesting mentor sessions.</p>
-            <Link href="/billing" className="btn-primary mt-4">Choose a Plan</Link>
-          </div>
-        )}
-        {subscription && remainingCredits === 0 && (
-          <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-5 font-semibold text-amber-900">
-            You have used all session credits. Upgrade your plan or buy a single session.
-          </div>
-        )}
-        <div className="mt-6 flex flex-wrap gap-3">
-          <Link href="/billing" className="btn-secondary">Plans & Billing</Link>
-          <Link href="/mentors" className="btn-secondary">Explore Mentors</Link>
-          <Link href="/webinars" className="btn-secondary">Webinars ({webinarCount ?? 0})</Link>
-          <Link href="/career-support" className="btn-secondary">Career Support</Link>
-          <Link href="/profile" className="btn-secondary">Profile</Link>
+        <div className="mt-6 flex flex-wrap gap-3"><Link href="/services" className="btn-primary">Explore Expert Services</Link><Link href="/bookings" className="btn-secondary">My Bookings</Link><Link href="/profile" className="btn-secondary">Update Profile</Link></div>
+        <div className="mt-9 flex items-center justify-between"><div><h2 className="text-2xl font-black">Recent bookings</h2><p className="mt-1 text-sm text-slate-600">Payment, expert response, and scheduling in one place.</p></div><Link href="/bookings" className="text-sm font-bold text-teal-700">View all →</Link></div>
+        <div className="mt-6 grid gap-5 lg:grid-cols-2">
+          {items.map((booking) => <article key={booking.id} className="card p-6"><div className="flex justify-between gap-4"><div><p className="text-xs font-bold uppercase text-teal-700">{booking.expert_services?.category}</p><h3 className="mt-2 text-xl font-black">{booking.expert_services?.title ?? "Expert service"}</h3></div><span className="h-fit rounded-full bg-slate-100 px-3 py-1 text-xs font-bold capitalize">{booking.status}</span></div><p className="mt-4 text-sm text-slate-600">{booking.user_goal}</p><p className="mt-4 font-black text-teal-800">₹{Number(booking.price).toLocaleString("en-IN")} · <span className="capitalize">{booking.payment_status}</span></p></article>)}
         </div>
-        <div className="mt-8 flex items-center justify-between gap-4">
-          <h2 className="text-2xl font-black">Your sessions</h2>
-          {remainingCredits > 0 ? (
-            <Link href="/sessions/new" className="btn-primary">Request New Session</Link>
-          ) : (
-            <Link href="/billing" className="btn-primary">{subscription ? "Buy More Credits" : "Choose a Plan"}</Link>
-          )}
-        </div>
-        {sessions.length === 0 ? (
-          <div className="card mt-6 p-10 text-center text-slate-600">No session requests yet. Start with a focused doubt, project, or career question.</div>
-        ) : (
-          <div className="mt-6 grid gap-5 lg:grid-cols-2">
-            {[...upcoming, ...pending, ...completed, ...sessions.filter((session) => ![...upcoming, ...pending, ...completed].some((item) => item.id === session.id))].map((session) => <SessionCard key={session.id} session={session} />)}
-          </div>
-        )}
+        {items.length === 0 && <div className="card mt-6 p-10 text-center"><h2 className="text-xl font-black">Find the right expert for your next goal.</h2><p className="mt-2 text-slate-600">Compare service outcomes, price, duration, and expert experience before booking.</p><Link href="/services" className="btn-primary mt-6">Explore Services</Link></div>}
       </div>
     </section>
   );
