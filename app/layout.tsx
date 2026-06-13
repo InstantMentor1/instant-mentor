@@ -12,34 +12,34 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://instant-mentor.verc
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Instant Mentor | Expert Service Marketplace",
+    default: "Instant Mentor | Subject-Matter Expert Service Marketplace",
     template: "%s | Instant Mentor",
   },
   description:
-    "Book verified experts for career, education, skills, academic, startup, and business guidance with transparent pricing and clear deliverables.",
+    "Discover verified subject-matter experts, compare expert-created services, check availability, and book with confidence.",
   keywords: [
     "expert service marketplace",
-    "career expert India",
-    "resume review service",
-    "mock interview expert",
-    "business consultation",
-    "technical mentorship",
+    "subject matter experts India",
+    "career expert services",
+    "academic expert guidance",
+    "business consultant marketplace",
+    "book verified experts",
   ],
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     url: siteUrl,
     siteName: "Instant Mentor",
-    title: "Instant Mentor | Book the right expert",
+    title: "Discover experts. Compare services. Book with confidence.",
     description:
-      "Compare and book verified expert services with transparent prices, durations, and deliverables.",
+      "Browse expert-created service menus with expert-set pricing, availability, duration, and deliverables.",
     images: [{ url: "/assets/instant-mentor-logo.png", alt: "Instant Mentor" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Instant Mentor | Book the right expert",
+    title: "Instant Mentor | Expert Service Marketplace",
     description:
-      "Compare and book verified expert services with transparent prices, durations, and deliverables.",
+      "Discover verified experts and book the exact service you need.",
     images: ["/assets/instant-mentor-logo.png"],
   },
   robots: { index: true, follow: true },
@@ -49,22 +49,24 @@ export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   const { profile } = await getAuthContext();
-  const organizationSchema = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    name: "Instant Mentor",
-    url: siteUrl,
-    logo: `${siteUrl}/assets/instant-mentor-logo.png`,
-    email: "hello.instantmentor@gmail.com",
-    description:
-      "An expert-service marketplace for career, education, skills, business, and industry guidance.",
-  };
-  const websiteSchema = {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: "Instant Mentor",
-    url: siteUrl,
-  };
+  const structuredData = [
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      name: "Instant Mentor",
+      url: siteUrl,
+      logo: `${siteUrl}/assets/instant-mentor-logo.png`,
+      email: "hello.instantmentor@gmail.com",
+      description:
+        "A service-based marketplace for career, academic, skill, business, and industry expertise.",
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      name: "Instant Mentor",
+      url: siteUrl,
+    },
+  ];
 
   return (
     <html lang="en">
@@ -72,7 +74,7 @@ export default async function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify([organizationSchema, websiteSchema]).replace(/</g, "\\u003c"),
+            __html: JSON.stringify(structuredData).replace(/</g, "\\u003c"),
           }}
         />
         <AuthProvider

@@ -10,18 +10,25 @@ export default async function ExpertServicesPage() {
     "Faculty",
     "Institution",
   ]);
-  const { data } = await supabase
-    .from("expert_services")
-    .select("*")
-    .order("created_at", { ascending: false });
+  const [{ data }, { data: bookingRows }] = await Promise.all([
+    supabase
+      .from("expert_services")
+      .select("*")
+      .order("created_at", { ascending: false }),
+    supabase.from("service_bookings").select("service_id"),
+  ]);
   const services = (data ?? []) as ExpertService[];
+  const bookingCounts = new Map<string, number>();
+  (bookingRows ?? []).forEach((booking) => {
+    bookingCounts.set(booking.service_id, (bookingCounts.get(booking.service_id) ?? 0) + 1);
+  });
 
   return (
     <section className="bg-slate-50 py-10">
       <div className="container-shell">
         <DashboardHeader
           profile={profile}
-          title="My Service Menu"
+          title="My Services"
           description="Create, price, publish, and manage the expert services users can book."
         />
 
@@ -66,6 +73,9 @@ export default async function ExpertServicesPage() {
               <p className="mt-4 text-sm font-semibold">
                 {service.duration_minutes} minutes ·{" "}
                 {formatDeliveryMode(service.delivery_mode)}
+              </p>
+              <p className="mt-2 text-sm text-slate-500">
+                {bookingCounts.get(service.id) ?? 0} bookings · Availability: {service.availability_notes ?? "Not specified"}
               </p>
               <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
                 <Link

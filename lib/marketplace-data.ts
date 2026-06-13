@@ -1,5 +1,5 @@
 import "server-only";
-import { sampleServices, type ExpertService } from "@/lib/marketplace";
+import type { ExpertService } from "@/lib/marketplace";
 import { createSupabaseAdminClient } from "@/lib/supabase/server";
 
 export async function getPublicServices(category?: string): Promise<ExpertService[]> {
@@ -10,11 +10,9 @@ export async function getPublicServices(category?: string): Promise<ExpertServic
     const { data: services, error } = await query;
     if (error) {
       console.error("Unable to load expert services", error);
-      return category ? getSampleServiceCards().filter((service) => service.category === category) : getSampleServiceCards();
+      return [];
     }
-    if (!services?.length) {
-      return category ? getSampleServiceCards().filter((service) => service.category === category) : getSampleServiceCards();
-    }
+    if (!services?.length) return [];
 
     const expertIds = Array.from(new Set(services.map((service) => service.expert_id)));
     const serviceIds = services.map((service) => service.id);
@@ -38,14 +36,11 @@ export async function getPublicServices(category?: string): Promise<ExpertServic
     });
   } catch (error) {
     console.error("Unable to load public service marketplace", error);
-    return category ? getSampleServiceCards().filter((service) => service.category === category) : getSampleServiceCards();
+    return [];
   }
 }
 
 export async function getPublicService(id: string): Promise<ExpertService | null> {
-  const sample = getSampleServiceCards().find((service) => service.id === id);
-  if (sample) return sample;
-
   try {
     const admin = createSupabaseAdminClient();
     const { data: service, error } = await admin.from("expert_services").select("*").eq("id", id).eq("status", "active").maybeSingle();
@@ -65,27 +60,4 @@ export async function getPublicService(id: string): Promise<ExpertService | null
     console.error("Unable to load expert service", error);
     return null;
   }
-}
-
-export function getSampleServiceCards(): ExpertService[] {
-  const now = new Date().toISOString();
-  return sampleServices.map((service) => ({
-    ...service,
-    expert_id: "sample",
-    description: service.deliverables,
-    target_audience: "Students, job seekers, professionals, founders, and teams seeking focused guidance.",
-    requirements: "Share your goal, current situation, and relevant links or documents before the session.",
-    availability_notes: "Availability is confirmed after the booking request.",
-    max_bookings_per_week: 5,
-    status: "active",
-    created_at: now,
-    updated_at: now,
-    expert: {
-      full_name: service.expertName,
-      college_or_company: service.expertRole,
-      linkedin_or_portfolio: null,
-    },
-    rating: null,
-    review_count: 0,
-  }));
 }

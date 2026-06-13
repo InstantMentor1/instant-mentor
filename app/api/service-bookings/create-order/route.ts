@@ -7,15 +7,12 @@ export async function POST(request: Request) {
   if (auth.error) return auth.error;
   const body = await request.json().catch(() => ({}));
   const serviceId = String(body.service_id ?? "");
-  const userGoal = String(body.user_goal ?? "").trim();
-  const requirementDetails = String(body.requirement_details ?? "").trim();
+  const optionalNote = String(body.optional_note ?? "").trim();
   const preferredDate = String(body.preferred_date ?? "");
   const preferredTime = String(body.preferred_time ?? "").trim();
   const attachmentLink = String(body.attachment_link ?? "").trim();
 
   if (!serviceId) return NextResponse.json({ error: "Service is required." }, { status: 400 });
-  if (!userGoal) return NextResponse.json({ error: "Your goal is required." }, { status: 400 });
-  if (!requirementDetails) return NextResponse.json({ error: "Detailed requirements are required." }, { status: 400 });
   if (!preferredDate) return NextResponse.json({ error: "Preferred date is required." }, { status: 400 });
   if (!preferredTime) return NextResponse.json({ error: "Preferred time is required." }, { status: 400 });
 
@@ -38,8 +35,8 @@ export async function POST(request: Request) {
     service_id: service.id,
     user_id: auth.user.id,
     expert_id: service.expert_id,
-    user_goal: userGoal,
-    requirement_details: requirementDetails,
+    user_goal: optionalNote || "Service booking request",
+    requirement_details: optionalNote || "No additional note provided.",
     preferred_date: preferredDate,
     preferred_time: preferredTime,
     attachment_link: attachmentLink || null,

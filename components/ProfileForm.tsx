@@ -90,9 +90,9 @@ export default function ProfileForm({
 
       <fieldset className="rounded-2xl border border-slate-200 p-5 sm:col-span-2">
         <legend className="px-2 text-sm font-bold text-slate-700">
-          {isMentor ? "Expertise and Technical Tracks" : "Technical Tracks"}
+          {isMentor ? "Expertise Areas" : "Areas of Interest"}
         </legend>
-        <p className="mb-4 text-sm text-slate-500">Select one or more tracks. Your first selected track remains your primary track.</p>
+        <p className="mb-4 text-sm text-slate-500">Select one or more relevant areas. Your first selection remains the primary area on your profile.</p>
         <div className="grid gap-3 sm:grid-cols-2">
           {technicalTracks.map((track) => (
             <label key={track} className="flex items-start gap-3 rounded-xl border border-slate-200 p-3 text-sm font-semibold text-slate-700">
@@ -110,7 +110,7 @@ export default function ProfileForm({
 
       <div className="rounded-xl bg-slate-50 p-4 text-sm text-slate-600 sm:col-span-2">
         <strong>Email:</strong> {profile.email}<br />
-        <strong>Role:</strong> {profile.role}
+        <strong>Account type:</strong> {isMentor ? "Expert Partner" : profile.role === "Student" ? "User" : profile.role}
         <p className="mt-1 text-xs">Email and account role cannot be changed here.</p>
       </div>
 

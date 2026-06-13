@@ -9,8 +9,13 @@ export default async function ServiceDetailsPage({ params }: { params: Promise<{
   const { id } = await params;
   const [service, auth] = await Promise.all([getPublicService(id), getAuthContext()]);
   if (!service) notFound();
-  const isSample = service.expert_id === "sample";
-  const bookingHref = !auth.user ? `/login?next=/services/${id}/book` : auth.profile?.role === "Student" && !isSample ? `/services/${id}/book` : "/signup";
+  const bookingHref = !auth.user
+    ? `/login?next=/services/${id}/book`
+    : auth.profile?.role === "Student"
+      ? `/services/${id}/book`
+      : auth.profile?.role === "Admin"
+        ? "/admin/dashboard"
+        : "/mentor/dashboard";
 
   return (
     <section className="bg-slate-50 py-10 sm:py-14">
@@ -32,7 +37,7 @@ export default async function ServiceDetailsPage({ params }: { params: Promise<{
         </article>
         <aside className="h-fit lg:sticky lg:top-28">
           <div className="card p-6">
-            <p className="text-sm font-bold uppercase tracking-wide text-slate-400">Service price</p>
+            <p className="text-sm font-bold uppercase tracking-wide text-slate-400">Expert-set price</p>
             <p className="mt-2 text-4xl font-black text-teal-800">₹{Number(service.price).toLocaleString("en-IN")}</p>
             <div className="mt-5 space-y-3 border-y border-slate-100 py-5 text-sm font-semibold">
               <p className="flex items-center gap-2"><Clock3 size={17} className="text-teal-700" /> {service.duration_minutes} minutes</p>
@@ -47,7 +52,7 @@ export default async function ServiceDetailsPage({ params }: { params: Promise<{
               </div>
             </div>
             <Link href={bookingHref} className="btn-primary mt-6 w-full">
-              {isSample ? "Create Account to Explore" : "Book Service"}
+              Book Service
             </Link>
             <p className="mt-3 text-center text-xs leading-5 text-slate-500">Your requirements are shared privately with the expert after booking.</p>
           </div>

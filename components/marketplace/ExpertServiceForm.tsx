@@ -105,7 +105,7 @@ export default function ExpertServiceForm({
       </div>
       <Field label="Requirements before the session"><textarea required rows={3} className="form-input" value={formData.requirements} onChange={(event) => update("requirements", event.target.value)} placeholder="Share resume, target role, job description, or relevant links." /></Field>
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-        <Field label="Price (₹)"><input required min="1" step="1" type="number" className="form-input" value={formData.price} onChange={(event) => update("price", event.target.value)} /></Field>
+        <Field label="Price set by expert (₹)"><input required min="1" step="1" type="number" className="form-input" value={formData.price} onChange={(event) => update("price", event.target.value)} /></Field>
         <Field label="Duration (minutes)"><input required min="15" max="480" step="15" type="number" className="form-input" value={formData.duration_minutes} onChange={(event) => update("duration_minutes", event.target.value)} /></Field>
         <Field label="Delivery mode"><select required className="form-input" value={formData.delivery_mode} onChange={(event) => update("delivery_mode", event.target.value)}>{deliveryModes.map((mode) => <option key={mode.value} value={mode.value}>{mode.label}</option>)}</select></Field>
         <Field label="Max bookings/week"><input required min="1" max="100" type="number" className="form-input" value={formData.max_bookings_per_week} onChange={(event) => update("max_bookings_per_week", event.target.value)} /></Field>

@@ -1,17 +1,16 @@
 export const marketplaceCategories = [
-  "Career Support",
-  "Resume Review",
-  "Mock Interviews",
-  "Project Review",
-  "Technical Mentorship",
-  "Academic Guidance",
-  "Business Consultation",
-  "Startup Guidance",
-  "Digital Marketing",
+  "Career & Jobs",
+  "Resume & Interview",
+  "Academic Support",
+  "School & Board Guidance",
+  "College & Project Support",
+  "Technical Skills",
+  "AI, Data & Cloud",
+  "Business & Startup",
+  "Marketing & Sales",
   "Finance & Commerce",
   "Design & Product",
-  "Data, AI & Cloud",
-  "Sales, HR & Operations",
+  "HR & Operations",
   "Institution Programs",
 ] as const;
 
@@ -82,80 +81,6 @@ export type ServiceBooking = {
   user?: { full_name: string; email: string } | null;
   expert?: { full_name: string; email: string } | null;
 };
-
-export const sampleServices: Array<
-  Pick<
-    ExpertService,
-    "id" | "title" | "category" | "price" | "duration_minutes" | "deliverables" | "delivery_mode"
-  > & { expertName: string; expertRole: string }
-> = [
-  {
-    id: "resume-review",
-    title: "Resume Review for Freshers",
-    category: "Resume Review",
-    price: 499,
-    duration_minutes: 30,
-    deliverables: "ATS feedback, resume correction, and a practical improvement plan.",
-    delivery_mode: "document_review",
-    expertName: "Verified Career Expert",
-    expertRole: "Talent & Career Specialist",
-  },
-  {
-    id: "software-mock-interview",
-    title: "Mock Interview for Software Roles",
-    category: "Mock Interviews",
-    price: 1499,
-    duration_minutes: 45,
-    deliverables: "Interview simulation, focused feedback, and preparation plan.",
-    delivery_mode: "video_call",
-    expertName: "Verified Engineering Expert",
-    expertRole: "Senior Software Professional",
-  },
-  {
-    id: "career-roadmap",
-    title: "Career Roadmap Session",
-    category: "Career Support",
-    price: 2999,
-    duration_minutes: 60,
-    deliverables: "Personal roadmap, skill-gap analysis, and clear next steps.",
-    delivery_mode: "video_call",
-    expertName: "Verified Industry Expert",
-    expertRole: "Career Strategy Professional",
-  },
-  {
-    id: "startup-validation",
-    title: "Startup Idea Validation",
-    category: "Startup Guidance",
-    price: 1499,
-    duration_minutes: 45,
-    deliverables: "Idea review, market feedback, risks, and action points.",
-    delivery_mode: "video_call",
-    expertName: "Verified Founder",
-    expertRole: "Startup Operator",
-  },
-  {
-    id: "project-review",
-    title: "Project Review Session",
-    category: "Project Review",
-    price: 999,
-    duration_minutes: 45,
-    deliverables: "Project feedback, improvement suggestions, and portfolio tips.",
-    delivery_mode: "hybrid",
-    expertName: "Verified Technical Expert",
-    expertRole: "Product Engineering Professional",
-  },
-  {
-    id: "business-growth",
-    title: "Business Growth Consultation",
-    category: "Business Consultation",
-    price: 4999,
-    duration_minutes: 60,
-    deliverables: "Growth audit, strategy inputs, and an execution checklist.",
-    delivery_mode: "video_call",
-    expertName: "Verified Business Expert",
-    expertRole: "Growth Consultant",
-  },
-];
 
 export function formatDeliveryMode(mode: DeliveryMode) {
   return deliveryModes.find((item) => item.value === mode)?.label ?? mode;

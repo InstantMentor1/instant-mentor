@@ -88,10 +88,10 @@ export default function AuthForm({ mode }: AuthFormProps) {
             <input className={fieldClass} required name="fullName" autoComplete="name" />
           </label>
           <label className="text-sm font-bold text-slate-700">
-            Role
+            Account type
             <select className={fieldClass} name="role" value={role} onChange={(e) => setRole(e.target.value as "Student" | "Mentor")}>
-              <option>Student</option>
-              <option>Mentor</option>
+              <option value="Student">User</option>
+              <option value="Mentor">Expert Partner</option>
             </select>
           </label>
           <label className="text-sm font-bold text-slate-700">
@@ -103,9 +103,9 @@ export default function AuthForm({ mode }: AuthFormProps) {
             <input className={fieldClass} required name="collegeOrCompany" autoComplete="organization" />
           </label>
           <label className="text-sm font-bold text-slate-700">
-            Technical Track
+            Primary area of interest or expertise
             <select className={fieldClass} required name="technicalTrack" defaultValue="">
-              <option value="" disabled>Select your track</option>
+              <option value="" disabled>Select an area</option>
               {technicalTracks.map((track) => <option key={track}>{track}</option>)}
             </select>
           </label>

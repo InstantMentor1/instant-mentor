@@ -15,8 +15,8 @@ export default function Footer() {
             className="mb-5 h-16 w-auto rounded-lg bg-white object-contain"
           />
           <p className="max-w-sm text-sm leading-6 text-slate-300">
-            A trusted expert-service marketplace for outcome-focused career,
-            education, skills, business, and industry guidance.
+            Instant Mentor is a service-based expert marketplace for career,
+            academic, skill, business, and industry guidance.
           </p>
         </div>
         <div>

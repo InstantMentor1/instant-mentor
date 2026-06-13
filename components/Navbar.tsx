@@ -13,6 +13,7 @@ const publicLinks = [
   { href: "/services", label: "Explore Services" },
   { href: "/for-experts", label: "For Experts" },
   { href: "/categories", label: "Categories" },
+  { href: "/institutions", label: "Institutions" },
 ];
 
 export default function Navbar() {
@@ -33,7 +34,8 @@ export default function Navbar() {
       : profile?.role === "Mentor" || profile?.role === "Faculty" || profile?.role === "Institution"
         ? [
             { href: "/mentor/dashboard", label: "Dashboard" },
-            { href: "/mentor/services", label: "My Service Menu" },
+            { href: "/mentor/services", label: "My Services" },
+            { href: "/mentor/services/new", label: "Create Service" },
             { href: "/mentor/bookings", label: "Bookings" },
             { href: "/messages", label: "Messages" },
             { href: "/mentor/earnings", label: "Earnings" },
@@ -93,20 +95,17 @@ export default function Navbar() {
         <Link href={profile ? links[0].href : "/"} aria-label="Instant Mentor home" onClick={() => setOpen(false)}>
           <Image src="/assets/instant-mentor-logo.png" alt="Instant Mentor Logo" width={693} height={513} priority className="h-14 w-auto object-contain" />
         </Link>
-
         {loading ? (
           <span className="hidden items-center gap-2 text-sm font-semibold text-slate-400 lg:flex"><Loader2 size={16} className="animate-spin" /> Loading</span>
         ) : (
-          <div className="hidden items-center gap-7 lg:flex">{navContent}</div>
+          <div className="hidden items-center gap-6 xl:flex">{navContent}</div>
         )}
-
-        <button type="button" disabled={loading} className="rounded-xl border border-slate-200 p-2 text-ink lg:hidden" aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} onClick={() => setOpen(!open)}>
+        <button type="button" disabled={loading} className="rounded-xl border border-slate-200 p-2 text-ink xl:hidden" aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} onClick={() => setOpen(!open)}>
           {loading ? <Loader2 size={23} className="animate-spin" /> : open ? <X size={23} /> : <Menu size={23} />}
         </button>
       </nav>
-
       {open && !loading && (
-        <div className="border-t border-slate-100 bg-white px-5 pb-6 pt-3 lg:hidden">
+        <div className="border-t border-slate-100 bg-white px-5 pb-6 pt-3 xl:hidden">
           <div className="mx-auto flex max-w-7xl flex-col gap-4">{navContent}</div>
         </div>
       )}
