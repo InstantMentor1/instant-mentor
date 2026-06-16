@@ -10,8 +10,8 @@ import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 
 const publicLinks = [
   { href: "/", label: "Home" },
-  { href: "/services", label: "Explore Services" },
-  { href: "/for-experts", label: "For Experts" },
+  { href: "/smes", label: "Explore SMEs" },
+  { href: "/for-smes", label: "For SMEs" },
   { href: "/categories", label: "Categories" },
   { href: "/institutions", label: "Institutions" },
 ];
@@ -26,7 +26,7 @@ export default function Navbar() {
     profile?.role === "Student"
       ? [
           { href: "/student/dashboard", label: "Dashboard" },
-          { href: "/services", label: "Explore Services" },
+          { href: "/smes", label: "Explore SMEs" },
           { href: "/bookings", label: "My Bookings" },
           { href: "/messages", label: "Messages" },
           { href: "/profile", label: "Profile" },
@@ -34,8 +34,8 @@ export default function Navbar() {
       : profile?.role === "Mentor" || profile?.role === "Faculty" || profile?.role === "Institution"
         ? [
             { href: "/mentor/dashboard", label: "Dashboard" },
-            { href: "/mentor/services", label: "My Services" },
-            { href: "/mentor/services/new", label: "Create Service" },
+            { href: "/mentor/services", label: "My Expertise Menu" },
+            { href: "/mentor/services/new", label: "Add Expertise" },
             { href: "/mentor/bookings", label: "Bookings" },
             { href: "/messages", label: "Messages" },
             { href: "/mentor/earnings", label: "Earnings" },
@@ -46,8 +46,8 @@ export default function Navbar() {
           ? [
               { href: "/admin/dashboard", label: "Admin Dashboard" },
               { href: "/admin/users", label: "Users" },
-              { href: "/admin/experts", label: "Experts" },
-              { href: "/admin/services", label: "Services" },
+              { href: "/admin/experts", label: "SMEs" },
+              { href: "/admin/services", label: "Expertise Items" },
               { href: "/admin/bookings", label: "Bookings" },
               { href: "/admin/payments", label: "Payments" },
               { href: "/admin/categories", label: "Categories" },
@@ -92,8 +92,8 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/90 backdrop-blur-xl">
       <nav className="container-shell flex h-20 items-center justify-between" aria-label="Main navigation">
-        <Link href={profile ? links[0].href : "/"} aria-label="Instant Mentor home" onClick={() => setOpen(false)}>
-          <Image src="/assets/instant-mentor-logo.png" alt="Instant Mentor Logo" width={693} height={513} priority className="h-14 w-auto object-contain" />
+        <Link href={profile ? links[0].href : "/"} aria-label="Mentrix home" onClick={() => setOpen(false)}>
+          <Image src="/assets/instant-mentor-logo.png" alt="Mentrix Logo" width={693} height={513} priority className="h-14 w-auto object-contain" />
         </Link>
         {loading ? (
           <span className="hidden items-center gap-2 text-sm font-semibold text-slate-400 lg:flex"><Loader2 size={16} className="animate-spin" /> Loading</span>

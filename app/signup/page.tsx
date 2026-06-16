@@ -12,8 +12,8 @@ export default async function SignupPage() {
       <div className="container-shell">
         <div className="mb-8 text-center">
           <span className="eyebrow">Create your account</span>
-          <h1 className="text-4xl font-black">Join Instant Mentor</h1>
-          <p className="mt-3 text-slate-600">Create a user account to book services or apply as an Expert Partner to publish your own service menu.</p>
+          <h1 className="text-4xl font-black">Join Mentrix</h1>
+          <p className="mt-3 text-slate-600">Mentrix is exclusively for students and verified SME partners. Students book serious expertise; SMEs publish their own expertise menu.</p>
         </div>
         <AuthForm mode="signup" />
       </div>

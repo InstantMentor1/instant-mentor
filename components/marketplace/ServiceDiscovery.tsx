@@ -47,19 +47,19 @@ export default function ServiceDiscovery({
       <div className="container-shell">
         <div className="card grid gap-4 p-5 md:grid-cols-[1fr_320px]">
           <label className="relative block">
-            <span className="sr-only">Search expert services</span>
+            <span className="sr-only">Search SME expertise</span>
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={19} />
             <input
               value={search}
               onChange={(event) => setSearch(event.target.value)}
               className="form-input pl-11"
-              placeholder="Search by service, expert, outcome, or skill"
+              placeholder="Search by SME, domain, outcome, or skill"
             />
           </label>
           <label>
-            <span className="sr-only">Filter by category</span>
+            <span className="sr-only">Filter by domain</span>
             <select value={category} onChange={(event) => setCategory(event.target.value)} className="form-input">
-              <option value="">All categories</option>
+              <option value="">All SME domains</option>
               {marketplaceCategories.map((item) => <option key={item}>{item}</option>)}
             </select>
           </label>
@@ -68,11 +68,11 @@ export default function ServiceDiscovery({
         <div className="mb-7 mt-8 flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
           <div>
             <p className="text-sm font-bold uppercase tracking-wide text-teal-700">
-              {category || "All expert-created services"}
+              {category || "All SME expertise"}
             </p>
-            <h2 className="mt-1 text-3xl font-black">{filtered.length} services available</h2>
+            <h2 className="mt-1 text-3xl font-black">{filtered.length} expertise items available</h2>
           </div>
-          <Link href="/for-experts" className="text-sm font-bold text-teal-700">Create your expert service menu →</Link>
+          <Link href="/for-smes" className="text-sm font-bold text-teal-700">Create your SME expertise menu -&gt;</Link>
         </div>
 
         {filtered.length > 0 ? (
@@ -84,16 +84,16 @@ export default function ServiceDiscovery({
             <Store className="mx-auto text-teal-700" size={36} />
             <h2 className="mt-4 text-2xl font-black">
               {services.length === 0
-                ? "No expert services are live yet."
-                : "No services match your search."}
+                ? "No SME expertise items are live yet."
+                : "No expertise items match your search."}
             </h2>
             <p className="mx-auto mt-3 max-w-2xl text-slate-600">
               {services.length === 0
-                ? "Verified experts can create their service menu from the expert dashboard."
-                : "Try another search term or browse all categories."}
+                ? "Verified SMEs can create their expertise menu from the SME dashboard."
+                : "Try another search term or browse all domains."}
             </p>
             {services.length === 0 ? (
-              <Link href="/for-experts" className="btn-primary mt-6">Apply as Expert</Link>
+              <Link href="/for-smes" className="btn-primary mt-6">Join as an SME</Link>
             ) : (
               <button type="button" onClick={() => { setCategory(""); setSearch(""); }} className="btn-secondary mt-6">Clear filters</button>
             )}

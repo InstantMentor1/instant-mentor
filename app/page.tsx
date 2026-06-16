@@ -16,9 +16,9 @@ import { dashboardForRole } from "@/lib/auth-shared";
 import { getPublicServices } from "@/lib/marketplace-data";
 
 export const metadata: Metadata = {
-  title: "Book Verified Experts for the Exact Service You Need",
+  title: "Real Expertise for Serious Students",
   description:
-    "Discover verified subject-matter experts, compare expert-created services, check availability, and book outcome-focused support.",
+    "Mentrix connects serious students with verified subject-matter experts who create their own expertise menus and set their own pricing.",
 };
 
 export default async function Home() {

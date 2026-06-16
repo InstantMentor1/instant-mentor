@@ -5,6 +5,7 @@ import Link from "next/link";
 import { AlertCircle, Loader2 } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { technicalTracks } from "@/lib/constants";
+import { studentUserTypes } from "@/lib/marketplace";
 
 type AuthFormProps = {
   mode: "login" | "signup";
@@ -90,10 +91,19 @@ export default function AuthForm({ mode }: AuthFormProps) {
           <label className="text-sm font-bold text-slate-700">
             Account type
             <select className={fieldClass} name="role" value={role} onChange={(e) => setRole(e.target.value as "Student" | "Mentor")}>
-              <option value="Student">User</option>
-              <option value="Mentor">Expert Partner</option>
+              <option value="Student">Student</option>
+              <option value="Mentor">SME Partner</option>
             </select>
           </label>
+          {role === "Student" && (
+            <label className="text-sm font-bold text-slate-700">
+              Student type
+              <select className={fieldClass} required name="userType" defaultValue="">
+                <option value="" disabled>Select your student type</option>
+                {studentUserTypes.map((type) => <option key={type}>{type}</option>)}
+              </select>
+            </label>
+          )}
           <label className="text-sm font-bold text-slate-700">
             Phone
             <input className={fieldClass} required name="phone" autoComplete="tel" />
@@ -103,7 +113,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
             <input className={fieldClass} required name="collegeOrCompany" autoComplete="organization" />
           </label>
           <label className="text-sm font-bold text-slate-700">
-            Primary area of interest or expertise
+            Primary domain
             <select className={fieldClass} required name="technicalTrack" defaultValue="">
               <option value="" disabled>Select an area</option>
               {technicalTracks.map((track) => <option key={track}>{track}</option>)}
@@ -115,7 +125,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
           </label>
           {role === "Mentor" && (
             <fieldset className="rounded-xl border border-slate-200 p-4 sm:col-span-2">
-              <legend className="px-2 text-sm font-bold text-slate-700">Expertise Areas</legend>
+              <legend className="px-2 text-sm font-bold text-slate-700">SME Expertise Areas</legend>
               <div className="mt-2 grid gap-2 sm:grid-cols-2">
                 {technicalTracks.map((track) => (
                   <label key={track} className="flex items-center gap-2 text-sm text-slate-700">

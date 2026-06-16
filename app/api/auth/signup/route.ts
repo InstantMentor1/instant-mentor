@@ -3,6 +3,7 @@ import { normalizeEmail, validateAccountEmail } from "@/lib/account-validation";
 import type { AppRole } from "@/lib/auth-shared";
 import { isTechnicalTrack } from "@/lib/constants";
 import { sendAccountSignupEmails } from "@/lib/email";
+import { studentUserTypes } from "@/lib/marketplace";
 import { createSupabaseAdminClient } from "@/lib/supabase/server";
 
 const publicRoles: AppRole[] = ["Student", "Mentor"];
@@ -16,6 +17,7 @@ export async function POST(request: Request) {
     const role = String(body.role ?? "") as AppRole;
     const collegeOrCompany = String(body.collegeOrCompany ?? "").trim();
     const technicalTrack = String(body.technicalTrack ?? "").trim();
+    const userType = String(body.userType ?? "").trim();
     const linkedinOrPortfolio = String(body.linkedinOrPortfolio ?? "").trim();
     const expertiseAreas = Array.isArray(body.expertiseAreas)
       ? body.expertiseAreas.map((value: unknown) => String(value).trim()).filter(Boolean)
@@ -29,11 +31,14 @@ export async function POST(request: Request) {
     if (!publicRoles.includes(role)) return NextResponse.json({ error: "Select a valid account role." }, { status: 400 });
     if (!collegeOrCompany) return NextResponse.json({ error: "College or company is required." }, { status: 400 });
     if (!isTechnicalTrack(technicalTrack)) return NextResponse.json({ error: "Select a valid technical track." }, { status: 400 });
+    if (role === "Student" && !studentUserTypes.includes(userType as (typeof studentUserTypes)[number])) {
+      return NextResponse.json({ error: "Select your student type." }, { status: 400 });
+    }
     if (role === "Mentor" && !linkedinOrPortfolio) {
-      return NextResponse.json({ error: "LinkedIn or portfolio is required for mentors." }, { status: 400 });
+      return NextResponse.json({ error: "LinkedIn or portfolio is required for SME partners." }, { status: 400 });
     }
     if (role === "Mentor" && expertiseAreas.length === 0) {
-      return NextResponse.json({ error: "Select at least one mentor expertise area." }, { status: 400 });
+      return NextResponse.json({ error: "Select at least one SME expertise area." }, { status: 400 });
     }
     if (password.length < 8) return NextResponse.json({ error: "Password must be at least 8 characters." }, { status: 400 });
     if (password !== confirmPassword) return NextResponse.json({ error: "Passwords do not match." }, { status: 400 });
@@ -61,6 +66,7 @@ export async function POST(request: Request) {
         role,
         college_or_company: collegeOrCompany,
         technical_track: technicalTrack,
+        user_type: role === "Student" ? userType : null,
         linkedin_or_portfolio: linkedinOrPortfolio,
         expertise_areas: expertiseAreas,
       },
@@ -73,6 +79,17 @@ export async function POST(request: Request) {
         { error: duplicate ? "An account with this email already exists." : "Unable to create your account right now." },
         { status: duplicate ? 409 : 500 },
       );
+    }
+
+    const { error: profileUpdateError } = await admin
+      .from("profiles")
+      .update({
+        user_type: role === "Student" ? userType : null,
+        account_status: "active",
+      })
+      .eq("user_id", data.user.id);
+    if (profileUpdateError) {
+      console.error("Mentrix profile metadata update failed:", profileUpdateError);
     }
 
     let warning: string | undefined;

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { requireApiAuth } from "@/lib/api-auth";
+import { calculatePlatformFee } from "@/lib/marketplace";
 import { createSupabaseAdminClient } from "@/lib/supabase/server";
 
 export async function POST(request: Request) {
@@ -7,14 +8,21 @@ export async function POST(request: Request) {
   if (auth.error) return auth.error;
   const body = await request.json().catch(() => ({}));
   const serviceId = String(body.service_id ?? "");
-  const optionalNote = String(body.optional_note ?? "").trim();
+  const specificGoal = String(body.specific_goal ?? "").trim();
+  const alreadyTried = String(body.already_tried ?? "").trim();
+  const institutionProgram = String(body.institution_program ?? "").trim();
   const preferredDate = String(body.preferred_date ?? "");
   const preferredTime = String(body.preferred_time ?? "").trim();
   const attachmentLink = String(body.attachment_link ?? "").trim();
+  const depositAcknowledged = body.deposit_acknowledged === true;
 
   if (!serviceId) return NextResponse.json({ error: "Service is required." }, { status: 400 });
+  if (specificGoal.length < 50) return NextResponse.json({ error: "Please explain your specific goal in at least 50 characters." }, { status: 400 });
+  if (alreadyTried.length < 30) return NextResponse.json({ error: "Please share what you already tried in at least 30 characters." }, { status: 400 });
+  if (!institutionProgram) return NextResponse.json({ error: "Institution or program is required." }, { status: 400 });
   if (!preferredDate) return NextResponse.json({ error: "Preferred date is required." }, { status: 400 });
   if (!preferredTime) return NextResponse.json({ error: "Preferred time is required." }, { status: 400 });
+  if (!depositAcknowledged) return NextResponse.json({ error: "Please acknowledge the booking deposit and no-show policy." }, { status: 400 });
 
   const keyId = process.env.RAZORPAY_KEY_ID;
   const keySecret = process.env.RAZORPAY_KEY_SECRET;
@@ -28,19 +36,37 @@ export async function POST(request: Request) {
   }
 
   const admin = createSupabaseAdminClient();
+  if ((auth.profile.account_status === "disabled") || (auth.profile.strikes ?? 0) >= 3) {
+    return NextResponse.json(
+      { error: "Your booking access has been disabled due to 3 no-shows. Contact support@mentrix.in to appeal." },
+      { status: 403 },
+    );
+  }
   const { data: service } = await admin.from("expert_services").select("*").eq("id", serviceId).eq("status", "active").maybeSingle();
   if (!service) return NextResponse.json({ error: "This service is unavailable." }, { status: 404 });
+  if (Number(service.price) < 500) {
+    return NextResponse.json({ error: "This expertise item is below the Mentrix minimum price and cannot be booked." }, { status: 409 });
+  }
+  const fee = calculatePlatformFee(Number(service.price));
 
   const { data: booking, error: bookingError } = await admin.from("service_bookings").insert({
     service_id: service.id,
     user_id: auth.user.id,
     expert_id: service.expert_id,
-    user_goal: optionalNote || "Service booking request",
-    requirement_details: optionalNote || "No additional note provided.",
+    user_goal: specificGoal,
+    requirement_details: `${specificGoal}\n\nAlready tried:\n${alreadyTried}\n\nInstitution/program:\n${institutionProgram}`,
+    booking_intent: {
+      specific_goal: specificGoal,
+      already_tried: alreadyTried,
+      institution_program: institutionProgram,
+    },
+    deposit_acknowledged: true,
     preferred_date: preferredDate,
     preferred_time: preferredTime,
     attachment_link: attachmentLink || null,
     price: service.price,
+    platform_commission_percent: fee.commissionPercent,
+    expert_payout_percent: 100 - fee.commissionPercent,
     status: "pending",
     payment_status: "pending",
   }).select("id").single();

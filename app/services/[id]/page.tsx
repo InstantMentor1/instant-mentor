@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { BadgeCheck, Check, Clock3, Star } from "lucide-react";
 import { getAuthContext } from "@/lib/auth";
-import { formatDeliveryMode } from "@/lib/marketplace";
+import { calculatePlatformFee, formatDeliveryMode } from "@/lib/marketplace";
 import { getPublicService } from "@/lib/marketplace-data";
 
 export default async function ServiceDetailsPage({ params }: { params: Promise<{ id: string }> }) {
@@ -16,6 +16,7 @@ export default async function ServiceDetailsPage({ params }: { params: Promise<{
       : auth.profile?.role === "Admin"
         ? "/admin/dashboard"
         : "/mentor/dashboard";
+  const fee = calculatePlatformFee(Number(service.price));
 
   return (
     <section className="bg-slate-50 py-10 sm:py-14">
@@ -31,30 +32,33 @@ export default async function ServiceDetailsPage({ params }: { params: Promise<{
             <Info title="Availability" text={service.availability_notes ?? "Availability is confirmed after your request."} />
           </div>
           <div className="mt-8 rounded-2xl bg-slate-50 p-5">
-            <h2 className="font-black">Reviews</h2>
-            <p className="mt-2 text-sm text-slate-600">{service.review_count ? `${service.review_count} verified booking reviews.` : "This service is new. Verified reviews will appear after completed bookings."}</p>
+            <h2 className="font-black">Verified reviews</h2>
+            <p className="mt-2 text-sm text-slate-600">{service.review_count ? `${service.review_count} verified booking reviews.` : "This expertise item is new. Verified reviews will appear after completed bookings."}</p>
           </div>
         </article>
         <aside className="h-fit lg:sticky lg:top-28">
           <div className="card p-6">
-            <p className="text-sm font-bold uppercase tracking-wide text-slate-400">Expert-set price</p>
+            <p className="text-sm font-bold uppercase tracking-wide text-slate-400">SME-set price</p>
             <p className="mt-2 text-4xl font-black text-teal-800">₹{Number(service.price).toLocaleString("en-IN")}</p>
             <div className="mt-5 space-y-3 border-y border-slate-100 py-5 text-sm font-semibold">
               <p className="flex items-center gap-2"><Clock3 size={17} className="text-teal-700" /> {service.duration_minutes} minutes</p>
               <p className="flex items-center gap-2"><Check size={17} className="text-teal-700" /> {formatDeliveryMode(service.delivery_mode)}</p>
-              <p className="flex items-center gap-2"><Star size={17} className="text-amber-500" /> {service.rating ? `${service.rating.toFixed(1)} rating` : "New service"}</p>
+              <p className="flex items-center gap-2"><Star size={17} className="text-amber-500" /> {service.rating ? `${service.rating.toFixed(1)} rating` : "New expertise item"}</p>
             </div>
             <div className="mt-5 flex items-center gap-3">
-              <span className="flex h-11 w-11 items-center justify-center rounded-full bg-teal-700 font-black text-white">{(service.expert?.full_name ?? "E")[0]}</span>
+              <span className="flex h-11 w-11 items-center justify-center rounded-full bg-teal-700 font-black text-white">{(service.expert?.full_name ?? "S")[0]}</span>
               <div>
-                <p className="flex items-center gap-1 font-black">{service.expert?.full_name ?? "Verified Expert"} <BadgeCheck size={16} className="text-teal-600" /></p>
-                <p className="text-xs text-slate-500">{service.expert?.college_or_company ?? "Industry professional"}</p>
+                <p className="flex items-center gap-1 font-black">{service.expert?.full_name ?? "Verified SME"} <BadgeCheck size={16} className="text-teal-600" /></p>
+                <p className="text-xs text-slate-500">{service.expert?.college_or_company ?? "Subject Matter Expert"}</p>
               </div>
             </div>
+            <div className="mt-5 rounded-2xl bg-slate-50 p-4 text-xs font-semibold text-slate-600">
+              Mentrix fee: {fee.commissionPercent}% · SME payout estimate: ₹{fee.smePayout.toLocaleString("en-IN")}
+            </div>
             <Link href={bookingHref} className="btn-primary mt-6 w-full">
-              Book Service
+              Book Expertise
             </Link>
-            <p className="mt-3 text-center text-xs leading-5 text-slate-500">Your requirements are shared privately with the expert after booking.</p>
+            <p className="mt-3 text-center text-xs leading-5 text-slate-500">Your booking intent is shared privately with the SME after payment.</p>
           </div>
         </aside>
       </div>

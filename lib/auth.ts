@@ -16,6 +16,9 @@ export type AuthProfile = {
   technical_track: string | null;
   technical_tracks: string[];
   linkedin_or_portfolio: string | null;
+  user_type: string | null;
+  strikes: number;
+  account_status: "active" | "disabled";
   created_at: string;
 };
 

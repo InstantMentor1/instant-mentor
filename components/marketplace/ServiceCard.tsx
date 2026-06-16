@@ -21,18 +21,18 @@ export default function ServiceCard({ service }: { service: ExpertService }) {
       <div className="flex flex-1 flex-col p-6">
         <div className="flex items-start gap-3">
           <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-teal-700 font-black text-white">
-            {(service.expert?.full_name ?? "E").slice(0, 1)}
+            {(service.expert?.full_name ?? "S").slice(0, 1)}
           </span>
           <div>
             <p className="flex items-center gap-1 font-bold text-ink">
-              {service.expert?.full_name ?? "Verified Expert"} <BadgeCheck size={16} className="text-teal-600" />
+              {service.expert?.full_name ?? "Verified SME"} <BadgeCheck size={16} className="text-teal-600" />
             </p>
-            <p className="text-xs text-slate-500">{service.expert?.college_or_company ?? "Industry professional"}</p>
+            <p className="text-xs text-slate-500">{service.expert?.college_or_company ?? "Subject Matter Expert"}</p>
           </div>
         </div>
         <div className="mt-5 grid grid-cols-2 gap-3 rounded-2xl bg-slate-50 p-4 text-sm">
           <div>
-            <p className="text-xs font-bold uppercase tracking-wide text-slate-400">Expert-set price</p>
+            <p className="text-xs font-bold uppercase tracking-wide text-slate-400">SME-set price</p>
             <p className="mt-1 text-xl font-black text-teal-800">₹{Number(service.price).toLocaleString("en-IN")}</p>
           </div>
           <div>
@@ -47,10 +47,10 @@ export default function ServiceCard({ service }: { service: ExpertService }) {
           <strong className="text-ink">What you get:</strong> {service.deliverables}
         </p>
         <p className="mt-3 text-xs font-semibold text-slate-500">
-          Availability: {service.availability_notes ?? "Confirmed with the expert after booking request"}
+          Availability: {service.availability_notes ?? "Confirmed with the SME after booking request"}
         </p>
         <Link href={`/services/${service.id}`} className="btn-primary mt-6 w-full">
-          View Service
+          View Expertise
         </Link>
       </div>
     </article>

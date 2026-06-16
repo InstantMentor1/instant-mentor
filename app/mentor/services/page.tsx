@@ -28,19 +28,19 @@ export default async function ExpertServicesPage() {
       <div className="container-shell">
         <DashboardHeader
           profile={profile}
-          title="My Services"
-          description="Create, price, publish, and manage the expert services users can book."
+          title="My Expertise Menu"
+          description="Create, price, publish, and manage the expertise items students can book."
         />
 
         <div className="mb-7 flex items-center justify-between">
           <div>
-            <h2 className="text-2xl font-black">Your services</h2>
+            <h2 className="text-2xl font-black">Your expertise items</h2>
             <p className="mt-1 text-sm text-slate-600">
-              {services.length} service listings
+              {services.length} expertise listings
             </p>
           </div>
           <Link href="/mentor/services/new" className="btn-primary">
-            Create Service
+            Create Expertise
           </Link>
         </div>
 
@@ -71,18 +71,17 @@ export default async function ExpertServicesPage() {
                 {service.description}
               </p>
               <p className="mt-4 text-sm font-semibold">
-                {service.duration_minutes} minutes ·{" "}
-                {formatDeliveryMode(service.delivery_mode)}
+                {service.duration_minutes} minutes - {formatDeliveryMode(service.delivery_mode)}
               </p>
               <p className="mt-2 text-sm text-slate-500">
-                {bookingCounts.get(service.id) ?? 0} bookings · Availability: {service.availability_notes ?? "Not specified"}
+                {bookingCounts.get(service.id) ?? 0} bookings - Availability: {service.availability_notes ?? "Not specified"}
               </p>
               <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
                 <Link
                   href={`/services/${service.id}`}
                   className="text-sm font-bold text-teal-700"
                 >
-                  View public page →
+                  View public page -&gt;
                 </Link>
                 <div className="flex items-center gap-3">
                   <Link
@@ -104,14 +103,14 @@ export default async function ExpertServicesPage() {
         {services.length === 0 && (
           <div className="card p-10 text-center">
             <h2 className="text-xl font-black">
-              Your service menu is empty.
+              Your expertise menu is empty.
             </h2>
             <p className="mt-2 text-slate-600">
-              Create a focused service with a clear outcome, price, and
-              delivery format.
+              Create a focused expertise item with a clear student outcome,
+              price, duration, and format.
             </p>
             <Link href="/mentor/services/new" className="btn-primary mt-6">
-              Create First Service
+              Create First Expertise Item
             </Link>
           </div>
         )}

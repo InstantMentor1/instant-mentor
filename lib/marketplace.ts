@@ -1,24 +1,35 @@
 export const marketplaceCategories = [
-  "Career & Jobs",
-  "Resume & Interview",
-  "Academic Support",
-  "School & Board Guidance",
-  "College & Project Support",
-  "Technical Skills",
-  "AI, Data & Cloud",
-  "Business & Startup",
-  "Marketing & Sales",
+  "Finance & Accounting",
+  "Technology & Engineering",
+  "Law & Policy",
+  "Healthcare & Medicine",
+  "Marketing & Brand",
+  "Data Science & AI",
+  "Operations & Supply Chain",
+  "Entrepreneurship & Strategy",
+  "Academic Research",
   "Finance & Commerce",
+  "School & Board Guidance",
   "Design & Product",
-  "HR & Operations",
+  "HR & Organisational Behaviour",
+  "Economics & Public Policy",
   "Institution Programs",
 ] as const;
 
 export const deliveryModes = [
-  { value: "video_call", label: "Video call" },
-  { value: "chat", label: "Chat" },
-  { value: "document_review", label: "Document review" },
-  { value: "hybrid", label: "Hybrid" },
+  { value: "video_call", label: "Live 1:1" },
+  { value: "chat", label: "Office hours / chat" },
+  { value: "document_review", label: "Async doc review" },
+  { value: "hybrid", label: "Group cohort / hybrid" },
+] as const;
+
+export const studentUserTypes = [
+  "Undergraduate",
+  "Postgraduate",
+  "MBA",
+  "PhD",
+  "Research Scholar",
+  "Recent Graduate",
 ] as const;
 
 export type DeliveryMode = (typeof deliveryModes)[number]["value"];
@@ -52,6 +63,8 @@ export type ExpertService = {
     full_name: string;
     college_or_company: string | null;
     linkedin_or_portfolio: string | null;
+    is_verified?: boolean;
+    verification_status?: string | null;
   } | null;
   rating?: number | null;
   review_count?: number;
@@ -88,4 +101,12 @@ export function formatDeliveryMode(mode: DeliveryMode) {
 
 export function isExpertRole(role: string) {
   return ["Mentor", "Faculty", "Institution"].includes(role);
+}
+
+export function calculatePlatformFee(price: number) {
+  const amount = Number(price);
+  const commissionPercent = amount <= 1000 ? 15 : amount <= 3000 ? 20 : 25;
+  const platformFee = Math.round(amount * commissionPercent) / 100;
+  const smePayout = Math.max(0, amount - platformFee);
+  return { commissionPercent, platformFee, smePayout };
 }

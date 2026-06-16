@@ -12,34 +12,33 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://instant-mentor.verc
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Instant Mentor | Subject-Matter Expert Service Marketplace",
-    template: "%s | Instant Mentor",
+    default: "Mentrix | Premium SME Marketplace for Students",
+    template: "%s | Mentrix",
   },
   description:
-    "Discover verified subject-matter experts, compare expert-created services, check availability, and book with confidence.",
+    "Mentrix connects serious students with verified subject-matter experts through expertise profiles, student-ready menus, and availability-based booking.",
   keywords: [
-    "expert service marketplace",
+    "SME marketplace",
     "subject matter experts India",
-    "career expert services",
-    "academic expert guidance",
-    "business consultant marketplace",
-    "book verified experts",
+    "student expert booking",
+    "academic SME guidance",
+    "book verified SMEs",
   ],
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     url: siteUrl,
-    siteName: "Instant Mentor",
-    title: "Discover experts. Compare services. Book with confidence.",
+    siteName: "Mentrix",
+    title: "Real expertise. Booked by serious students only.",
     description:
-      "Browse expert-created service menus with expert-set pricing, availability, duration, and deliverables.",
-    images: [{ url: "/assets/instant-mentor-logo.png", alt: "Instant Mentor" }],
+      "Browse verified SME profiles with SME-set pricing, availability, duration, and deliverables.",
+    images: [{ url: "/assets/instant-mentor-logo.png", alt: "Mentrix" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Instant Mentor | Expert Service Marketplace",
+    title: "Mentrix | Premium SME Marketplace",
     description:
-      "Discover verified experts and book the exact service you need.",
+      "Book verified SMEs for serious student questions and outcomes.",
     images: ["/assets/instant-mentor-logo.png"],
   },
   robots: { index: true, follow: true },
@@ -53,17 +52,17 @@ export default async function RootLayout({
     {
       "@context": "https://schema.org",
       "@type": "Organization",
-      name: "Instant Mentor",
+      name: "Mentrix",
       url: siteUrl,
       logo: `${siteUrl}/assets/instant-mentor-logo.png`,
-      email: "hello.instantmentor@gmail.com",
+      email: "support@mentrix.in",
       description:
-        "A service-based marketplace for career, academic, skill, business, and industry expertise.",
+        "A premium marketplace where verified subject-matter experts offer bookable expertise to serious students.",
     },
     {
       "@context": "https://schema.org",
       "@type": "WebSite",
-      name: "Instant Mentor",
+      name: "Mentrix",
       url: siteUrl,
     },
   ];

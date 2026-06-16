@@ -110,7 +110,7 @@ export default function ProfileForm({
 
       <div className="rounded-xl bg-slate-50 p-4 text-sm text-slate-600 sm:col-span-2">
         <strong>Email:</strong> {profile.email}<br />
-        <strong>Account type:</strong> {isMentor ? "Expert Partner" : profile.role === "Student" ? "User" : profile.role}
+        <strong>Account type:</strong> {isMentor ? "SME Partner" : profile.role === "Student" ? "Student" : profile.role}
         <p className="mt-1 text-xs">Email and account role cannot be changed here.</p>
       </div>
 
