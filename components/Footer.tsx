@@ -4,19 +4,22 @@ import { Mail, MapPin } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="bg-ink text-white">
+    <footer className="bg-[#140708] text-white">
       <div className="container-shell grid gap-10 py-14 md:grid-cols-[1.5fr_1fr_1fr]">
         <div>
           <Image
-            src="/assets/instant-mentor-logo.png"
+            src="/assets/mentrix-logo.png"
             alt="Mentrix Logo"
-            width={693}
-            height={513}
-            className="mb-5 h-16 w-auto rounded-lg bg-white object-contain"
+            width={1600}
+            height={1600}
+            className="mb-5 h-16 w-auto rounded-xl bg-white object-contain"
           />
           <p className="max-w-sm text-sm leading-6 text-slate-300">
             Mentrix is a premium SME marketplace where serious students book
             verified subject-matter experts for outcome-focused guidance.
+          </p>
+          <p className="mt-4 text-xs font-black uppercase tracking-[0.28em] text-red-100">
+            Your Journey, Guided By Greatness
           </p>
         </div>
         <div>

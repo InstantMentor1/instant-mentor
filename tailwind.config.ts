@@ -8,24 +8,24 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        ink: "#102a36",
+        ink: "#181012",
         teal: {
-          50: "#eaf8f7",
-          100: "#ccecea",
-          500: "#0d8985",
-          600: "#087570",
-          700: "#006460",
-          800: "#064f4d",
-          900: "#063f3e",
+          50: "#fff1f1",
+          100: "#ffdede",
+          500: "#ef1f24",
+          600: "#d90d12",
+          700: "#bd0005",
+          800: "#8f0004",
+          900: "#580003",
         },
-        mentorblue: "#71889b",
+        mentorblue: "#5d5a69",
       },
       boxShadow: {
-        soft: "0 20px 50px -24px rgba(6, 79, 77, 0.28)",
+        soft: "0 20px 50px -24px rgba(189, 0, 5, 0.28)",
       },
       backgroundImage: {
         "hero-glow":
-          "radial-gradient(circle at 76% 30%, rgba(13,137,133,.18), transparent 32%), radial-gradient(circle at 12% 12%, rgba(113,136,155,.16), transparent 25%)",
+          "radial-gradient(circle at 76% 24%, rgba(239,31,36,.20), transparent 32%), radial-gradient(circle at 10% 10%, rgba(24,16,18,.10), transparent 28%), linear-gradient(180deg, #fff 0%, #fff5f5 100%)",
       },
     },
   },

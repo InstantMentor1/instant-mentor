@@ -90,10 +90,10 @@ export default function Navbar() {
   );
 
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/90 backdrop-blur-xl">
-      <nav className="container-shell flex h-20 items-center justify-between" aria-label="Main navigation">
+    <header className="sticky top-0 z-50 border-b border-red-100/80 bg-white/90 backdrop-blur-xl">
+      <nav className="container-shell flex min-h-[72px] items-center justify-between py-3" aria-label="Main navigation">
         <Link href={profile ? links[0].href : "/"} aria-label="Mentrix home" onClick={() => setOpen(false)}>
-          <Image src="/assets/instant-mentor-logo.png" alt="Mentrix Logo" width={693} height={513} priority className="h-14 w-auto object-contain" />
+          <Image src="/assets/mentrix-logo.png" alt="Mentrix Logo" width={1600} height={1600} priority className="h-12 w-auto object-contain" />
         </Link>
         {loading ? (
           <span className="hidden items-center gap-2 text-sm font-semibold text-slate-400 lg:flex"><Loader2 size={16} className="animate-spin" /> Loading</span>

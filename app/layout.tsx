@@ -12,11 +12,11 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://instant-mentor.verc
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Mentrix | Premium SME Marketplace for Students",
+    default: "Mentrix | Your Journey, Guided By Greatness",
     template: "%s | Mentrix",
   },
   description:
-    "Mentrix connects serious students with verified subject-matter experts through expertise profiles, student-ready menus, and availability-based booking.",
+    "Mentrix helps students discover verified subject-matter experts, compare expertise menus, and book guided academic, career, and professional support.",
   keywords: [
     "SME marketplace",
     "subject matter experts India",
@@ -29,17 +29,17 @@ export const metadata: Metadata = {
     type: "website",
     url: siteUrl,
     siteName: "Mentrix",
-    title: "Real expertise. Booked by serious students only.",
+    title: "Your Journey, Guided By Greatness.",
     description:
-      "Browse verified SME profiles with SME-set pricing, availability, duration, and deliverables.",
-    images: [{ url: "/assets/instant-mentor-logo.png", alt: "Mentrix" }],
+      "Discover verified SMEs, compare expertise menus, and book the guidance moment you need.",
+    images: [{ url: "/assets/mentrix-logo.png", alt: "Mentrix" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Mentrix | Premium SME Marketplace",
+    title: "Mentrix | Your Journey, Guided By Greatness",
     description:
-      "Book verified SMEs for serious student questions and outcomes.",
-    images: ["/assets/instant-mentor-logo.png"],
+      "Discover verified SMEs and book guided academic, career, and professional support.",
+    images: ["/assets/mentrix-logo.png"],
   },
   robots: { index: true, follow: true },
 };
@@ -54,7 +54,7 @@ export default async function RootLayout({
       "@type": "Organization",
       name: "Mentrix",
       url: siteUrl,
-      logo: `${siteUrl}/assets/instant-mentor-logo.png`,
+      logo: `${siteUrl}/assets/mentrix-logo.png`,
       email: "support@mentrix.in",
       description:
         "A premium marketplace where verified subject-matter experts offer bookable expertise to serious students.",
