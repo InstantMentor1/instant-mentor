@@ -35,10 +35,10 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Select your student type." }, { status: 400 });
     }
     if (role === "Mentor" && !linkedinOrPortfolio) {
-      return NextResponse.json({ error: "LinkedIn or portfolio is required for SME partners." }, { status: 400 });
+      return NextResponse.json({ error: "LinkedIn or portfolio is required for mentors." }, { status: 400 });
     }
     if (role === "Mentor" && expertiseAreas.length === 0) {
-      return NextResponse.json({ error: "Select at least one SME expertise area." }, { status: 400 });
+      return NextResponse.json({ error: "Select at least one mentor expertise area." }, { status: 400 });
     }
     if (password.length < 8) return NextResponse.json({ error: "Password must be at least 8 characters." }, { status: 400 });
     if (password !== confirmPassword) return NextResponse.json({ error: "Passwords do not match." }, { status: 400 });
@@ -89,7 +89,7 @@ export async function POST(request: Request) {
       })
       .eq("user_id", data.user.id);
     if (profileUpdateError) {
-      console.error("Mentrix profile metadata update failed:", profileUpdateError);
+      console.error("My Expert Talk profile metadata update failed:", profileUpdateError);
     }
 
     let warning: string | undefined;

@@ -31,7 +31,7 @@ export async function POST(request: Request) {
   if (eligibilityError && profile.role !== "Admin") {
     await supabase.auth.signOut();
     return NextResponse.json(
-      { error: "This account is not eligible for Instant Mentor access. Please use your college, institution, or professional email." },
+      { error: "This account is not eligible for My Expert Talk access. Please use your college, institution, or professional email." },
       { status: 403 },
     );
   }

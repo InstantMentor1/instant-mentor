@@ -16,9 +16,9 @@ import { dashboardForRole } from "@/lib/auth-shared";
 import { getPublicServices } from "@/lib/marketplace-data";
 
 export const metadata: Metadata = {
-  title: "Your Journey, Guided By Greatness",
+  title: "Learn Directly From Experts, Mentors, and Educators",
   description:
-    "Mentrix helps students discover verified subject-matter experts, compare expertise menus, and book guided academic, career, and professional support.",
+    "My Expert Talk helps students and learners join expert talks, explore mentor-led services, access recordings, and book guidance sessions.",
 };
 
 export default async function Home() {

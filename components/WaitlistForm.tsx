@@ -28,7 +28,7 @@ function FieldError({
 
 export default function WaitlistForm() {
   const formRef = useRef<HTMLFormElement>(null);
-  const [successMessage, setSuccessMessage] = useState("");
+  const [succesmentorssage, setSuccesmentorssage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [fieldErrors, setFieldErrors] = useState<WaitlistFieldErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -80,8 +80,8 @@ export default function WaitlistForm() {
 
       formRef.current?.reset();
       setRole("");
-      setSuccessMessage(
-        result?.message || "Thank you for joining the Instant Mentor waitlist. We'll contact you soon.",
+      setSuccesmentorssage(
+        result?.message || "Thank you for joining the My Expert Talk waitlist. We'll contact you soon.",
       );
     } catch (error) {
       setErrorMessage(
@@ -92,7 +92,7 @@ export default function WaitlistForm() {
     }
   }
 
-  if (successMessage) {
+  if (succesmentorssage) {
     return (
       <div className="card flex min-h-96 flex-col items-center justify-center p-8 text-center" role="status">
         <span className="mb-5 rounded-full bg-teal-50 p-4 text-teal-700">
@@ -100,9 +100,9 @@ export default function WaitlistForm() {
         </span>
         <h2 className="text-2xl font-extrabold text-ink">You&apos;re on the list.</h2>
         <p className="mt-3 max-w-md leading-7 text-slate-600">
-          {successMessage}
+          {succesmentorssage}
         </p>
-        <button type="button" className="mt-6 text-sm font-bold text-teal-700 hover:text-teal-900" onClick={() => setSuccessMessage("")}>
+        <button type="button" className="mt-6 text-sm font-bold text-teal-700 hover:text-teal-900" onClick={() => setSuccesmentorssage("")}>
           Submit another response
         </button>
       </div>

@@ -10,10 +10,12 @@ import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 
 const publicLinks = [
   { href: "/", label: "Home" },
-  { href: "/smes", label: "Explore SMEs" },
-  { href: "/for-smes", label: "For SMEs" },
-  { href: "/categories", label: "Categories" },
-  { href: "/institutions", label: "Institutions" },
+  { href: "/expert-talks", label: "Expert Talks" },
+  { href: "/services", label: "Services" },
+  { href: "/recordings", label: "Recordings" },
+  { href: "/mentors", label: "Mentors" },
+  { href: "/events", label: "Events" },
+  { href: "/contact", label: "Contact" },
 ];
 
 export default function Navbar() {
@@ -26,16 +28,19 @@ export default function Navbar() {
     profile?.role === "Student"
       ? [
           { href: "/student/dashboard", label: "Dashboard" },
-          { href: "/smes", label: "Explore SMEs" },
+          { href: "/expert-talks", label: "Expert Talks" },
+          { href: "/services", label: "Services" },
           { href: "/bookings", label: "My Bookings" },
+          { href: "/recordings", label: "Recordings" },
           { href: "/messages", label: "Messages" },
           { href: "/profile", label: "Profile" },
         ]
       : profile?.role === "Mentor" || profile?.role === "Faculty" || profile?.role === "Institution"
         ? [
             { href: "/mentor/dashboard", label: "Dashboard" },
-            { href: "/mentor/services", label: "My Expertise Menu" },
-            { href: "/mentor/services/new", label: "Add Expertise" },
+            { href: "/mentor/services", label: "My Services" },
+            { href: "/mentor/services/new", label: "Create Service" },
+            { href: "/events", label: "Events" },
             { href: "/mentor/bookings", label: "Bookings" },
             { href: "/messages", label: "Messages" },
             { href: "/mentor/earnings", label: "Earnings" },
@@ -46,8 +51,10 @@ export default function Navbar() {
           ? [
               { href: "/admin/dashboard", label: "Admin Dashboard" },
               { href: "/admin/users", label: "Users" },
-              { href: "/admin/experts", label: "SMEs" },
-              { href: "/admin/services", label: "Expertise Items" },
+              { href: "/admin/experts", label: "Mentors" },
+              { href: "/admin/services", label: "Services" },
+              { href: "/expert-talks", label: "Expert Talks" },
+              { href: "/events", label: "Events" },
               { href: "/admin/bookings", label: "Bookings" },
               { href: "/admin/payments", label: "Payments" },
               { href: "/admin/categories", label: "Categories" },
@@ -83,7 +90,7 @@ export default function Navbar() {
       ) : (
         <>
           <Link href="/login" onClick={() => setOpen(false)} className="text-sm font-semibold text-slate-600 hover:text-teal-700">Login</Link>
-          <Link href="/signup" onClick={() => setOpen(false)} className="btn-primary !px-5 !py-2.5">Get Started</Link>
+          <Link href="/signup" onClick={() => setOpen(false)} className="btn-primary !px-5 !py-2.5">Join</Link>
         </>
       )}
     </>
@@ -92,8 +99,8 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-red-100/80 bg-white/90 backdrop-blur-xl">
       <nav className="container-shell flex min-h-[72px] items-center justify-between py-3" aria-label="Main navigation">
-        <Link href={profile ? links[0].href : "/"} aria-label="Mentrix home" onClick={() => setOpen(false)}>
-          <Image src="/assets/mentrix-logo.png" alt="Mentrix Logo" width={1600} height={1600} priority className="h-12 w-auto object-contain" />
+        <Link href={profile ? links[0].href : "/"} aria-label="My Expert Talk home" onClick={() => setOpen(false)}>
+          <Image src="/my-expert-talk-logo.png" alt="My Expert Talk Logo" width={1600} height={1600} priority className="h-12 w-auto object-contain" />
         </Link>
         {loading ? (
           <span className="hidden items-center gap-2 text-sm font-semibold text-slate-400 lg:flex"><Loader2 size={16} className="animate-spin" /> Loading</span>

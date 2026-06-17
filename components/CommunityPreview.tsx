@@ -18,7 +18,7 @@ export default function CommunityPreview({ tracks }: { tracks: readonly string[]
           <SectionHeader
             eyebrow="Community learning"
             title="You’re Not Learning Alone"
-            description="Instant Mentor brings focused peer learning and professional guidance into the same trusted environment."
+            description="My Expert Talk brings focused peer learning and professional guidance into the same trusted environment."
           />
           <div className="flex flex-wrap gap-2">
             {tracks.slice(0, 8).map((track) => (

@@ -17,7 +17,7 @@ export default function CareerOutcomes() {
         <SectionHeader
           eyebrow="Career outcomes"
           title="Prepare for the moments that shape your career"
-          description="Mentorship is most valuable when it changes what you do next. These are the transformations Instant Mentor is designed to support, not guaranteed placement claims."
+          description="Mentorship is most valuable when it changes what you do next. These are the transformations My Expert Talk is designed to support, not guaranteed placement claims."
           centered
           inverted
         />

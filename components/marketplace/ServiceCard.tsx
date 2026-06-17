@@ -4,8 +4,8 @@ import { formatDeliveryMode, type ExpertService } from "@/lib/marketplace";
 
 export default function ServiceCard({ service }: { service: ExpertService }) {
   return (
-    <article className="card flex h-full flex-col overflow-hidden">
-      <div className="border-b border-slate-100 bg-gradient-to-br from-teal-50 to-blue-50 p-6">
+    <article className="card flex h-full flex-col overflow-hidden border-blue-100">
+      <div className="border-b border-slate-100 bg-gradient-to-br from-sky-50 to-orange-50 p-6">
         <div className="flex items-center justify-between gap-3">
           <span className="rounded-full bg-white px-3 py-1 text-xs font-bold text-teal-800">
             {service.category}
@@ -21,18 +21,18 @@ export default function ServiceCard({ service }: { service: ExpertService }) {
       <div className="flex flex-1 flex-col p-6">
         <div className="flex items-start gap-3">
           <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-teal-700 font-black text-white">
-            {(service.expert?.full_name ?? "S").slice(0, 1)}
+            {(service.expert?.full_name ?? "M").slice(0, 1)}
           </span>
           <div>
             <p className="flex items-center gap-1 font-bold text-ink">
-              {service.expert?.full_name ?? "Verified SME"} <BadgeCheck size={16} className="text-teal-600" />
+              {service.expert?.full_name ?? "Verified Mentor"} <BadgeCheck size={16} className="text-teal-600" />
             </p>
-            <p className="text-xs text-slate-500">{service.expert?.college_or_company ?? "Subject Matter Expert"}</p>
+            <p className="text-xs text-slate-500">{service.expert?.college_or_company ?? "Educator / Subject expert"}</p>
           </div>
         </div>
         <div className="mt-5 grid grid-cols-2 gap-3 rounded-2xl bg-slate-50 p-4 text-sm">
           <div>
-            <p className="text-xs font-bold uppercase tracking-wide text-slate-400">SME-set price</p>
+            <p className="text-xs font-bold uppercase tracking-wide text-slate-400">Price set by mentor</p>
             <p className="mt-1 text-xl font-black text-teal-800">₹{Number(service.price).toLocaleString("en-IN")}</p>
           </div>
           <div>
@@ -44,13 +44,13 @@ export default function ServiceCard({ service }: { service: ExpertService }) {
           </div>
         </div>
         <p className="mt-5 line-clamp-3 text-sm leading-6 text-slate-600">
-          <strong className="text-ink">What you get:</strong> {service.deliverables}
+          <strong className="text-ink">What students get:</strong> {service.deliverables}
         </p>
         <p className="mt-3 text-xs font-semibold text-slate-500">
-          Availability: {service.availability_notes ?? "Confirmed with the SME after booking request"}
+          Availability: {service.availability_notes ?? "Confirmed with the mentor after booking request"}
         </p>
         <Link href={`/services/${service.id}`} className="btn-primary mt-6 w-full">
-          View Expertise
+          Book Service
         </Link>
       </div>
     </article>

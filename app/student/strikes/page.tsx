@@ -14,7 +14,7 @@ export default async function StudentStrikesPage() {
         <DashboardHeader
           profile={profile}
           title="Booking Access & No-Show Strikes"
-          description="Mentrix protects SME time by tracking missed accepted sessions."
+          description="My Expert Talk protects mentor time by tracking missed accepted sessions."
         />
         <div className="card p-7">
           <AlertTriangle className={disabled ? "text-red-600" : "text-amber-600"} size={34} />
@@ -25,7 +25,7 @@ export default async function StudentStrikesPage() {
           </p>
           {disabled ? (
             <p className="mt-5 rounded-2xl bg-red-50 p-4 font-semibold text-red-800">
-              Your booking access is disabled. Contact support@mentrix.in to appeal.
+              Your booking access is disabled. Contact support@myexperttalk.com to appeal.
             </p>
           ) : (
             <p className="mt-5 rounded-2xl bg-teal-50 p-4 font-semibold text-teal-900">

@@ -12,34 +12,35 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://instant-mentor.verc
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Mentrix | Your Journey, Guided By Greatness",
-    template: "%s | Mentrix",
+    default: "My Expert Talk | Learn Directly From Experts",
+    template: "%s | My Expert Talk",
   },
   description:
-    "Mentrix helps students discover verified subject-matter experts, compare expertise menus, and book guided academic, career, and professional support.",
+    "My Expert Talk helps students and learners join expert talks, book mentor services, access recordings, and connect with verified educators and subject-matter experts.",
   keywords: [
-    "SME marketplace",
-    "subject matter experts India",
-    "student expert booking",
-    "academic SME guidance",
-    "book verified SMEs",
+    "expert talks",
+    "mentor services",
+    "student learning platform",
+    "academic support",
+    "career guidance",
+    "recorded learning sessions",
   ],
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     url: siteUrl,
-    siteName: "Mentrix",
-    title: "Your Journey, Guided By Greatness.",
+    siteName: "My Expert Talk",
+    title: "Learn directly from experts, mentors, and educators.",
     description:
-      "Discover verified SMEs, compare expertise menus, and book the guidance moment you need.",
-    images: [{ url: "/assets/mentrix-logo.png", alt: "Mentrix" }],
+      "Join live expert talks, explore mentor-led services, access recordings, and book guidance sessions.",
+    images: [{ url: "/my-expert-talk-logo.png", alt: "My Expert Talk" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Mentrix | Your Journey, Guided By Greatness",
+    title: "My Expert Talk | Expert talks and mentor services",
     description:
-      "Discover verified SMEs and book guided academic, career, and professional support.",
-    images: ["/assets/mentrix-logo.png"],
+      "Connect with verified experts for academic support, career guidance, skill development, and live learning sessions.",
+    images: ["/my-expert-talk-logo.png"],
   },
   robots: { index: true, follow: true },
 };
@@ -52,17 +53,17 @@ export default async function RootLayout({
     {
       "@context": "https://schema.org",
       "@type": "Organization",
-      name: "Mentrix",
+      name: "My Expert Talk",
       url: siteUrl,
-      logo: `${siteUrl}/assets/mentrix-logo.png`,
-      email: "support@mentrix.in",
+      logo: `${siteUrl}/my-expert-talk-logo.png`,
+      email: "support@myexperttalk.com",
       description:
-        "A premium marketplace where verified subject-matter experts offer bookable expertise to serious students.",
+        "An education and expert-service platform for students, mentors, institutions, and subject-matter experts.",
     },
     {
       "@context": "https://schema.org",
       "@type": "WebSite",
-      name: "Mentrix",
+      name: "My Expert Talk",
       url: siteUrl,
     },
   ];

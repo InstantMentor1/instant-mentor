@@ -12,7 +12,7 @@ export default function TrustStrip() {
   return (
     <section className="border-y border-slate-200 bg-white" aria-labelledby="trust-strip-title">
       <div className="container-shell py-7">
-        <h2 id="trust-strip-title" className="sr-only">Trust and safety at Instant Mentor</h2>
+        <h2 id="trust-strip-title" className="sr-only">Trust and safety at My Expert Talk</h2>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
           {trustPoints.map(({ label, icon: Icon }) => (
             <div key={label} className="flex items-center gap-3 text-sm font-bold text-slate-700">

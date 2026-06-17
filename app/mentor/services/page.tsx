@@ -4,7 +4,7 @@ import ServiceMenuActions from "@/components/marketplace/ServiceMenuActions";
 import { requireAuth } from "@/lib/auth";
 import { formatDeliveryMode, type ExpertService } from "@/lib/marketplace";
 
-export default async function ExpertServicesPage() {
+export default async function MentorServicesPage() {
   const { supabase, profile } = await requireAuth([
     "Mentor",
     "Faculty",
@@ -24,29 +24,29 @@ export default async function ExpertServicesPage() {
   });
 
   return (
-    <section className="bg-slate-50 py-10">
+    <section className="bg-sky-50 py-10">
       <div className="container-shell">
         <DashboardHeader
           profile={profile}
-          title="My Expertise Menu"
-          description="Create, price, publish, and manage the expertise items students can book."
+          title="My Services"
+          description="Create, price, publish, and manage the services students can book."
         />
 
         <div className="mb-7 flex items-center justify-between">
           <div>
-            <h2 className="text-2xl font-black">Your expertise items</h2>
+            <h2 className="text-2xl font-black">Your service menu</h2>
             <p className="mt-1 text-sm text-slate-600">
-              {services.length} expertise listings
+              {services.length} service listings
             </p>
           </div>
           <Link href="/mentor/services/new" className="btn-primary">
-            Create Expertise
+            Create Service
           </Link>
         </div>
 
         <div className="grid gap-5 lg:grid-cols-2">
           {services.map((service) => (
-            <article key={service.id} className="card p-6">
+            <article key={service.id} className="card border-blue-100 p-6">
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <span
@@ -101,16 +101,16 @@ export default async function ExpertServicesPage() {
         </div>
 
         {services.length === 0 && (
-          <div className="card p-10 text-center">
+          <div className="card border-blue-100 p-10 text-center">
             <h2 className="text-xl font-black">
-              Your expertise menu is empty.
+              Your service menu is empty.
             </h2>
             <p className="mt-2 text-slate-600">
-              Create a focused expertise item with a clear student outcome,
+              Create a focused mentor service with a clear student outcome,
               price, duration, and format.
             </p>
             <Link href="/mentor/services/new" className="btn-primary mt-6">
-              Create First Expertise Item
+              Create First Service
             </Link>
           </div>
         )}

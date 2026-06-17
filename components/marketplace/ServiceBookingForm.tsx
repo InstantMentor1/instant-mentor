@@ -87,11 +87,11 @@ export default function ServiceBookingForm({
         key: result.keyId,
         amount: result.amount,
         currency: result.currency,
-        name: "Mentrix",
+        name: "My Expert Talk",
         description: result.serviceName,
         order_id: result.orderId,
         prefill: result.customer,
-        theme: { color: "#087570" },
+        theme: { color: "#2563eb" },
         handler: async (payment: RazorpayResponse) => {
           const verification = await fetch("/api/service-bookings/verify", {
             method: "POST",
@@ -124,24 +124,24 @@ export default function ServiceBookingForm({
   return (
     <>
       <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="afterInteractive" />
-      <form onSubmit={handleSubmit} className="card space-y-5 p-6 sm:p-8">
-        <div className="rounded-2xl bg-teal-50 p-5">
+      <form onSubmit={handleSubmit} className="card space-y-5 border-blue-100 p-6 sm:p-8">
+        <div className="rounded-2xl bg-sky-50 p-5">
           <p className="text-sm font-bold text-teal-800">{title}</p>
           <p className="mt-1 text-3xl font-black text-teal-900">₹{price.toLocaleString("en-IN")}</p>
           <p className="mt-1 text-xs text-teal-800">
-            SME-set price · Mentrix commission {fee.commissionPercent}% · Estimated SME payout ₹{fee.smePayout.toLocaleString("en-IN")}
+            Mentor-set price · My Expert Talk fee {fee.commissionPercent}% · Estimated mentor payout ₹{fee.smePayout.toLocaleString("en-IN")}
           </p>
         </div>
         {error && <p role="alert" className="rounded-xl bg-red-50 p-4 text-sm font-semibold text-red-700">{error}</p>}
-        <Field label="What exact outcome do you want from this SME?">
-          <textarea required minLength={50} rows={5} className="form-input" value={formData.specific_goal} onChange={(event) => setFormData((current) => ({ ...current, specific_goal: event.target.value }))} placeholder="Example: I need my finance project reviewed for assumptions, structure, and presentation before submission." />
+        <Field label="What exact outcome do you want from this mentor?">
+          <textarea required minLength={50} rows={5} className="form-input" value={formData.specific_goal} onChange={(event) => setFormData((current) => ({ ...current, specific_goal: event.target.value }))} placeholder="Example: I need my project reviewed for assumptions, structure, and presentation before submission." />
         </Field>
         <Field label="What have you already tried?">
           <textarea required minLength={30} rows={4} className="form-input" value={formData.already_tried} onChange={(event) => setFormData((current) => ({ ...current, already_tried: event.target.value }))} placeholder="Share resources, attempts, drafts, blockers, or feedback you already received." />
         </Field>
         <div className="grid gap-5 sm:grid-cols-2">
           <Field label="Institution / program">
-            <input required className="form-input" value={formData.institution_program} onChange={(event) => setFormData((current) => ({ ...current, institution_program: event.target.value }))} placeholder="College, school, MBA, PhD, or program" />
+            <input required className="form-input" value={formData.institution_program} onChange={(event) => setFormData((current) => ({ ...current, institution_program: event.target.value }))} placeholder="College, school, MBA, exam prep, or program" />
           </Field>
           <Field label="Attachment link (optional)">
             <input type="url" className="form-input" value={formData.attachment_link} onChange={(event) => setFormData((current) => ({ ...current, attachment_link: event.target.value }))} placeholder="Drive, portfolio, document, project link" />

@@ -67,7 +67,7 @@ export default function RazorpayCheckout({
         key: order.keyId,
         amount: order.amount,
         currency: order.currency,
-        name: "Instant Mentor",
+        name: "My Expert Talk",
         description: order.productName,
         order_id: order.orderId,
         prefill: order.customer,

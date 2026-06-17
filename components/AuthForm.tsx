@@ -92,7 +92,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
             Account type
             <select className={fieldClass} name="role" value={role} onChange={(e) => setRole(e.target.value as "Student" | "Mentor")}>
               <option value="Student">Student</option>
-              <option value="Mentor">SME Partner</option>
+              <option value="Mentor">Mentor</option>
             </select>
           </label>
           {role === "Student" && (
@@ -125,7 +125,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
           </label>
           {role === "Mentor" && (
             <fieldset className="rounded-xl border border-slate-200 p-4 sm:col-span-2">
-              <legend className="px-2 text-sm font-bold text-slate-700">SME Expertise Areas</legend>
+              <legend className="px-2 text-sm font-bold text-slate-700">Mentor Expertise Areas</legend>
               <div className="mt-2 grid gap-2 sm:grid-cols-2">
                 {technicalTracks.map((track) => (
                   <label key={track} className="flex items-center gap-2 text-sm text-slate-700">

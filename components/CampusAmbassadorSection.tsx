@@ -3,7 +3,7 @@ import { ArrowRight, Award, BadgeCheck, Gift, Megaphone, Network } from "lucide-
 
 const benefits = [
   { title: "Leadership Experience", text: "Represent a student-focused product and coordinate useful campus activity.", icon: Megaphone },
-  { title: "Networking", text: "Build relationships with motivated students, mentors, and the Instant Mentor team.", icon: Network },
+  { title: "Networking", text: "Build relationships with motivated students, mentors, and the My Expert Talk team.", icon: Network },
   { title: "Referral Rewards", text: "Access rewards when a published ambassador campaign is active.", icon: Gift },
   { title: "Certificates", text: "Receive recognition after completing verified ambassador contributions.", icon: Award },
   { title: "Founder Access", text: "Share campus feedback directly with the founding team during selected reviews.", icon: BadgeCheck },
@@ -22,7 +22,7 @@ export default function CampusAmbassadorSection() {
             Bring practical mentorship to your campus
           </h2>
           <p className="mt-4 leading-7 text-slate-600">
-            Help students discover verified mentors, focused webinars, and better career conversations. Ambassador responsibilities and benefits are shared transparently during selection.
+            Help students discover verified mentors, focused Expert Talks, and better career conversations. Ambassador responsibilities and benefits are shared transparently during selection.
           </p>
           <Link href={emailHref} className="btn-primary mt-7">
             Become a Campus Ambassador <ArrowRight size={17} />

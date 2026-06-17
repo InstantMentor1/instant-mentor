@@ -124,7 +124,7 @@ export async function POST(request: Request) {
     if (existingSignup) {
       console.info("Duplicate waitlist signup blocked:", { email: input.email });
       return NextResponse.json(
-        { error: "This email has already joined the Instant Mentor waitlist." },
+        { error: "This email has already joined the My Expert Talk waitlist." },
         { status: 409 },
       );
     }

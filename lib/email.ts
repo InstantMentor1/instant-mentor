@@ -47,18 +47,18 @@ export async function sendAccountSignupEmails(user: {
   const messages = [
     sendGmailEmail({
       to: user.email,
-      subject: "Welcome to Instant Mentor",
+      subject: "Welcome to My Expert Talk",
       html: emailShell(`
         <p>Hi ${escapeHtml(user.fullName)},</p>
-        <p>Welcome to Instant Mentor.</p>
-        <p>Your Instant Mentor account has been created successfully.</p>
+        <p>Welcome to My Expert Talk.</p>
+        <p>Your My Expert Talk account has been created successfully.</p>
         <p><strong>Login Details:</strong></p>
         <p><strong>Registered Email:</strong> ${escapeHtml(user.email)}</p>
         <p><strong>Role:</strong> ${escapeHtml(user.role)}</p>
         <p><strong>Login Link:</strong> <a href="${escapeHtml(loginLink)}">${escapeHtml(loginLink)}</a></p>
         <p><strong>Dashboard:</strong> <a href="${escapeHtml(dashboardLink)}">${escapeHtml(dashboardLink)}</a></p>
         <p>For security reasons, we do not send or store your password in email. Please use the password you created during signup to log in.</p>
-        <p>Regards,<br><strong>Team Instant Mentor</strong></p>
+        <p>Regards,<br><strong>Team My Expert Talk</strong></p>
       `),
     }),
   ];
@@ -67,7 +67,7 @@ export async function sendAccountSignupEmails(user: {
     messages.push(
       sendGmailEmail({
         to: adminEmail,
-        subject: "New Instant Mentor account",
+        subject: "New My Expert Talk account",
         html: emailShell(`
           <p>A new platform account was created.</p>
           <p><strong>Name:</strong> ${escapeHtml(user.fullName)}</p>
@@ -103,7 +103,7 @@ function createGmailTransporter() {
         pass: password,
       },
     }),
-    from: `"Instant Mentor" <${user}>`,
+    from: `"My Expert Talk" <${user}>`,
   };
 }
 
@@ -119,15 +119,15 @@ export async function sendGmailEmail(message: {
 export function sendWaitlistConfirmationEmail(user: WaitlistEmailUser) {
   return sendGmailEmail({
     to: user.email,
-    subject: "Welcome to the Instant Mentor Waitlist",
+    subject: "Welcome to the My Expert Talk Waitlist",
     html: emailShell(`
       <p>Hi ${escapeHtml(user.fullName)},</p>
-      <p>Thank you for joining the Instant Mentor waitlist.</p>
+      <p>Thank you for joining the My Expert Talk waitlist.</p>
       <p>Your request has been submitted successfully.</p>
-      <p>Instant Mentor is India's verified student mentorship and doubt-clearing platform where students connect with faculty and industry experts for doubts, webinars, and career guidance.</p>
+      <p>My Expert Talk is India's verified student mentorship and doubt-clearing platform where students connect with faculty and industry experts for doubts, webinars, and career guidance.</p>
       <p>Your current verification status is: <strong>${escapeHtml(user.verificationStatus)}</strong>.</p>
       <p>We'll contact you soon with the next steps.</p>
-      <p>Regards,<br><strong>Team Instant Mentor</strong></p>
+      <p>Regards,<br><strong>Team My Expert Talk</strong></p>
     `),
   });
 }
@@ -138,7 +138,7 @@ export function sendAdminNotificationEmail(user: WaitlistEmailUser) {
 
   return sendGmailEmail({
     to: adminEmail,
-    subject: "New Instant Mentor Waitlist Signup",
+    subject: "New My Expert Talk Waitlist Signup",
     html: emailShell(`
       <p>New waitlist signup received.</p>
       <p><strong>Name:</strong> ${escapeHtml(user.fullName)}</p>
@@ -158,15 +158,15 @@ export function sendAdminNotificationEmail(user: WaitlistEmailUser) {
 export function sendVerificationEmail(user: WaitlistEmailUser, verificationLink: string) {
   return sendGmailEmail({
     to: user.email,
-    subject: "Verify your Instant Mentor email",
+    subject: "Verify your My Expert Talk email",
     html: emailShell(`
       <p>Hi ${escapeHtml(user.fullName)},</p>
-      <p>Please verify your email to continue your Instant Mentor verification process.</p>
+      <p>Please verify your email to continue your My Expert Talk verification process.</p>
       <p style="margin:28px 0">
         <a href="${escapeHtml(verificationLink)}" style="background:#006460;color:#fff;text-decoration:none;padding:12px 20px;border-radius:999px;font-weight:bold">Verify email</a>
       </p>
       <p>If the button does not work, open this link:<br>${escapeHtml(verificationLink)}</p>
-      <p>Regards,<br><strong>Team Instant Mentor</strong></p>
+      <p>Regards,<br><strong>Team My Expert Talk</strong></p>
     `),
   });
 }

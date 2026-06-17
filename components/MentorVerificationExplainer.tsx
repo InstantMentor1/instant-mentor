@@ -6,7 +6,7 @@ const steps = [
   { title: "LinkedIn Evidence", text: "Professional profile links are reviewed when supplied by the applicant.", icon: Linkedin },
   { title: "Experience Reviewed", text: "The team reviews stated experience and whether it supports the chosen expertise areas.", icon: FileSearch },
   { title: "Organization Reviewed", text: "Company, faculty, or institutional context is checked as part of profile review.", icon: BriefcaseBusiness },
-  { title: "Profile Approved", text: "Only reviewed profiles receive a visible verified badge on Instant Mentor.", icon: BadgeCheck },
+  { title: "Profile Approved", text: "Only reviewed profiles receive a visible verified badge on My Expert Talk.", icon: BadgeCheck },
   { title: "Community Feedback", text: "Session feedback can inform ongoing quality review once verified session evidence exists.", icon: MessageSquareMore },
 ];
 

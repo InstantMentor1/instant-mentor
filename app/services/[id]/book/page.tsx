@@ -8,5 +8,5 @@ export default async function BookServicePage({ params }: { params: Promise<{ id
   const { id } = await params;
   const [{ profile }, service] = await Promise.all([requireAuth(["Student"]), getPublicService(id)]);
   if (!service) notFound();
-  return <section className="bg-slate-50 py-10"><div className="container-shell max-w-3xl"><DashboardHeader profile={profile} title="Book this SME expertise item" description="Share your goal clearly, choose your preferred slot, and continue through the secure test checkout." /><ServiceBookingForm serviceId={service.id} title={service.title} price={Number(service.price)} /></div></section>;
+  return <section className="bg-sky-50 py-10"><div className="container-shell max-w-3xl"><DashboardHeader profile={profile} title="Book this mentor service" description="Share your goal clearly, choose your preferred slot, and continue through the secure test checkout." /><ServiceBookingForm serviceId={service.id} title={service.title} price={Number(service.price)} /></div></section>;
 }

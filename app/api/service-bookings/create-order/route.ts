@@ -38,14 +38,14 @@ export async function POST(request: Request) {
   const admin = createSupabaseAdminClient();
   if ((auth.profile.account_status === "disabled") || (auth.profile.strikes ?? 0) >= 3) {
     return NextResponse.json(
-      { error: "Your booking access has been disabled due to 3 no-shows. Contact support@mentrix.in to appeal." },
+      { error: "Your booking access has been disabled due to 3 no-shows. Contact support@myexperttalk.com to appeal." },
       { status: 403 },
     );
   }
   const { data: service } = await admin.from("expert_services").select("*").eq("id", serviceId).eq("status", "active").maybeSingle();
   if (!service) return NextResponse.json({ error: "This service is unavailable." }, { status: 404 });
   if (Number(service.price) < 500) {
-    return NextResponse.json({ error: "This expertise item is below the Mentrix minimum price and cannot be booked." }, { status: 409 });
+    return NextResponse.json({ error: "This service is below the My Expert Talk minimum price and cannot be booked." }, { status: 409 });
   }
   const fee = calculatePlatformFee(Number(service.price));
 

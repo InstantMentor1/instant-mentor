@@ -15,7 +15,7 @@ export default function DashboardHeader({
       <div>
         <span className="text-xs font-bold uppercase tracking-[0.16em] text-teal-100">
           {["Mentor", "Faculty", "Institution"].includes(profile.role)
-            ? "SME Partner"
+            ? "Mentor"
             : profile.role === "Student"
               ? "Student"
               : profile.role as AppRole} workspace

@@ -28,20 +28,20 @@ export default function UpcomingWebinars({
     startDate: webinar.scheduledAt,
     eventAttendanceMode: "https://schema.org/OnlineEventAttendanceMode",
     eventStatus: "https://schema.org/EventScheduled",
-    location: { "@type": "VirtualLocation", url: "https://instant-mentor.vercel.app/webinars" },
-    organizer: { "@type": "Organization", name: "Instant Mentor", url: "https://instant-mentor.vercel.app" },
+    location: { "@type": "VirtualLocation", url: "https://myexperttalk.com/expert-talks" },
+    organizer: { "@type": "Organization", name: "My Expert Talk", url: "https://myexperttalk.com" },
     performer: { "@type": "Person", name: webinar.mentorName },
     offers: {
       "@type": "Offer",
       price: webinar.price,
       priceCurrency: "INR",
-      url: `https://instant-mentor.vercel.app/webinars/${webinar.id}`,
+      url: `https://myexperttalk.com/expert-talks/${webinar.id}`,
       availability: "https://schema.org/InStock",
     },
   }));
 
   return (
-    <section className="section-pad" aria-labelledby="upcoming-webinars-title">
+    <section className="section-pad" aria-labelledby="upcoming-expert-talks-title">
       {eventSchema.map((schema, index) => (
         <script
           key={webinars[index].id}
@@ -53,11 +53,11 @@ export default function UpcomingWebinars({
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <SectionHeader
             eyebrow="Live learning"
-            title="Upcoming mentor-led webinars"
-            description="Join focused 60-minute sessions led by mentors. Webinar access is paid, with plan-based pricing available to eligible students."
+            title="Upcoming mentor-led Expert Talks"
+            description="Join focused sessions led by verified mentors and educators."
           />
           <Link href={ctaHref} className="btn-secondary shrink-0">
-            View webinars <ArrowRight size={17} />
+            View Expert Talks <ArrowRight size={17} />
           </Link>
         </div>
 
@@ -95,7 +95,7 @@ export default function UpcomingWebinars({
                       <p className="text-xs font-semibold text-slate-500">Mentor-set price</p>
                       <p className="text-2xl font-black text-ink">₹{webinar.price}</p>
                     </div>
-                    <Link href={`/webinars/${webinar.id}`} className="btn-primary !px-5 !py-3">View details</Link>
+                    <Link href={`/expert-talks`} className="btn-primary !px-5 !py-3">View details</Link>
                   </div>
                 </div>
               </article>
@@ -104,11 +104,11 @@ export default function UpcomingWebinars({
         ) : (
           <div className="mt-10 rounded-3xl border border-dashed border-slate-300 bg-slate-50 p-8 text-center">
             <Presentation className="mx-auto text-teal-700" size={30} aria-hidden="true" />
-            <h3 className="mt-4 text-xl font-extrabold text-ink">No public webinars are scheduled right now</h3>
+            <h3 className="mt-4 text-xl font-extrabold text-ink">No public Expert Talks are scheduled right now</h3>
             <p className="mx-auto mt-2 max-w-xl text-slate-600">
-              New mentor-led webinars will appear here when they are announced. Create an account to access the webinar hub.
+              New mentor-led Expert Talks will appear here when they are announced. Create an account to access the Expert Talk hub.
             </p>
-            <Link href={ctaHref} className="btn-primary mt-6">Open Webinar Hub</Link>
+            <Link href={ctaHref} className="btn-primary mt-6">Open Expert Talk Hub</Link>
           </div>
         )}
       </div>

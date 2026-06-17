@@ -32,13 +32,13 @@ export async function sendSessionScheduledEmails(
   const sends = [
     sendGmailEmail({
       to: student.email,
-      subject: "Your Instant Mentor session has been scheduled",
-      html: `<p>Hi ${escape(student.full_name)},</p><p>Your Instant Mentor session has been scheduled.</p>${details(session, student, mentor)}<p>Please join on time and keep your doubt/topic ready.</p><p>Regards,<br>Team Instant Mentor</p>`,
+      subject: "Your My Expert Talk session has been scheduled",
+      html: `<p>Hi ${escape(student.full_name)},</p><p>Your My Expert Talk session has been scheduled.</p>${details(session, student, mentor)}<p>Please join on time and keep your doubt/topic ready.</p><p>Regards,<br>Team My Expert Talk</p>`,
     }),
     sendGmailEmail({
       to: mentor.email,
-      subject: "Instant Mentor session scheduled",
-      html: `<p>Hi ${escape(mentor.full_name)},</p><p>A session has been scheduled with a student.</p>${details(session, student, mentor)}<p>Please review the pre-session chat before joining.</p><p>Regards,<br>Team Instant Mentor</p>`,
+      subject: "My Expert Talk session scheduled",
+      html: `<p>Hi ${escape(mentor.full_name)},</p><p>A session has been scheduled with a student.</p>${details(session, student, mentor)}<p>Please review the pre-session chat before joining.</p><p>Regards,<br>Team My Expert Talk</p>`,
     }),
   ];
 
@@ -46,7 +46,7 @@ export async function sendSessionScheduledEmails(
     sends.push(
       sendGmailEmail({
         to: adminEmail,
-        subject: "New Instant Mentor session scheduled",
+        subject: "New My Expert Talk session scheduled",
         html: `<p>A session has been scheduled.</p>${details(session, student, mentor)}`,
       }),
     );
@@ -70,7 +70,7 @@ export function sendSessionAssignedEmail(session: SessionRequest, mentor: Person
   return sendGmailEmail({
     to: mentor.email,
     subject: "New session request assigned",
-    html: `<p>Hi ${escape(mentor.full_name)},</p><p>A new Instant Mentor session request has been assigned to you.</p><p><strong>Topic:</strong> ${escape(session.title)}</p><p><strong>Track:</strong> ${escape(session.technical_track)}</p><p>Sign in to review and respond.</p>`,
+    html: `<p>Hi ${escape(mentor.full_name)},</p><p>A new My Expert Talk session request has been assigned to you.</p><p><strong>Topic:</strong> ${escape(session.title)}</p><p><strong>Track:</strong> ${escape(session.technical_track)}</p><p>Sign in to review and respond.</p>`,
   });
 }
 
@@ -80,7 +80,7 @@ export function sendSessionRejectedEmail(
 ) {
   return sendGmailEmail({
     to: student.email,
-    subject: "Update on your Instant Mentor session request",
+    subject: "Update on your My Expert Talk session request",
     html: `<p>Hi ${escape(student.full_name)},</p><p>Your session request was not accepted.</p><p><strong>Topic:</strong> ${escape(session.title)}</p><p><strong>Reason:</strong> ${escape(session.rejection_reason ?? "The mentor was unavailable.")}</p><p>You can request another mentor or session from your dashboard.</p>`,
   });
 }
