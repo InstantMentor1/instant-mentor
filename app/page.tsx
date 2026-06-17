@@ -1,19 +1,7 @@
 import type { Metadata } from "next";
-import {
-  ExpertDiscoveryProblemSection,
-  ExpertMarketplaceCategoriesSection,
-  ExpertMarketplaceCTASection,
-  ExpertMarketplaceHeroSection,
-  ExpertMarketplaceHowItWorksSection,
-  ExpertPartnerSection,
-  ExpertServiceMarketplaceSolutionSection,
-  ExpertServiceMenuSection,
-  InstitutionExpertAccessSection,
-  WhyInstantMentorIsDifferentSection,
-} from "@/components/marketplace/HomeSections";
+import { MinimalLandingPage } from "@/components/marketplace/HomeSections";
 import { getAuthContext } from "@/lib/auth";
 import { dashboardForRole } from "@/lib/auth-shared";
-import { getPublicServices } from "@/lib/marketplace-data";
 
 export const metadata: Metadata = {
   title: "Learn Directly From Experts, Mentors, and Educators",
@@ -22,23 +10,12 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-  const [{ profile }, services] = await Promise.all([
-    getAuthContext(),
-    getPublicServices(),
-  ]);
+  const { profile } = await getAuthContext();
 
   return (
-    <>
-      <ExpertMarketplaceHeroSection dashboardHref={profile ? dashboardForRole(profile.role) : null} />
-      <ExpertDiscoveryProblemSection />
-      <ExpertServiceMarketplaceSolutionSection />
-      <ExpertMarketplaceHowItWorksSection />
-      <ExpertServiceMenuSection services={services.slice(0, 6)} />
-      <ExpertMarketplaceCategoriesSection />
-      <ExpertPartnerSection />
-      <WhyInstantMentorIsDifferentSection />
-      <InstitutionExpertAccessSection />
-      <ExpertMarketplaceCTASection />
-    </>
+    <MinimalLandingPage
+      dashboardHref={profile ? dashboardForRole(profile.role) : null}
+      role={profile?.role ?? null}
+    />
   );
 }

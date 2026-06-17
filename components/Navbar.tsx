@@ -76,43 +76,43 @@ export default function Navbar() {
           key={link.href}
           href={link.href}
           onClick={() => setOpen(false)}
-          className={`text-sm font-semibold transition hover:text-teal-700 ${
-            pathname === link.href ? "text-teal-700" : "text-slate-600"
+          className={`text-sm font-semibold transition hover:text-white ${
+            pathname === link.href ? "text-white" : "text-white/62"
           }`}
         >
           {link.label}
         </Link>
       ))}
       {profile ? (
-        <button type="button" onClick={logout} className="btn-secondary !px-4 !py-2.5">
+        <button type="button" onClick={logout} className="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2.5 text-sm font-black text-white transition hover:bg-white hover:text-black">
           <LogOut size={15} /> Logout
         </button>
       ) : (
         <>
-          <Link href="/login" onClick={() => setOpen(false)} className="text-sm font-semibold text-slate-600 hover:text-teal-700">Login</Link>
-          <Link href="/signup" onClick={() => setOpen(false)} className="btn-primary !px-5 !py-2.5">Join</Link>
+          <Link href="/login" onClick={() => setOpen(false)} className="text-sm font-semibold text-white/70 hover:text-white">Login</Link>
+          <Link href="/signup" onClick={() => setOpen(false)} className="rounded-full bg-white px-5 py-2.5 text-sm font-black text-black transition hover:-translate-y-0.5">Join</Link>
         </>
       )}
     </>
   );
 
   return (
-    <header className="sticky top-0 z-50 border-b border-red-100/80 bg-white/90 backdrop-blur-xl">
+    <header className="sticky top-0 z-50 border-b border-white/10 bg-black/92 backdrop-blur-xl">
       <nav className="container-shell flex min-h-[72px] items-center justify-between py-3" aria-label="Main navigation">
         <Link href={profile ? links[0].href : "/"} aria-label="My Expert Talk home" onClick={() => setOpen(false)}>
           <Image src="/my-expert-talk-logo.png" alt="My Expert Talk Logo" width={1600} height={1600} priority className="h-12 w-auto object-contain" />
         </Link>
         {loading ? (
-          <span className="hidden items-center gap-2 text-sm font-semibold text-slate-400 lg:flex"><Loader2 size={16} className="animate-spin" /> Loading</span>
+          <span className="hidden items-center gap-2 text-sm font-semibold text-white/50 lg:flex"><Loader2 size={16} className="animate-spin" /> Loading</span>
         ) : (
           <div className="hidden items-center gap-6 xl:flex">{navContent}</div>
         )}
-        <button type="button" disabled={loading} className="rounded-xl border border-slate-200 p-2 text-ink xl:hidden" aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} onClick={() => setOpen(!open)}>
+        <button type="button" disabled={loading} className="rounded-xl border border-white/15 p-2 text-white xl:hidden" aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} onClick={() => setOpen(!open)}>
           {loading ? <Loader2 size={23} className="animate-spin" /> : open ? <X size={23} /> : <Menu size={23} />}
         </button>
       </nav>
       {open && !loading && (
-        <div className="border-t border-slate-100 bg-white px-5 pb-6 pt-3 xl:hidden">
+        <div className="border-t border-white/10 bg-black px-5 pb-6 pt-3 xl:hidden">
           <div className="mx-auto flex max-w-7xl flex-col gap-4">{navContent}</div>
         </div>
       )}
