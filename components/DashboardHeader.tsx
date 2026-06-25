@@ -11,9 +11,9 @@ export default function DashboardHeader({
   description: string;
 }) {
   return (
-    <div className="mb-8 rounded-3xl bg-ink p-6 text-white sm:p-8">
+    <div className="mb-8 rounded-[2rem] border border-navy/10 bg-gradient-to-br from-navy to-[#183D78] p-6 text-white shadow-soft sm:p-8">
       <div>
-        <span className="text-xs font-bold uppercase tracking-[0.16em] text-teal-100">
+        <span className="text-xs font-bold uppercase tracking-[0.16em] text-orange-100">
           {["Mentor", "Faculty", "Institution"].includes(profile.role)
             ? "Expert"
             : profile.role === "Student"
@@ -21,7 +21,7 @@ export default function DashboardHeader({
               : profile.role as AppRole} workspace
         </span>
         <h1 className="mt-2 text-3xl font-black">{title}</h1>
-        <p className="mt-2 text-slate-300">{description}</p>
+        <p className="mt-2 text-blue-100">{description}</p>
       </div>
     </div>
   );

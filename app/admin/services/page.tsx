@@ -7,26 +7,26 @@ export default async function AdminServicesPage() {
   const { data } = await supabase.from("expert_services").select("*").order("created_at", { ascending: false });
   const services = data ?? [];
   return (
-    <section className="bg-sky-50 py-10">
+    <section className="bg-ivory py-10">
       <div className="container-shell">
-        <DashboardHeader profile={profile} title="Expert Services" description="Review active and inactive expert-created service menus." />
+        <DashboardHeader profile={profile} title="Mentor Services" description="Review active and inactive mentor-created service menus." />
         <div className="grid gap-5 lg:grid-cols-2">
           {services.map((service) => (
-            <article key={service.id} className="card border-blue-100 p-6">
+            <article key={service.id} className="card p-6">
               <div className="flex justify-between gap-4">
                 <div>
                   <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-bold capitalize">{service.status}</span>
                   <h2 className="mt-4 text-xl font-black">{service.title}</h2>
                   <p className="mt-1 text-sm text-slate-500">{service.category}</p>
                 </div>
-                <p className="text-2xl font-black text-teal-800">₹{Number(service.price).toLocaleString("en-IN")}</p>
+                <p className="text-2xl font-black text-navy">₹{Number(service.price).toLocaleString("en-IN")}</p>
               </div>
               <p className="mt-4 text-sm leading-6 text-slate-600">{service.description}</p>
-              <Link href={`/services/${service.id}`} className="mt-4 inline-block text-sm font-bold text-teal-700">Open public page -&gt;</Link>
+              <Link href={`/services/${service.id}`} className="mt-4 inline-block text-sm font-bold text-coral">Open public page -&gt;</Link>
             </article>
           ))}
         </div>
-        {services.length === 0 && <div className="card border-blue-100 p-10 text-center text-slate-600">No expert services have been created yet.</div>}
+        {services.length === 0 && <div className="card p-10 text-center text-slate-600">No mentor services have been created yet.</div>}
       </div>
     </section>
   );

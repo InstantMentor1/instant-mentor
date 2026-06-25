@@ -12,7 +12,7 @@ export default async function LoginPage() {
       <div className="container-shell">
         <div className="mb-8 text-center">
           <span className="eyebrow">Member access</span>
-          <h1 className="text-4xl font-black">Sign in to My Expert Talk</h1>
+          <h1 className="text-4xl font-black text-navy">Sign in to My Expert Talk</h1>
           <p className="mt-3 text-slate-600">Your dashboard, mentor bookings, messages, and meeting links stay private.</p>
         </div>
         <AuthForm mode="login" />

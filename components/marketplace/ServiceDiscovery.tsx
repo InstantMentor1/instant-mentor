@@ -43,11 +43,11 @@ export default function ServiceDiscovery({
   }, [category, search, services]);
 
   return (
-    <section className="bg-sky-50 py-10 sm:py-14">
+    <section className="bg-ivory py-10 sm:py-14">
       <div className="container-shell">
-        <div className="card grid gap-4 border-blue-100 p-5 md:grid-cols-[1fr_320px]">
+        <div className="card grid gap-4 p-5 md:grid-cols-[1fr_320px]">
           <label className="relative block">
-            <span className="sr-only">Search expert services</span>
+            <span className="sr-only">Search mentor services</span>
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={19} />
             <input
               value={search}
@@ -67,12 +67,12 @@ export default function ServiceDiscovery({
 
         <div className="mb-7 mt-8 flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
           <div>
-            <p className="text-sm font-bold uppercase tracking-wide text-teal-700">
-              {category || "All expert services"}
+            <p className="text-sm font-bold uppercase tracking-wide text-coral">
+              {category || "All mentor services"}
             </p>
             <h2 className="mt-1 text-3xl font-black">{filtered.length} services available</h2>
           </div>
-          <Link href="/for-mentors" className="text-sm font-bold text-teal-700">Create your expert service menu -&gt;</Link>
+          <Link href="/for-mentors" className="text-sm font-bold text-coral">Create your mentor service menu -&gt;</Link>
         </div>
 
         {filtered.length > 0 ? (
@@ -80,20 +80,20 @@ export default function ServiceDiscovery({
             {filtered.map((service) => <ServiceCard key={service.id} service={service} />)}
           </div>
         ) : (
-          <div className="card border-blue-100 p-10 text-center">
-            <Store className="mx-auto text-teal-700" size={36} />
+          <div className="card p-10 text-center">
+            <Store className="mx-auto text-coral" size={36} />
             <h2 className="mt-4 text-2xl font-black">
               {services.length === 0
-                ? "No expert services are live yet."
+                ? "No mentor services are live yet."
                 : "No services match your search."}
             </h2>
             <p className="mx-auto mt-3 max-w-2xl text-slate-600">
               {services.length === 0
-                ? "Verified experts can create services from the expert dashboard."
+                ? "Verified mentors can create services from the mentor dashboard."
                 : "Try another search term or browse all categories."}
             </p>
             {services.length === 0 ? (
-              <Link href="/for-mentors" className="btn-primary mt-6">Join as Expert</Link>
+              <Link href="/for-mentors" className="btn-primary mt-6">Join as Mentor</Link>
             ) : (
               <button type="button" onClick={() => { setCategory(""); setSearch(""); }} className="btn-secondary mt-6">Clear filters</button>
             )}

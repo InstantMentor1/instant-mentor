@@ -13,22 +13,22 @@ export default async function UserBookingsPage({ searchParams }: { searchParams:
   const bookings = (data ?? []).map((booking) => ({ ...booking, service: booking.expert_services })) as ServiceBooking[];
 
   return (
-    <section className="bg-sky-50 py-10">
+    <section className="bg-ivory py-10">
       <div className="container-shell">
         <DashboardHeader profile={profile} title="My Bookings" description="Track payment, mentor acceptance, scheduling, and completed services." />
-        {success === "1" && <p className="mb-6 rounded-2xl bg-teal-50 p-5 font-bold text-teal-900">Payment verified. Your booking request has been sent to the mentor.</p>}
+        {success === "1" && <p className="mb-6 rounded-2xl bg-skysoft p-5 font-bold text-navy">Payment verified. Your booking request has been sent to the mentor.</p>}
         <div className="grid gap-5 lg:grid-cols-2">
           {bookings.map((booking) => (
-            <article key={booking.id} className="card border-blue-100 p-6">
+            <article key={booking.id} className="card p-6">
               <div className="flex justify-between gap-3">
                 <div>
-                  <p className="text-xs font-bold uppercase tracking-wide text-teal-700">{booking.service?.category}</p>
+                  <p className="text-xs font-bold uppercase tracking-wide text-coral">{booking.service?.category}</p>
                   <h2 className="mt-2 text-xl font-black">{booking.service?.title ?? "Mentor service"}</h2>
                 </div>
                 <span className="h-fit rounded-full bg-slate-100 px-3 py-1 text-xs font-bold capitalize">{booking.status}</span>
               </div>
               <p className="mt-4 text-sm text-slate-600"><strong>Booking intent:</strong> {booking.requirement_details}</p>
-              <div className="mt-4 grid grid-cols-2 gap-3 rounded-2xl bg-sky-50 p-4 text-sm">
+              <div className="mt-4 grid grid-cols-2 gap-3 rounded-2xl bg-ivory p-4 text-sm">
                 <p><strong>Price</strong><br />₹{Number(booking.price).toLocaleString("en-IN")}</p>
                 <p><strong>Payment</strong><br /><span className="capitalize">{booking.payment_status}</span></p>
                 <p><strong>Preferred</strong><br />{booking.preferred_date} - {booking.preferred_time}</p>
@@ -39,7 +39,7 @@ export default async function UserBookingsPage({ searchParams }: { searchParams:
           ))}
         </div>
         {bookings.length === 0 && (
-          <div className="card border-blue-100 p-10 text-center">
+          <div className="card p-10 text-center">
             <h2 className="text-xl font-black">No bookings yet.</h2>
             <p className="mt-2 text-slate-600">Browse expert services and choose the exact learning outcome you need.</p>
             <Link href="/services" className="btn-primary mt-6">Explore Services</Link>

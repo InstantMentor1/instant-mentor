@@ -8,8 +8,44 @@ import { createSupabaseAdminClient } from "@/lib/supabase/server";
 
 const publicRoles: AppRole[] = ["Student", "Mentor"];
 
+function getSignupConfigError() {
+  const missing = [
+    ["NEXT_PUBLIC_SUPABASE_URL", process.env.NEXT_PUBLIC_SUPABASE_URL],
+    ["SUPABASE_SERVICE_ROLE_KEY", process.env.SUPABASE_SERVICE_ROLE_KEY],
+  ].filter(([, value]) => !value);
+
+  if (missing.length > 0) {
+    console.error("Signup configuration missing", {
+      missing: missing.map(([name]) => name),
+    });
+    return "Account creation is not configured. Please contact support.";
+  }
+
+  return null;
+}
+
+function isDuplicateAuthError(error: { message?: string } | null | undefined) {
+  const message = error?.message?.toLowerCase() ?? "";
+  return (
+    message.includes("already") ||
+    message.includes("duplicate") ||
+    message.includes("registered") ||
+    message.includes("unique")
+  );
+}
+
+function duplicateAccountResponse() {
+  return NextResponse.json(
+    { error: "An account with this email already exists. Please log in." },
+    { status: 409 },
+  );
+}
+
 export async function POST(request: Request) {
   try {
+    const configError = getSignupConfigError();
+    if (configError) return NextResponse.json({ error: configError }, { status: 500 });
+
     const body = (await request.json()) as Record<string, unknown>;
     const fullName = String(body.fullName ?? "").trim();
     const email = normalizeEmail(String(body.email ?? ""));
@@ -53,7 +89,7 @@ export async function POST(request: Request) {
       .eq("email", email)
       .maybeSingle();
     if (existing) {
-      return NextResponse.json({ error: "An account with this email already exists." }, { status: 409 });
+      return duplicateAccountResponse();
     }
 
     const { data, error } = await admin.auth.admin.createUser({
@@ -74,11 +110,103 @@ export async function POST(request: Request) {
 
     if (error || !data.user) {
       console.error("Account signup failed:", error);
-      const duplicate = error?.message.toLowerCase().includes("already");
+      if (isDuplicateAuthError(error)) return duplicateAccountResponse();
       return NextResponse.json(
-        { error: duplicate ? "An account with this email already exists." : "Unable to create your account right now." },
-        { status: duplicate ? 409 : 500 },
+        { error: "Account could not be created. Please check your details and try again." },
+        { status: 500 },
       );
+    }
+
+    let { data: profile, error: profileUpsertError } = await admin
+      .from("profiles")
+      .upsert(
+        {
+          user_id: data.user.id,
+          full_name: fullName,
+          email,
+          phone,
+          role,
+          college_or_company: collegeOrCompany,
+          technical_track: technicalTrack,
+          technical_tracks: [technicalTrack],
+          linkedin_or_portfolio: linkedinOrPortfolio || null,
+          email_verified: true,
+          verification_status: role === "Mentor" ? "pending" : "verified",
+          user_type: role === "Student" ? userType : null,
+          strikes: 0,
+          account_status: "active",
+        },
+        { onConflict: "user_id" },
+      )
+      .select("id")
+      .single();
+
+    if (profileUpsertError) {
+      console.error("Full profile upsert failed, retrying minimal profile upsert:", profileUpsertError);
+      const fallback = await admin
+        .from("profiles")
+        .upsert(
+          {
+            user_id: data.user.id,
+            full_name: fullName,
+            email,
+            phone,
+            role,
+            college_or_company: collegeOrCompany,
+            technical_track: technicalTrack,
+            linkedin_or_portfolio: linkedinOrPortfolio || null,
+          },
+          { onConflict: "user_id" },
+        )
+        .select("id")
+        .single();
+      profile = fallback.data;
+      profileUpsertError = fallback.error;
+    }
+
+    if (profileUpsertError || !profile) {
+      console.error("My Expert Talk profile creation failed:", profileUpsertError);
+      await admin.auth.admin.deleteUser(data.user.id).catch((deleteError) => {
+        console.error("Failed to roll back auth user after profile creation failure:", deleteError);
+      });
+      return NextResponse.json(
+        { error: "Account profile could not be created. Please try again or contact support." },
+        { status: 500 },
+      );
+    }
+
+    if (role === "Mentor") {
+      let { error: mentorProfileError } = await admin
+        .from("mentor_profiles")
+        .upsert(
+          {
+            user_id: data.user.id,
+            profile_id: profile.id,
+            expertise_areas: expertiseAreas,
+            expertise: expertiseAreas,
+            verification_status: "pending",
+          },
+          { onConflict: "user_id" },
+        );
+
+      if (mentorProfileError) {
+        console.error("Full mentor profile upsert failed, retrying minimal mentor profile upsert:", mentorProfileError);
+        const fallback = await admin
+          .from("mentor_profiles")
+          .upsert(
+            {
+              user_id: data.user.id,
+              expertise_areas: expertiseAreas,
+              verification_status: "pending",
+            },
+            { onConflict: "user_id" },
+          );
+        mentorProfileError = fallback.error;
+      }
+
+      if (mentorProfileError) {
+        console.error("My Expert Talk mentor profile creation failed:", mentorProfileError);
+      }
     }
 
     const { error: profileUpdateError } = await admin

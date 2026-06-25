@@ -24,7 +24,7 @@ export default async function MentorServicesPage() {
   });
 
   return (
-    <section className="bg-sky-50 py-10">
+    <section className="bg-ivory py-10">
       <div className="container-shell">
         <DashboardHeader
           profile={profile}
@@ -46,13 +46,13 @@ export default async function MentorServicesPage() {
 
         <div className="grid gap-5 lg:grid-cols-2">
           {services.map((service) => (
-            <article key={service.id} className="card border-blue-100 p-6">
+            <article key={service.id} className="card p-6">
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <span
                     className={`rounded-full px-3 py-1 text-xs font-bold ${
                       service.status === "active"
-                        ? "bg-teal-50 text-teal-800"
+                        ? "bg-skysoft text-navy"
                         : "bg-slate-100 text-slate-600"
                     }`}
                   >
@@ -63,7 +63,7 @@ export default async function MentorServicesPage() {
                     {service.category}
                   </p>
                 </div>
-                <p className="text-2xl font-black text-teal-800">
+                <p className="text-2xl font-black text-navy">
                   ₹{Number(service.price).toLocaleString("en-IN")}
                 </p>
               </div>
@@ -79,14 +79,14 @@ export default async function MentorServicesPage() {
               <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
                 <Link
                   href={`/services/${service.id}`}
-                  className="text-sm font-bold text-teal-700"
+                  className="text-sm font-bold text-coral"
                 >
                   View public page -&gt;
                 </Link>
                 <div className="flex items-center gap-3">
                   <Link
                     href={`/mentor/services/${service.id}/edit`}
-                    className="text-sm font-bold text-slate-700 hover:text-teal-700"
+                    className="text-sm font-bold text-slate-700 hover:text-coral"
                   >
                     Edit
                   </Link>
@@ -101,7 +101,7 @@ export default async function MentorServicesPage() {
         </div>
 
         {services.length === 0 && (
-          <div className="card border-blue-100 p-10 text-center">
+          <div className="card p-10 text-center">
             <h2 className="text-xl font-black">
               Your service menu is empty.
             </h2>

@@ -20,7 +20,7 @@ export default function PageHero({
     <section className="overflow-hidden bg-hero-glow">
       <div className="container-shell section-pad text-center">
         <span className="eyebrow">{eyebrow}</span>
-        <h1 className="mx-auto max-w-4xl text-4xl font-black tracking-tight text-ink sm:text-5xl lg:text-6xl">{title}</h1>
+        <h1 className="mx-auto max-w-4xl text-4xl font-black tracking-[-0.04em] text-navy sm:text-5xl lg:text-6xl">{title}</h1>
         <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-slate-600">{description}</p>
         <Link href={ctaHref} className="btn-primary mt-8">
           {ctaLabel} <ArrowRight size={17} />

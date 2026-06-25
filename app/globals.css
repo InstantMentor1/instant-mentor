@@ -11,8 +11,8 @@ html {
 }
 
 body {
-  color: #102a36;
-  background: #ffffff;
+  color: #172033;
+  background: #fff8f0;
 }
 
 ::selection {
@@ -36,27 +36,27 @@ body {
   }
 
   .section-pad {
-    @apply py-12 sm:py-14 lg:py-16;
+    @apply py-12 sm:py-16 lg:py-20;
   }
 
   .eyebrow {
-    @apply mb-3 inline-flex rounded-full border border-teal-100 bg-teal-50 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-teal-700;
+    @apply mb-3 inline-flex rounded-full border border-coral/20 bg-peach px-3 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-coral;
   }
 
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-full bg-teal-700 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-teal-900/10 transition hover:-translate-y-0.5 hover:bg-teal-800 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2;
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-coral px-5 py-3 text-sm font-bold text-white shadow-lg shadow-coral/20 transition hover:-translate-y-0.5 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-coral focus:ring-offset-2;
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-bold text-ink transition hover:-translate-y-0.5 hover:border-teal-600 hover:text-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2;
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-navy/15 bg-white px-5 py-3 text-sm font-bold text-navy transition hover:-translate-y-0.5 hover:border-academic hover:text-academic focus:outline-none focus:ring-2 focus:ring-academic focus:ring-offset-2;
   }
 
   .card {
-    @apply rounded-2xl border border-slate-200 bg-white shadow-soft;
+    @apply rounded-3xl border border-navy/10 bg-white shadow-soft;
   }
 
   .form-input {
-    @apply w-full rounded-2xl border border-slate-300 bg-white px-4 py-3 text-sm text-ink outline-none transition placeholder:text-slate-400 focus:border-teal-600 focus:ring-2 focus:ring-teal-100;
+    @apply w-full rounded-2xl border border-navy/15 bg-white px-4 py-3 text-sm text-ink outline-none transition placeholder:text-slate-400 focus:border-academic focus:ring-2 focus:ring-skysoft;
   }
 }
 

@@ -18,24 +18,24 @@ export default function ForExpertsPage() {
         eyebrow="For experts"
         title="Share your expertise with learners."
         description="Create your profile, list services, host expert talks, upload recordings, manage bookings, and earn through expert-led learning."
-        ctaLabel="Join as Expert"
+        ctaLabel="Join as Mentor"
         ctaHref="/signup"
       />
-      <section className="section-pad bg-sky-50">
+      <section className="section-pad bg-ivory">
         <div className="container-shell grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {benefits.map(({ title, text, icon: Icon }) => (
-            <article key={title} className="card border-blue-100 p-6">
-              <Icon className="text-teal-700" size={28} />
+            <article key={title} className="card p-6">
+              <Icon className="text-coral" size={28} />
               <h2 className="mt-5 text-xl font-black">{title}</h2>
               <p className="mt-3 text-sm leading-7 text-slate-600">{text}</p>
             </article>
           ))}
         </div>
         <div className="container-shell mt-8">
-          <div className="card border-blue-100 p-7 text-center">
+          <div className="card p-7 text-center">
             <h2 className="text-2xl font-black">Ready to start as an expert?</h2>
             <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-slate-600">Create your expert account, complete your profile, and publish your first service or expert talk.</p>
-            <Link href="/signup" className="btn-primary mt-6">Join as Expert</Link>
+            <Link href="/signup" className="btn-primary mt-6">Join as Mentor</Link>
           </div>
         </div>
       </section>

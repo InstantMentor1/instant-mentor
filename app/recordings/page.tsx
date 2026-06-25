@@ -20,8 +20,8 @@ export default function RecordingsPage() {
       <section className="section-pad bg-white">
         <div className="container-shell grid gap-5 md:grid-cols-3">
           {recordings.map(([title, text, Icon]) => (
-            <article key={title} className="card border-blue-100 p-6">
-              <Icon className="text-teal-700" />
+            <article key={title} className="card p-6">
+              <Icon className="text-coral" />
               <h2 className="mt-4 text-xl font-black">{title}</h2>
               <p className="mt-2 text-sm leading-6 text-slate-600">{text}</p>
             </article>

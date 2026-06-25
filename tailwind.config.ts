@@ -8,24 +8,30 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        ink: "#123047",
+        ink: "#172033",
+        navy: "#102A56",
+        academic: "#2563EB",
+        coral: "#F15A3B",
+        ivory: "#FFF8F0",
+        peach: "#FFF0E8",
+        skysoft: "#EAF3FF",
         teal: {
-          50: "#eff8ff",
-          100: "#d9efff",
-          500: "#2aa7df",
-          600: "#138fc8",
-          700: "#0879ad",
-          800: "#0b5e86",
-          900: "#0f4967",
+          50: "#EAF3FF",
+          100: "#D8E9FF",
+          500: "#2563EB",
+          600: "#1D4ED8",
+          700: "#102A56",
+          800: "#0B2147",
+          900: "#071A38",
         },
-        mentorblue: "#f07a2a",
+        mentorblue: "#F15A3B",
       },
       boxShadow: {
-        soft: "0 20px 50px -24px rgba(19, 143, 200, 0.24)",
+        soft: "0 18px 42px -24px rgba(16, 42, 86, 0.28)",
       },
       backgroundImage: {
         "hero-glow":
-          "radial-gradient(circle at 80% 18%, rgba(240,122,42,.20), transparent 30%), radial-gradient(circle at 12% 12%, rgba(42,167,223,.18), transparent 28%), linear-gradient(180deg, #ffffff 0%, #eff8ff 100%)",
+          "radial-gradient(circle at 80% 18%, rgba(241,90,59,.16), transparent 30%), radial-gradient(circle at 12% 12%, rgba(37,99,235,.14), transparent 28%), linear-gradient(180deg, #FFF8F0 0%, #ffffff 58%, #EAF3FF 100%)",
       },
     },
   },

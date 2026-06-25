@@ -18,7 +18,7 @@ export default async function MentorDashboard() {
     .reduce((total, booking) => total + calculatePlatformFee(Number(booking.price)).smePayout, 0);
 
   return (
-    <section className="bg-sky-50 py-10">
+    <section className="bg-ivory py-10">
       <div className="container-shell">
         <DashboardHeader
           profile={profile}
@@ -34,8 +34,8 @@ export default async function MentorDashboard() {
             { label: "Earnings", value: `₹${paidPayout.toLocaleString("en-IN")}`, icon: Banknote },
             { label: "Reviews", value: reviews?.length ?? 0, icon: Star },
           ].map(({ label, value, icon: Icon }) => (
-            <div key={label} className="card border-blue-100 p-5">
-              <Icon className="text-teal-700" />
+            <div key={label} className="card p-5">
+              <Icon className="text-coral" />
               <p className="mt-4 text-xs font-bold uppercase text-slate-500">{label}</p>
               <p className="mt-1 text-xl font-black capitalize">{value}</p>
             </div>
@@ -53,17 +53,17 @@ export default async function MentorDashboard() {
             <h2 className="text-2xl font-black">Recent services</h2>
             <div className="mt-5 space-y-3">
               {menu.slice(0, 4).map((service) => (
-                <article key={service.id} className="card flex items-center justify-between gap-4 border-blue-100 p-5">
+                <article key={service.id} className="card flex items-center justify-between gap-4 p-5">
                   <div>
                     <h3 className="font-black">{service.title}</h3>
                     <p className="mt-1 text-xs text-slate-500">{service.category} - <span className="capitalize">{service.status}</span></p>
                   </div>
-                  <p className="font-black text-teal-800">₹{Number(service.price).toLocaleString("en-IN")}</p>
+                  <p className="font-black text-navy">₹{Number(service.price).toLocaleString("en-IN")}</p>
                 </article>
               ))}
               {menu.length === 0 && (
-                <div className="card border-blue-100 p-5">
-                  <CheckCircle2 className="text-teal-700" />
+                <div className="card p-5">
+                  <CheckCircle2 className="text-coral" />
                   <p className="mt-3 font-bold">Create your first expert service to start receiving bookings.</p>
                 </div>
               )}
@@ -73,17 +73,17 @@ export default async function MentorDashboard() {
             <h2 className="text-2xl font-black">Recent bookings</h2>
             <div className="mt-5 space-y-3">
               {requests.slice(0, 4).map((booking) => (
-                <article key={booking.id} className="card flex items-center justify-between gap-4 border-blue-100 p-5">
+                <article key={booking.id} className="card flex items-center justify-between gap-4 p-5">
                   <div>
                     <h3 className="font-black">{booking.user_goal}</h3>
                     <p className="mt-1 text-xs text-slate-500 capitalize">{booking.status} - {booking.payment_status}</p>
                   </div>
-                  <p className="font-black text-teal-800">₹{Number(booking.price).toLocaleString("en-IN")}</p>
+                  <p className="font-black text-navy">₹{Number(booking.price).toLocaleString("en-IN")}</p>
                 </article>
               ))}
               {requests.length === 0 && (
-                <div className="card border-blue-100 p-5">
-                  <CheckCircle2 className="text-teal-700" />
+                <div className="card p-5">
+                  <CheckCircle2 className="text-coral" />
                   <p className="mt-3 font-bold">Bookings will appear here after students choose your services.</p>
                 </div>
               )}

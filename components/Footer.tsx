@@ -5,21 +5,22 @@ import { Mail, MapPin } from "lucide-react";
 const quickLinks = [
   ["Home", "/"],
   ["Expert Talks", "/expert-talks"],
-  ["Services", "/services"],
+  ["Mentor Services", "/services"],
   ["Recordings", "/recordings"],
-  ["Experts", "/mentors"],
+  ["Mentors", "/mentors"],
   ["Events", "/events"],
   ["Contact", "/contact"],
 ] as const;
 
 const joinLinks = [
   ["Join as Student", "/signup"],
-  ["Join as Expert", "/for-mentors"],
+  ["Join as Mentor", "/for-mentors"],
+  ["Join as Institution", "/contact"],
 ] as const;
 
 export default function Footer() {
   return (
-    <footer className="bg-ink text-white">
+    <footer className="bg-navy text-white">
       <div className="container-shell grid gap-10 py-14 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
         <div>
           <Image
@@ -30,8 +31,7 @@ export default function Footer() {
             className="mb-5 h-16 w-auto rounded-xl bg-white object-contain"
           />
           <p className="max-w-sm text-sm leading-6 text-slate-300">
-            My Expert Talk is an education and expert-service platform for
-            students, experts, and subject-matter mentors.
+            My Expert Talk is an education and expert-service platform for students, mentors, institutions, and subject-matter experts.
           </p>
         </div>
         <div>

@@ -1,4 +1,4 @@
-import {
+﻿import {
   BadgeCheck,
   BarChart3,
   BookOpenCheck,
@@ -18,13 +18,13 @@ import { technicalTracks as domainNames } from "@/lib/constants";
 
 export const features = [
   { title: "Verified student access", text: "A focused learning network built around trust and real student identities.", icon: BadgeCheck },
-  { title: "Domain-wise doubt rooms", text: "Ask specific questions where the right mentors and peers can respond.", icon: MessageCircleQuestion },
+  { title: "Mentor service menus", text: "Book focused mentor services with clear outcomes, availability, and pricing.", icon: MessageCircleQuestion },
   { title: "Live Expert Talks", text: "Learn practical topics through interactive sessions, not passive recordings.", icon: Presentation },
   { title: "Faculty and industry mentors", text: "Get perspectives from educators and professionals doing the work.", icon: GraduationCap },
   { title: "Career guidance", text: "Move from uncertainty to a practical plan for internships, jobs, and growth.", icon: Compass },
   { title: "Community learning", text: "Learn with ambitious students who share your goals and domain.", icon: Users },
-  { title: "Monthly subscription pass", text: "Access ongoing guidance through one simple, affordable membership.", icon: WalletCards },
-  { title: "Mentor earnings dashboard", text: "Track sessions, student impact, and earnings in one place.", icon: BarChart3 },
+  { title: "Service-based learning", text: "Choose the exact talk, recording, or mentor service you need next.", icon: WalletCards },
+  { title: "Mentor earnings dashboard", text: "Track services, student impact, and earnings in one place.", icon: BarChart3 },
 ];
 
 const domainIcons = {
@@ -47,75 +47,58 @@ export const domains = domainNames.map((name) => ({
 
 export const plans = [
   {
-    name: "Early Access Confirmation",
-    price: "₹1",
-    suffix: " one-time",
-    description: "Confirm interest and unlock dashboard exploration. Mentor sessions are not included.",
+    name: "Expert Talks",
+    price: "Live",
+    suffix: " sessions",
+    description: "Join live education sessions hosted by mentors, educators, and subject experts.",
     features: [
-      "Explore mentors and Expert Talks",
-      "View session plans",
-      "Does not include a mentor session",
+      "Career, academic, and skill sessions",
+      "Online event-style learning",
+      "Recordings when available",
     ],
   },
   {
-    name: "Single Session",
-    price: "₹69",
-    suffix: "/session",
-    description: "Best for: Trying My Expert Talk once",
+    name: "Mentor Services",
+    price: "Mentor-set",
+    suffix: " pricing",
+    description: "Book outcome-focused 1:1 services created and priced by mentors.",
     features: [
-      "One mentor guidance session",
-      "Pre-session chat access",
-      "Mentor acceptance based on expertise",
+      "Resume reviews, mock interviews, project reviews",
+      "Duration and deliverables shown upfront",
+      "Availability confirmed before delivery",
     ],
   },
   {
-    name: "Launch Offer",
-    price: "₹299",
-    suffix: "/month",
-    description: "Billed as ₹1,794 for 6 months. Best for: Early students starting with mentor support",
+    name: "Recordings",
+    price: "On demand",
+    suffix: " learning",
+    description: "Access recorded expert talks, past learning sessions, and useful materials.",
     popular: true,
     features: [
-      "5 mentor guidance sessions/month",
-      "Pre-session chat access",
-      "Mentor-reviewed requests",
-      "Community access",
+      "Recorded expert sessions",
+      "Skill resources",
+      "Session materials",
     ],
   },
   {
-    name: "Regular Plan",
-    price: "₹399",
-    suffix: "/month",
-    description: "Best for: Consistent monthly mentor access",
+    name: "Institution Programs",
+    price: "Custom",
+    suffix: " programs",
+    description: "Bring expert talks, mentor services, and guided learning programs to students at scale.",
     features: [
-      "5 mentor guidance sessions/month",
-      "Pre-session chat access",
-      "Mentor-reviewed requests",
-      "Community access",
-      "Selected Expert Talks at ₹99",
-    ],
-  },
-  {
-    name: "Premium Plan",
-    price: "₹999",
-    suffix: "/month",
-    description: "Best for: Career-focused students",
-    features: [
-      "10 mentor guidance sessions/month",
-      "Any Expert Talk at ₹79",
-      "Resume/interview support",
-      "Career roadmap support",
-      "Priority mentor access",
-      "Pre-session chat access",
+      "College or school programs",
+      "Placement and academic support",
+      "Expert-led learning drives",
     ],
   },
 ];
 
 export const faqs = [
-  { question: "How does mentorship work?", answer: "Create an eligible student account, choose a plan or single session, submit a focused request, and wait for a mentor whose expertise fits the topic to review it." },
-  { question: "Is the first session free?", answer: "No. The ₹1 payment confirms early-access interest and does not include a mentor session. The lowest-cost session option is a ₹69 single mentor guidance session." },
+  { question: "How does mentorship work?", answer: "Create an account, explore expert talks or mentor services, choose the support you need, and book a mentor-created service with clear outcomes." },
+  { question: "Are mentor service prices fixed by My Expert Talk?", answer: "No. Mentor services use mentor-set pricing based on duration, outcome, availability, and deliverables." },
   { question: "How are mentors verified?", answer: "The My Expert Talk team reviews professional identity, relevant experience, expertise areas, and available professional profile evidence before marking a mentor as verified." },
-  { question: "Who can join?", answer: "Engineering students, placement aspirants, fresh graduates, early-career professionals with eligible institutional accounts, and experienced professional or faculty mentors can apply." },
-  { question: "How do subscriptions work?", answer: "Monthly plans provide a defined number of booking access and plan-specific Expert Talk pricing. The Launch Offer has a minimum six-month purchase; Single Session is purchased separately." },
-  { question: "Can I switch mentors?", answer: "Session requests are matched and accepted based on mentor expertise. If a request is not a fit, it can be reviewed for another suitable mentor rather than forcing an unsuitable match." },
+  { question: "Who can join?", answer: "Students, placement aspirants, fresh graduates, early-career professionals, mentors, educators, experts, and institutions can use My Expert Talk." },
+  { question: "How do bookings work?", answer: "Students choose a mentor service, share context, pick a preferred slot, and complete the booking flow. The mentor can then manage the request from the dashboard." },
+  { question: "Can I switch mentors?", answer: "You can browse mentor profiles and services before booking. If a service is not a fit, you can choose another mentor-created service." },
   { question: "What domains are available?", answer: "Current tracks include Full Stack Development, AI and Machine Learning, Data Analytics, Cloud and DevOps, Cybersecurity, UI/UX, core engineering, placement preparation, resume support, and career roadmaps." },
 ];

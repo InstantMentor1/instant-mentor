@@ -12,7 +12,7 @@ export default function ContactPage() {
       />
       <section className="section-pad bg-white">
         <div className="container-shell max-w-3xl">
-          <form className="card grid gap-5 border-blue-100 p-6 sm:grid-cols-2">
+          <form className="card grid gap-5 p-6 sm:grid-cols-2">
             <input className="form-input" placeholder="Full name" aria-label="Full name" />
             <input className="form-input" type="email" placeholder="Email" aria-label="Email" />
             <input className="form-input sm:col-span-2" placeholder="Subject" aria-label="Subject" />

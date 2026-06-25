@@ -12,7 +12,7 @@ type AuthFormProps = {
 };
 
 const fieldClass =
-  "mt-2 w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none focus:border-teal-600 focus:ring-4 focus:ring-teal-100";
+  "mt-2 w-full rounded-2xl border border-navy/15 bg-white px-4 py-3 text-sm outline-none focus:border-academic focus:ring-4 focus:ring-skysoft";
 
 export default function AuthForm({ mode }: AuthFormProps) {
   const searchParams = useSearchParams();
@@ -92,7 +92,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
             Account type
             <select className={fieldClass} name="role" value={role} onChange={(e) => setRole(e.target.value as "Student" | "Mentor")}>
               <option value="Student">Student</option>
-              <option value="Mentor">Expert</option>
+              <option value="Mentor">Mentor</option>
             </select>
           </label>
           {role === "Student" && (
@@ -158,7 +158,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
           <AlertCircle size={18} className="shrink-0" /> {error}
         </div>
       )}
-      {message && <div className="rounded-xl border border-teal-200 bg-teal-50 p-4 text-sm text-teal-800 sm:col-span-2">{message}</div>}
+      {message && <div className="rounded-xl border border-academic/20 bg-skysoft p-4 text-sm text-navy sm:col-span-2">{message}</div>}
 
       <button className="btn-primary sm:col-span-2" disabled={loading}>
         {loading && <Loader2 size={17} className="animate-spin" />}
@@ -166,7 +166,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
       </button>
       <p className="text-center text-sm text-slate-600 sm:col-span-2">
         {mode === "login" ? "Need an account?" : "Already registered?"}{" "}
-        <Link className="font-bold text-teal-700" href={mode === "login" ? "/signup" : "/login"}>
+        <Link className="font-bold text-coral" href={mode === "login" ? "/signup" : "/login"}>
           {mode === "login" ? "Sign up" : "Sign in"}
         </Link>
       </p>

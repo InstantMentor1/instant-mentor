@@ -17,18 +17,18 @@ export default function ExpertTalksPage() {
         eyebrow="Expert talks"
         title="Talk with experts across subjects, careers, and skills."
         description="Explore live and upcoming expert-led learning sessions for students and lifelong learners."
-        ctaLabel="Join as Expert"
+        ctaLabel="Join as Mentor"
         ctaHref="/for-mentors"
       />
-      <section className="section-pad bg-sky-50">
+      <section className="section-pad bg-ivory">
         <div className="container-shell grid gap-5 md:grid-cols-2 xl:grid-cols-3">
           {talks.map(([title, speaker, category, time]) => (
-            <article key={title} className="card border-blue-100 p-6">
+            <article key={title} className="card p-6">
               <Mic2 className="text-orange-500" />
               <span className="mt-4 inline-flex rounded-full bg-orange-50 px-3 py-1 text-xs font-bold text-orange-700">{category}</span>
               <h2 className="mt-4 text-xl font-black">{title}</h2>
               <p className="mt-2 text-sm text-slate-600">{speaker}</p>
-              <p className="mt-4 flex items-center gap-2 text-sm font-bold"><CalendarDays size={16} className="text-teal-700" /> {time} · Live / Online</p>
+              <p className="mt-4 flex items-center gap-2 text-sm font-bold"><CalendarDays size={16} className="text-coral" /> {time} - Live / Online</p>
               <button className="btn-secondary mt-5 !px-4 !py-2">View Details</button>
             </article>
           ))}

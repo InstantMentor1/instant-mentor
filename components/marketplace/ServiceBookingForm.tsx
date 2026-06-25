@@ -128,11 +128,11 @@ export default function ServiceBookingForm({
   return (
     <>
       <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="afterInteractive" />
-      <form onSubmit={handleSubmit} className="card space-y-5 border-blue-100 p-6 sm:p-8">
-        <div className="rounded-2xl bg-sky-50 p-5">
-          <p className="text-sm font-bold text-teal-800">{title}</p>
-          <p className="mt-1 text-3xl font-black text-teal-900">₹{price.toLocaleString("en-IN")}</p>
-          <p className="mt-1 text-xs text-teal-800">
+      <form onSubmit={handleSubmit} className="card space-y-5 p-6 sm:p-8">
+        <div className="rounded-2xl bg-skysoft p-5">
+          <p className="text-sm font-bold text-navy">{title}</p>
+          <p className="mt-1 text-3xl font-black text-navy">₹{price.toLocaleString("en-IN")}</p>
+          <p className="mt-1 text-xs text-navy">
             Expert-set price · My Expert Talk fee {fee.commissionPercent}% · Estimated expert payout ₹{fee.smePayout.toLocaleString("en-IN")}
           </p>
         </div>
