@@ -5,7 +5,7 @@ import { getPublicServices } from "@/lib/marketplace-data";
 export const metadata = {
   title: "Explore Experts | My Expert Talk",
   description:
-    "Search verified expert services and compare outcomes by category, price, duration, availability, and format.",
+    "Search verified mentor services and compare outcomes by category, price, duration, availability, and format.",
 };
 
 export default async function LegacyMentorsPage({

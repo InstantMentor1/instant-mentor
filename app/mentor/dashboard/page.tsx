@@ -22,8 +22,8 @@ export default async function MentorDashboard() {
       <div className="container-shell">
         <DashboardHeader
           profile={profile}
-          title="Expert Dashboard"
-          description="Create expert services, manage expert talks, handle bookings, and track your earnings on My Expert Talk."
+          title="Mentor Store Dashboard"
+          description="Create service listings, manage expert talks, handle bookings, and track your earnings on My Expert Talk."
         />
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
           {[
@@ -42,7 +42,7 @@ export default async function MentorDashboard() {
           ))}
         </div>
         <div className="mt-6 flex flex-wrap gap-3">
-          <Link href="/mentor/services/new" className="btn-primary">Create Service</Link>
+          <Link href="/mentor/services/new" className="btn-primary">Create Service Listing</Link>
           <Link href="/expert-talks" className="btn-secondary">Plan Expert Talk</Link>
           <Link href="/mentor/services" className="btn-secondary">My Services</Link>
           <Link href="/mentor/bookings" className="btn-secondary">Bookings</Link>

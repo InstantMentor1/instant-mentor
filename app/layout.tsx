@@ -16,10 +16,10 @@ export const metadata: Metadata = {
     template: "%s | My Expert Talk",
   },
   description:
-    "My Expert Talk helps students and learners join expert talks, book expert services, access recordings, and connect with verified educators and subject-matter experts.",
+    "My Expert Talk helps students and learners join expert talks, book mentor services, access recordings, and connect with verified educators and subject-matter experts.",
   keywords: [
     "expert talks",
-    "expert services",
+    "mentor services",
     "student learning platform",
     "academic support",
     "career guidance",
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "My Expert Talk | Expert talks and expert services",
+    title: "My Expert Talk | Expert talks and mentor services",
     description:
       "Connect with verified experts for academic support, career guidance, skill development, and live learning sessions.",
     images: ["/my-expert-talk-logo.png"],

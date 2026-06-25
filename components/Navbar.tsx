@@ -2,14 +2,13 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronDown, Loader2, LogOut, Menu, X } from "lucide-react";
+import { BookOpenCheck, ChevronDown, Loader2, LogOut, Menu, Search, X } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import { useAuth } from "@/components/AuthProvider";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 
 const publicLinks = [
-  { href: "/", label: "Home" },
   { href: "/expert-talks", label: "Expert Talks" },
   { href: "/services", label: "Services" },
   { href: "/recordings", label: "Recordings" },
@@ -100,6 +99,9 @@ export default function Navbar() {
               <Link href="/contact" className="block rounded-xl px-4 py-3 text-sm font-bold text-navy hover:bg-skysoft">Join as Institution</Link>
             </div>
           </div>
+          <Link href="/bookings" onClick={() => setOpen(false)} className="inline-flex items-center gap-2 rounded-full border border-navy/10 bg-skysoft px-4 py-2.5 text-sm font-black text-navy transition hover:border-coral hover:text-coral">
+            <BookOpenCheck size={16} /> Bookings
+          </Link>
         </>
       )}
     </>
@@ -107,14 +109,24 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-navy/10 bg-white shadow-sm">
-      <nav className="container-shell flex min-h-[72px] items-center justify-between py-3" aria-label="Main navigation">
+      <nav className="container-shell flex min-h-[76px] items-center justify-between gap-4 py-3" aria-label="Main navigation">
         <Link href={profile ? links[0].href : "/"} aria-label="My Expert Talk home" onClick={() => setOpen(false)}>
           <Image src="/my-expert-talk-logo.png" alt="My Expert Talk Logo" width={1600} height={1600} priority className="h-12 w-auto object-contain" />
         </Link>
+        {!profile && !loading && (
+          <form action="/services" className="hidden min-w-0 flex-1 items-center rounded-full border border-navy/10 bg-ivory px-4 py-2.5 shadow-sm lg:flex xl:max-w-md">
+            <Search size={17} className="shrink-0 text-coral" />
+            <input
+              name="search"
+              className="min-w-0 flex-1 bg-transparent px-3 text-sm font-semibold text-navy outline-none placeholder:text-slate-400"
+              placeholder="Search talks, services, mentors..."
+            />
+          </form>
+        )}
         {loading ? (
           <span className="hidden items-center gap-2 text-sm font-semibold text-slate-500 lg:flex"><Loader2 size={16} className="animate-spin" /> Loading</span>
         ) : (
-          <div className="hidden items-center gap-6 xl:flex">{navContent}</div>
+          <div className="hidden items-center gap-5 xl:flex">{navContent}</div>
         )}
         <button type="button" disabled={loading} className="rounded-xl border border-navy/15 p-2 text-navy xl:hidden" aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} onClick={() => setOpen(!open)}>
           {loading ? <Loader2 size={23} className="animate-spin" /> : open ? <X size={23} /> : <Menu size={23} />}

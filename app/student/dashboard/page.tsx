@@ -19,8 +19,8 @@ export default async function StudentDashboard() {
       <div className="container-shell">
         <DashboardHeader
           profile={profile}
-          title="Student Learning Dashboard"
-          description={`Welcome, ${profile.full_name}. Explore expert talks, book expert services, and manage your learning activity.`}
+          title="My Learning Dashboard"
+          description={`Welcome, ${profile.full_name}. Track your expert talks, booked mentor services, recordings, and messages.`}
         />
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
           {[
@@ -38,8 +38,8 @@ export default async function StudentDashboard() {
           ))}
         </div>
         <div className="mt-6 flex flex-wrap gap-3">
-          <Link href="/expert-talks" className="btn-primary">Explore Expert Talks</Link>
-          <Link href="/services" className="btn-secondary">Book Expert Service</Link>
+          <Link href="/services" className="btn-primary">Explore Store</Link>
+          <Link href="/services" className="btn-secondary">Book Mentor Service</Link>
           <Link href="/recordings" className="btn-secondary">View Recordings</Link>
         </div>
         <div className="mt-9 flex items-center justify-between">
@@ -60,7 +60,7 @@ export default async function StudentDashboard() {
                 <span className="h-fit rounded-full bg-slate-100 px-3 py-1 text-xs font-bold capitalize">{booking.status}</span>
               </div>
               <p className="mt-4 text-sm text-slate-600">{booking.requirement_details}</p>
-              <p className="mt-4 font-black text-navy">₹{Number(booking.price).toLocaleString("en-IN")} - <span className="capitalize">{booking.payment_status}</span></p>
+              <p className="mt-4 font-black text-navy">â‚¹{Number(booking.price).toLocaleString("en-IN")} - <span className="capitalize">{booking.payment_status}</span></p>
             </article>
           ))}
         </div>

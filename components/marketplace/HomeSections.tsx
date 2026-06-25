@@ -3,50 +3,66 @@ import Link from "next/link";
 import {
   ArrowRight,
   BookOpen,
+  BriefcaseBusiness,
   Building2,
   CalendarDays,
+  Clock3,
   GraduationCap,
-  Mail,
+  MessageSquareText,
   Mic2,
   MonitorPlay,
+  PackageCheck,
   Search,
   Sparkles,
   Star,
+  Store,
   Users,
 } from "lucide-react";
 import type { AppRole } from "@/lib/auth-shared";
 
-const chips = ["Career Guidance", "Exam Preparation", "Skill Development", "Mentor Services", "Recordings", "Events"];
-const marqueeItems = ["Live expert talks", "Resume reviews", "Career clarity", "Academic guidance", "Interview prep", "Project reviews", "Skill roadmaps", "Verified mentors", "Student support"];
-
-const quickCards = [
-  { title: "Expert Talks", text: "Join live learning sessions with experts and educators.", href: "/expert-talks", icon: Mic2, tone: "bg-peach" },
-  { title: "Mentor Services", text: "Book focused 1:1 guidance with mentor-set pricing.", href: "/services", icon: BookOpen, tone: "bg-skysoft" },
-  { title: "Recordings", text: "Access past learning sessions, materials, and resources.", href: "/recordings", icon: MonitorPlay, tone: "bg-white" },
-  { title: "Events", text: "Track upcoming learning sessions and expert programs.", href: "/events", icon: CalendarDays, tone: "bg-peach" },
-  { title: "Meet Mentors", text: "Explore verified mentors by expertise and availability.", href: "/mentors", icon: Users, tone: "bg-skysoft" },
-  { title: "Institution Programs", text: "Bring expert access to students at scale.", href: "/contact", icon: Building2, tone: "bg-white" },
-];
+const chips = ["Career Guidance", "Exam Help", "Resume Review", "Mock Interview", "Project Support", "AI & Tech Skills", "Business Guidance", "Recordings"];
+const categories = [
+  ["Expert Talks", "Live mentor-led sessions", "/expert-talks", Mic2, "bg-peach"],
+  ["Mentor Services", "Book 1:1 help", "/services", Store, "bg-skysoft"],
+  ["Resume Review", "Improve shortlisting", "/services?search=resume", BriefcaseBusiness, "bg-white"],
+  ["Mock Interview", "Practice with mentors", "/services?search=mock", MessageSquareText, "bg-peach"],
+  ["Exam Preparation", "Strategy and support", "/services?search=exam", GraduationCap, "bg-skysoft"],
+  ["Project Support", "Review and improve", "/services?search=project", BookOpen, "bg-white"],
+  ["Skill Development", "Roadmaps and practice", "/services?search=skills", Sparkles, "bg-peach"],
+  ["Career Guidance", "Clarity and planning", "/services?search=career", PackageCheck, "bg-skysoft"],
+  ["Recordings", "Learn anytime", "/recordings", MonitorPlay, "bg-white"],
+  ["Events", "Upcoming calendar", "/events", CalendarDays, "bg-peach"],
+  ["Mentors", "Verified experts", "/mentors", Users, "bg-skysoft"],
+  ["Institutions", "Programs at scale", "/contact", Building2, "bg-white"],
+] as const;
 
 const talks = [
-  { title: "Placement Prep Room", speaker: "Career mentor", day: "26", month: "Jun", time: "7:00 PM" },
-  { title: "AI Tools for Students", speaker: "Skill educator", day: "28", month: "Jun", time: "6:00 PM" },
-  { title: "Exam Strategy Clinic", speaker: "Academic expert", day: "30", month: "Jun", time: "11:00 AM" },
+  { title: "Placement Prep Sprint", mentor: "Career mentor", category: "Career", date: "26 Jun", time: "7:00 PM" },
+  { title: "AI Tools for Students", mentor: "AI educator", category: "Skills", date: "28 Jun", time: "6:00 PM" },
+  { title: "Exam Strategy Clinic", mentor: "Academic expert", category: "Exam Help", date: "30 Jun", time: "11:00 AM" },
+  { title: "Project Portfolio Review", mentor: "Tech mentor", category: "Projects", date: "2 Jul", time: "5:30 PM" },
 ];
 
 const services = [
-  { title: "Resume Review", mentor: "Career Mentor", category: "Career Guidance", duration: "30 min", availability: "This week" },
-  { title: "Mock Interview", mentor: "Industry Mentor", category: "Placement Prep", duration: "45 min", availability: "Evenings" },
-  { title: "Project Review", mentor: "Technical Mentor", category: "Skill Development", duration: "45 min", availability: "Weekend" },
+  { title: "Resume Review for Freshers", mentor: "Aarav Mehta", role: "Career Mentor", category: "Resume Review", duration: "30 min", availability: "Slots this week" },
+  { title: "Mock Interview for Software Roles", mentor: "Rohan Iyer", role: "Tech Mentor", category: "Mock Interview", duration: "45 min", availability: "Evening slots" },
+  { title: "Career Roadmap Session", mentor: "Kavya Rao", role: "Academic Mentor", category: "Career Guidance", duration: "60 min", availability: "Weekend" },
+  { title: "Project Review Session", mentor: "Meera Shah", role: "Skill Coach", category: "Project Support", duration: "45 min", availability: "2 seats left" },
 ];
+
+const recordings = [
+  ["Resume teardown replay", "Career", "32 min"],
+  ["AI study workflow", "AI & Tech", "41 min"],
+  ["Interview mistakes to avoid", "Placement", "28 min"],
+  ["Project demo clinic", "Projects", "36 min"],
+] as const;
 
 const mentors = [
-  { name: "Aarav Mehta", role: "Career Mentor", tags: ["Resume", "Interviews"], tone: "bg-peach" },
-  { name: "Kavya Rao", role: "Academic Educator", tags: ["Exams", "Research"], tone: "bg-skysoft" },
-  { name: "Rohan Iyer", role: "Technology Mentor", tags: ["AI", "Projects"], tone: "bg-white" },
+  { name: "Aarav Mehta", role: "Career Mentor", tags: ["Resume", "Placements"] },
+  { name: "Kavya Rao", role: "Academic Educator", tags: ["Exams", "Research"] },
+  { name: "Rohan Iyer", role: "Technology Mentor", tags: ["AI", "Projects"] },
+  { name: "Meera Shah", role: "Skill Coach", tags: ["Communication", "Growth"] },
 ];
-
-const recordings = ["Recorded Expert Talks", "Past Learning Sessions", "Skill Resources", "Session Materials"];
 
 export function MinimalLandingPage({ dashboardHref, role }: { dashboardHref: string | null; role: AppRole | null }) {
   const isExpert = role === "Mentor" || role === "Faculty" || role === "Institution";
@@ -54,334 +70,227 @@ export function MinimalLandingPage({ dashboardHref, role }: { dashboardHref: str
 
   return (
     <>
-      <section className="relative overflow-hidden bg-hero-glow py-12 sm:py-16 lg:py-20">
-        <div className="pointer-events-none absolute -right-24 top-20 h-72 w-72 rounded-full bg-coral/15 blur-3xl" />
-        <div className="pointer-events-none absolute left-8 top-44 hidden h-24 w-24 rotate-12 rounded-[2rem] bg-white shadow-soft lg:block" />
-        <div className="container-shell relative grid gap-10 lg:grid-cols-[1fr_.86fr] lg:items-center">
-          <div>
-            <Image src="/my-expert-talk-logo.png" alt="My Expert Talk" width={1600} height={1600} priority className="mb-8 h-20 w-auto object-contain sm:h-24" />
-            <span className="inline-flex items-center gap-2 rounded-full border border-coral/20 bg-white px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-coral shadow-sm">
-              <Sparkles size={14} /> Your Journey, Guided By Greatness
-            </span>
-            <h1 className="mt-6 max-w-5xl text-5xl font-black leading-[.98] tracking-[-0.055em] text-navy sm:text-7xl lg:text-8xl">
-              Learn directly from experts, mentors, and educators.
-            </h1>
-            <p className="mt-6 max-w-2xl text-base leading-8 text-slate-700 sm:text-lg">
-              Join expert talks, book mentor services, access recordings, and get guidance for academics, career, skills, and growth.
-            </p>
-            <form action="/services" className="mt-7 flex max-w-2xl flex-col gap-3 rounded-[1.5rem] border border-navy/10 bg-white p-2 shadow-soft sm:flex-row">
-              <label className="relative flex-1">
-                <span className="sr-only">Search learning topic</span>
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
-                <input name="search" className="form-input border-0 bg-skysoft pl-11 focus:ring-0" placeholder="What do you want to learn or discuss?" />
-              </label>
-              <button className="btn-primary" type="submit">Search</button>
-            </form>
-            <div className="mt-4 flex max-w-3xl flex-wrap gap-2">
-              {chips.map((chip) => (
-                <Link key={chip} href="/services" className="rounded-full border border-navy/10 bg-white px-3 py-2 text-xs font-bold text-slate-600 transition hover:-translate-y-0.5 hover:border-coral/30 hover:text-coral">
-                  {chip}
-                </Link>
-              ))}
+      <section className="bg-ivory pb-8 pt-8 sm:pb-10 sm:pt-12">
+        <div className="container-shell grid gap-8 lg:grid-cols-[1fr_420px] lg:items-center">
+          <div className="rounded-[2rem] border border-navy/10 bg-white p-6 shadow-soft sm:p-8 lg:p-10">
+            <div className="flex flex-wrap items-center gap-3">
+              <Image src="/my-expert-talk-logo.png" alt="My Expert Talk" width={1600} height={1600} priority className="h-14 w-auto object-contain" />
+              <span className="rounded-full bg-peach px-4 py-2 text-xs font-black uppercase tracking-[0.16em] text-coral">Quick learning store</span>
             </div>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link href={dashboardHref ?? "/expert-talks"} className="btn-primary">
-                {dashboardHref ? "Open Dashboard" : "Explore Expert Talks"} <ArrowRight size={17} />
-              </Link>
+            <h1 className="mt-7 max-w-4xl text-5xl font-black leading-[0.98] tracking-[-0.055em] text-navy sm:text-7xl">
+              Order expert learning support in minutes.
+            </h1>
+            <p className="mt-5 max-w-2xl text-base leading-8 text-slate-700 sm:text-lg">
+              Browse expert talks, mentor services, recordings, and learning events created by verified mentors and educators. Choose what you need, check availability, and book.
+            </p>
+            <form action="/services" className="mt-7 flex flex-col gap-3 rounded-[1.4rem] border border-navy/10 bg-ivory p-2 sm:flex-row">
+              <label className="relative flex-1">
+                <span className="sr-only">Search learning store</span>
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-coral" size={19} />
+                <input name="search" className="form-input border-0 bg-white pl-12 focus:ring-0" placeholder="Search for resume review, exam help, career guidance, AI skills, project review..." />
+              </label>
+              <button className="btn-primary" type="submit">Start Exploring</button>
+            </form>
+            <div className="mt-4 flex flex-wrap gap-2">
+              {chips.map((chip) => <Link key={chip} href={`/services?search=${encodeURIComponent(chip)}`} className="rounded-full border border-navy/10 bg-white px-3 py-2 text-xs font-bold text-slate-600 transition hover:-translate-y-0.5 hover:border-coral/30 hover:text-coral">{chip}</Link>)}
+            </div>
+            <div className="mt-7 flex flex-wrap gap-3">
+              <Link href={dashboardHref ?? "/services"} className="btn-primary">{dashboardHref ? "Open Dashboard" : "Start Exploring"}<ArrowRight size={17} /></Link>
               {!dashboardHref && <Link href="/for-mentors" className="btn-secondary">Join as Mentor</Link>}
-              {isStudent && <Link href="/services" className="btn-secondary">Book Mentor Service</Link>}
-              {isExpert && <Link href="/mentor/services/new" className="btn-secondary">Create Service</Link>}
+              {isStudent && <Link href="/bookings" className="btn-secondary">My Bookings</Link>}
+              {isExpert && <Link href="/mentor/services/new" className="btn-secondary">Create Listing</Link>}
             </div>
           </div>
 
-          <div className="relative mx-auto w-full max-w-lg">
-            <div className="absolute -inset-4 rounded-[2.2rem] bg-gradient-to-br from-coral/15 via-white to-academic/15" />
-            <div className="relative rounded-[2rem] border border-white bg-white p-5 shadow-soft">
-              <div className="grid gap-4 sm:grid-cols-2">
-                {[
-                  ["Live Expert Talks", "3 this week", Mic2],
-                  ["Mentor Services", "1:1 guidance", BookOpen],
-                  ["Recorded Sessions", "Learn anytime", MonitorPlay],
-                  ["Upcoming Events", "Calendar view", CalendarDays],
-                ].map(([title, text, Icon]) => (
-                  <div key={title as string} className="rounded-3xl border border-navy/10 bg-gradient-to-br from-white to-skysoft p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-soft">
-                    <Icon className="text-coral" />
-                    <p className="mt-4 font-black text-navy">{title as string}</p>
-                    <p className="mt-1 text-sm font-semibold text-slate-500">{text as string}</p>
-                  </div>
-                ))}
-              </div>
-              <div className="mt-4 rounded-3xl bg-navy p-5 text-white">
-                <div className="flex items-center gap-3">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-navy"><GraduationCap /></div>
-                  <div>
-                    <p className="text-xs font-black uppercase tracking-[0.18em] text-orange-100">Student path</p>
-                    <p className="font-black">Find your next mentor in minutes.</p>
-                  </div>
-                </div>
-              </div>
+          <div className="grid gap-4">
+            <div className="rounded-[2rem] border border-navy/10 bg-navy p-6 text-white shadow-soft">
+              <p className="text-xs font-black uppercase tracking-[0.18em] text-orange-100">Fast checkout idea</p>
+              <h2 className="mt-3 text-3xl font-black">Services are products. Availability is stock.</h2>
+              <p className="mt-3 text-sm leading-6 text-blue-100">Pick a listing, share context, book the slot, and track fulfilment from your dashboard.</p>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              {[["Live", "Expert Talks", Mic2], ["Book", "Mentor Services", Store], ["Watch", "Recordings", MonitorPlay], ["Join", "Events", CalendarDays]].map(([verb, title, Icon]) => (
+                <Link href={title === "Mentor Services" ? "/services" : title === "Expert Talks" ? "/expert-talks" : `/${String(title).toLowerCase()}`} key={String(title)} className="rounded-[1.6rem] border border-navy/10 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-soft">
+                  <Icon className="text-coral" />
+                  <p className="mt-4 text-xs font-black uppercase tracking-[0.16em] text-slate-400">{String(verb)}</p>
+                  <p className="text-lg font-black text-navy">{String(title)}</p>
+                </Link>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
       <MarqueeStrip />
-      <QuickAccessSection />
-      <AboutSection />
-      <ExpertTalksPreview />
-      <MentorServicesPreview />
-      <RecordingsPreview />
-      <MentorsPreview />
-      <EventsPreview />
-      <JoinPaths dashboardHref={dashboardHref} />
-      <InstitutionProgramsSection />
-      <NewsletterSection />
+      <StoreCategoryShelfSection />
+      <ExpertTalksShelfSection />
+      <MentorServicesStoreShelf />
+      <RecordingsStoreShelf />
+      <MentorsStoreShelf />
+      <EventsStoreShelf />
+      <QuickBookingFlowSection />
+      <MentorPartnerStoreSection />
+      <InstitutionProgramsStoreSection />
     </>
   );
 }
 
-function QuickAccessSection() {
+function ShelfHeader({ eyebrow, title, href }: { eyebrow: string; title: string; href?: string }) {
   return (
-    <section className="bg-white py-14">
-      <div className="container-shell">
-        <SectionTitle eyebrow="Quick access" title="Choose where you want to begin." />
-        <div className="mt-9 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {quickCards.map(({ title, text, href, icon: Icon, tone }) => (
-            <Link key={title} href={href} className={`group rounded-[2rem] border border-navy/10 ${tone} p-6 shadow-sm transition hover:-translate-y-1 hover:border-coral/30 hover:shadow-soft`}>
-              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white text-coral shadow-sm transition group-hover:rotate-3"><Icon /></div>
-              <h3 className="mt-6 text-2xl font-black text-navy">{title}</h3>
-              <p className="mt-3 text-sm leading-7 text-slate-600">{text}</p>
-              <span className="mt-5 inline-flex items-center text-sm font-black text-coral">Open <ArrowRight className="ml-2" size={16} /></span>
-            </Link>
-          ))}
-        </div>
+    <div className="mb-5 flex items-end justify-between gap-4">
+      <div>
+        <p className="text-xs font-black uppercase tracking-[0.18em] text-coral">{eyebrow}</p>
+        <h2 className="mt-1 text-2xl font-black tracking-[-0.035em] text-navy sm:text-4xl">{title}</h2>
       </div>
-    </section>
-  );
-}
-
-function AboutSection() {
-  return (
-    <section className="bg-ivory py-14">
-      <div className="container-shell grid gap-8 lg:grid-cols-[.9fr_1.1fr] lg:items-center">
-        <div>
-          <p className="text-xs font-black uppercase tracking-[0.2em] text-coral">About My Expert Talk</p>
-          <h2 className="mt-3 text-4xl font-black tracking-[-0.045em] text-navy sm:text-5xl">A premium learning hub for talks, services, and guided growth.</h2>
-        </div>
-        <p className="text-base leading-8 text-slate-700">
-          My Expert Talk brings students, mentors, educators, institutions, and subject-matter experts into one clean platform. Attend expert talks, book mentor services, revisit recordings, and keep your learning journey moving with verified guidance.
-        </p>
-      </div>
-    </section>
-  );
-}
-
-function ExpertTalksPreview() {
-  return (
-    <section className="bg-skysoft py-14">
-      <div className="container-shell">
-        <SectionTitle eyebrow="Expert talks" title="Live learning sessions that feel easy to join." />
-        <div className="mt-9 grid gap-5 md:grid-cols-3">
-          {talks.map((talk) => (
-            <article key={talk.title} className="rounded-[2rem] border border-navy/10 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-soft">
-              <div className="flex items-start justify-between gap-4">
-                <div className="rounded-2xl bg-coral px-4 py-3 text-center text-white">
-                  <p className="text-2xl font-black leading-none">{talk.day}</p>
-                  <p className="text-xs font-black uppercase">{talk.month}</p>
-                </div>
-                <span className="rounded-full bg-peach px-3 py-1 text-xs font-black text-coral">Online</span>
-              </div>
-              <h3 className="mt-5 text-xl font-black text-navy">{talk.title}</h3>
-              <p className="mt-2 text-sm text-slate-600">{talk.speaker} - {talk.time}</p>
-              <Link href="/expert-talks" className="btn-secondary mt-5 !px-4 !py-2">View Details</Link>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function MentorServicesPreview() {
-  return (
-    <section className="bg-white py-14">
-      <div className="container-shell">
-        <SectionTitle eyebrow="Mentor services" title="Book guidance with clear outcomes." />
-        <div className="mt-9 grid gap-5 md:grid-cols-3">
-          {services.map((service) => (
-            <article key={service.title} className="card p-6 transition hover:-translate-y-1 hover:shadow-soft">
-              <p className="text-xs font-black uppercase tracking-[0.16em] text-academic">{service.category}</p>
-              <h3 className="mt-3 text-2xl font-black text-navy">{service.title}</h3>
-              <p className="mt-2 text-sm text-slate-600">{service.mentor}</p>
-              <div className="mt-5 space-y-2 text-sm text-slate-600">
-                <p><strong className="text-navy">Duration:</strong> {service.duration}</p>
-                <p><strong className="text-navy">Price:</strong> Price set by mentor</p>
-                <p><strong className="text-navy">Availability:</strong> {service.availability}</p>
-              </div>
-              <Link href="/services" className="btn-primary mt-6 !px-4 !py-2">Book Service</Link>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function RecordingsPreview() {
-  return (
-    <section className="bg-ivory py-14">
-      <div className="container-shell">
-        <SectionTitle eyebrow="Recordings" title="Useful learning stays available." />
-        <div className="mt-9 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {recordings.map((title) => (
-            <article key={title} className="rounded-[2rem] border border-navy/10 bg-white p-6 shadow-sm">
-              <MonitorPlay className="text-academic" />
-              <h3 className="mt-5 text-xl font-black text-navy">{title}</h3>
-              <p className="mt-3 text-sm leading-6 text-slate-600">Curated learning content will appear here as sessions are published.</p>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function MentorsPreview() {
-  return (
-    <section className="bg-white py-14">
-      <div className="container-shell">
-        <SectionTitle eyebrow="Meet mentors" title="Premium mentor cards, built for student trust." />
-        <div className="mt-9 grid gap-5 md:grid-cols-3">
-          {mentors.map((mentor) => (
-            <article key={mentor.name} className={`rounded-[2rem] border border-navy/10 ${mentor.tone} p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-soft`}>
-              <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white text-2xl font-black text-coral shadow-sm">{mentor.name.charAt(0)}</div>
-              <div className="mt-5 flex items-center gap-2">
-                <h3 className="text-2xl font-black text-navy">{mentor.name}</h3>
-                <span className="rounded-full bg-white px-2 py-1 text-[10px] font-black text-academic">Verified</span>
-              </div>
-              <p className="mt-1 text-sm font-semibold text-slate-600">{mentor.role}</p>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {mentor.tags.map((tag) => <span key={tag} className="rounded-full bg-white px-3 py-1 text-xs font-bold text-slate-600">{tag}</span>)}
-              </div>
-              <p className="mt-4 text-sm text-slate-600">Available for talks and mentor services.</p>
-              <Link href="/mentors" className="btn-secondary mt-5 !px-4 !py-2">View Profile</Link>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function EventsPreview() {
-  return (
-    <section className="bg-skysoft py-14">
-      <div className="container-shell grid gap-8 lg:grid-cols-[.9fr_1.1fr] lg:items-center">
-        <div>
-          <p className="text-xs font-black uppercase tracking-[0.2em] text-coral">Events</p>
-          <h2 className="mt-3 text-4xl font-black tracking-[-0.045em] text-navy sm:text-5xl">A clean learning calendar for what is coming next.</h2>
-        </div>
-        <div className="grid gap-4">
-          {talks.map((talk) => (
-            <Link key={talk.title} href="/events" className="flex items-center justify-between gap-4 rounded-3xl border border-navy/10 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-soft">
-              <div>
-                <p className="text-xs font-black uppercase text-coral">{talk.month} {talk.day} - {talk.time}</p>
-                <h3 className="mt-1 text-lg font-black text-navy">{talk.title}</h3>
-                <p className="text-sm text-slate-600">{talk.speaker} - Online</p>
-              </div>
-              <span className="hidden rounded-full bg-coral px-4 py-2 text-sm font-black text-white sm:inline-flex">Register</span>
-            </Link>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function JoinPaths({ dashboardHref }: { dashboardHref: string | null }) {
-  return (
-    <section className="bg-white py-14">
-      <div className="container-shell">
-        <SectionTitle eyebrow="Join My Expert Talk" title="Separate paths for students, mentors, and institutions." />
-        <div className="mt-9 grid gap-5 md:grid-cols-3">
-          <PathCard title="Join as Student" text="Explore talks, recordings, mentor services, bookings, and messages." href={dashboardHref ?? "/signup"} />
-          <PathCard title="Join as Mentor" text="Create services, host expert talks, manage bookings, and grow your reputation." href="/for-mentors" />
-          <PathCard title="Join as Institution" text="Bring expert talks, mentor services, and learning programs to your learners." href="/contact" />
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function InstitutionProgramsSection() {
-  return (
-    <section className="bg-ivory py-14">
-      <div className="container-shell rounded-[2rem] border border-navy/10 bg-white p-8 shadow-soft lg:p-10">
-        <div className="grid gap-8 lg:grid-cols-[1fr_.8fr] lg:items-center">
-          <div>
-            <p className="text-xs font-black uppercase tracking-[0.2em] text-coral">Institution programs</p>
-            <h2 className="mt-3 text-4xl font-black tracking-[-0.045em] text-navy">Expert-led programs for colleges, schools, and learning communities.</h2>
-            <p className="mt-4 text-sm leading-7 text-slate-600">Run expert talks, placement sessions, academic guidance, recording access, and mentor service drives for your students.</p>
-          </div>
-          <Link href="/contact" className="btn-primary justify-self-start lg:justify-self-end">Contact Us <ArrowRight size={17} /></Link>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function NewsletterSection() {
-  return (
-    <section className="bg-navy py-14 text-white">
-      <div className="container-shell grid gap-6 md:grid-cols-[1fr_.8fr] md:items-center">
-        <div>
-          <p className="text-xs font-black uppercase tracking-[0.2em] text-orange-100">Stay informed</p>
-          <h2 className="mt-3 text-4xl font-black tracking-[-0.045em]">Get updates on talks, recordings, and mentor openings.</h2>
-        </div>
-        <form action="/contact" className="flex flex-col gap-3 rounded-3xl bg-white p-2 sm:flex-row">
-          <label className="relative flex-1">
-            <span className="sr-only">Email address</span>
-            <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
-            <input className="form-input border-0 bg-skysoft pl-11 focus:ring-0" placeholder="Enter your email" type="email" />
-          </label>
-          <button className="btn-primary" type="submit">Notify Me</button>
-        </form>
-      </div>
-    </section>
-  );
-}
-
-function SectionTitle({ eyebrow, title }: { eyebrow: string; title: string }) {
-  return (
-    <div className="mx-auto max-w-3xl text-center">
-      <p className="text-xs font-black uppercase tracking-[0.2em] text-coral">{eyebrow}</p>
-      <h2 className="mt-3 text-3xl font-black tracking-[-0.04em] text-navy sm:text-5xl">{title}</h2>
+      {href && <Link href={href} className="hidden text-sm font-black text-coral sm:inline-flex">View all -&gt;</Link>}
     </div>
   );
 }
 
-function PathCard({ title, text, href }: { title: string; text: string; href: string }) {
+function StoreCategoryShelfSection() {
   return (
-    <Link href={href} className="rounded-[2rem] border border-navy/10 bg-gradient-to-br from-white to-skysoft p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-soft">
-      <Star className="text-coral" />
-      <h3 className="mt-5 text-2xl font-black text-navy">{title}</h3>
-      <p className="mt-3 text-sm leading-7 text-slate-600">{text}</p>
-      <span className="mt-5 inline-flex items-center text-sm font-black text-coral">Continue <ArrowRight className="ml-2" size={16} /></span>
-    </Link>
+    <section className="bg-ivory py-8 sm:py-10">
+      <div className="container-shell">
+        <ShelfHeader eyebrow="Shop by learning need" title="Fast shelves for every learning moment." />
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+          {categories.map(([title, text, href, Icon, tone]) => (
+            <Link key={title} href={href} className={`rounded-[1.4rem] border border-navy/10 ${tone} p-4 shadow-sm transition hover:-translate-y-1 hover:shadow-soft`}>
+              <Icon className="text-coral" size={24} />
+              <h3 className="mt-4 text-sm font-black text-navy sm:text-base">{title}</h3>
+              <p className="mt-1 text-xs leading-5 text-slate-600">{text}</p>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ExpertTalksShelfSection() {
+  return <Shelf title="Live expert talks" eyebrow="Register now" href="/expert-talks">{talks.map((talk) => <TalkCard key={talk.title} {...talk} />)}</Shelf>;
+}
+
+function MentorServicesStoreShelf() {
+  return <Shelf title="Book mentor services" eyebrow="Popular listings" href="/services">{services.map((service) => <ServicePreviewCard key={service.title} {...service} />)}</Shelf>;
+}
+
+function RecordingsStoreShelf() {
+  return <Shelf title="Learn anytime with recordings" eyebrow="Learning library" href="/recordings">{recordings.map(([title, topic, duration]) => <RecordingCard key={title} title={title} topic={topic} duration={duration} />)}</Shelf>;
+}
+
+function MentorsStoreShelf() {
+  return <Shelf title="Top mentors and educators" eyebrow="Verified supply" href="/mentors">{mentors.map((mentor) => <MentorCard key={mentor.name} {...mentor} />)}</Shelf>;
+}
+
+function EventsStoreShelf() {
+  return <Shelf title="Upcoming learning events" eyebrow="Calendar shelf" href="/events">{talks.map((talk) => <TalkCard key={`event-${talk.title}`} {...talk} cta="Register" />)}</Shelf>;
+}
+
+function Shelf({ eyebrow, title, href, children }: { eyebrow: string; title: string; href: string; children: React.ReactNode }) {
+  return (
+    <section className="bg-white py-8 sm:py-10">
+      <div className="container-shell">
+        <ShelfHeader eyebrow={eyebrow} title={title} href={href} />
+        <div className="flex gap-4 overflow-x-auto pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          {children}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function TalkCard({ title, mentor, category, date, time, cta = "Register" }: { title: string; mentor: string; category: string; date: string; time: string; cta?: string }) {
+  return (
+    <article className="min-w-[250px] rounded-[1.6rem] border border-navy/10 bg-ivory p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-soft sm:min-w-[290px]">
+      <div className="flex items-start justify-between gap-4">
+        <div className="rounded-2xl bg-coral px-3 py-2 text-center text-white"><p className="text-lg font-black">{date.split(' ')[0]}</p><p className="text-[10px] font-black uppercase">{date.split(' ')[1]}</p></div>
+        <span className="rounded-full bg-white px-3 py-1 text-xs font-black text-coral">{category}</span>
+      </div>
+      <h3 className="mt-5 text-xl font-black text-navy">{title}</h3>
+      <p className="mt-2 text-sm text-slate-600">{mentor}</p>
+      <p className="mt-4 flex items-center gap-2 text-sm font-bold text-navy"><Clock3 size={15} className="text-academic" /> {time} - Online</p>
+      <Link href="/expert-talks" className="btn-primary mt-5 !px-4 !py-2">{cta}</Link>
+    </article>
+  );
+}
+
+function ServicePreviewCard({ title, mentor, role, category, duration, availability }: { title: string; mentor: string; role: string; category: string; duration: string; availability: string }) {
+  return (
+    <article className="min-w-[270px] rounded-[1.6rem] border border-navy/10 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-soft sm:min-w-[320px]">
+      <span className="rounded-full bg-skysoft px-3 py-1 text-xs font-black text-academic">{category}</span>
+      <h3 className="mt-4 text-xl font-black text-navy">{title}</h3>
+      <p className="mt-2 text-sm font-bold text-slate-700">{mentor}</p>
+      <p className="text-xs text-slate-500">{role}</p>
+      <div className="mt-4 grid grid-cols-2 gap-3 rounded-2xl bg-ivory p-4 text-xs font-bold text-slate-600">
+        <p>{duration}</p><p>{availability}</p><p className="col-span-2 text-navy">Price set by mentor</p>
+      </div>
+      <Link href="/services" className="btn-primary mt-5 w-full !py-2.5">Book Now</Link>
+    </article>
+  );
+}
+
+function RecordingCard({ title, topic, duration }: { title: string; topic: string; duration: string }) {
+  return (
+    <article className="min-w-[230px] rounded-[1.6rem] border border-navy/10 bg-skysoft p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-soft sm:min-w-[280px]">
+      <MonitorPlay className="text-academic" />
+      <h3 className="mt-4 text-xl font-black text-navy">{title}</h3>
+      <p className="mt-2 text-sm text-slate-600">{topic} - {duration}</p>
+      <Link href="/recordings" className="mt-5 inline-flex text-sm font-black text-coral">View Recording -&gt;</Link>
+    </article>
+  );
+}
+
+function MentorCard({ name, role, tags }: { name: string; role: string; tags: string[] }) {
+  return (
+    <article className="min-w-[230px] rounded-[1.6rem] border border-navy/10 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-soft sm:min-w-[280px]">
+      <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-peach text-xl font-black text-coral">{name[0]}</div>
+      <h3 className="mt-4 text-xl font-black text-navy">{name}</h3>
+      <p className="text-sm font-bold text-coral">{role}</p>
+      <div className="mt-3 flex flex-wrap gap-2">{tags.map((tag) => <span key={tag} className="rounded-full bg-ivory px-3 py-1 text-xs font-bold text-slate-600">{tag}</span>)}</div>
+      <p className="mt-4 text-xs font-bold text-academic">Verified - Available for talks/services</p>
+      <Link href="/mentors" className="btn-secondary mt-5 !px-4 !py-2">View Profile</Link>
+    </article>
+  );
+}
+
+function QuickBookingFlowSection() {
+  const steps = ["Search or choose a category", "Pick a mentor service or expert talk", "Check price and availability", "Book or register", "Share notes", "Attend or watch"];
+  return (
+    <section className="bg-ivory py-10">
+      <div className="container-shell">
+        <ShelfHeader eyebrow="How ordering works" title="Book learning support like ordering online." />
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-6">{steps.map((step, index) => <div key={step} className="rounded-2xl border border-navy/10 bg-white p-4 shadow-sm"><p className="text-xs font-black text-coral">0{index + 1}</p><p className="mt-2 text-sm font-black text-navy">{step}</p></div>)}</div>
+      </div>
+    </section>
+  );
+}
+
+function MentorPartnerStoreSection() {
+  return (
+    <section className="bg-white py-10">
+      <div className="container-shell rounded-[2rem] border border-navy/10 bg-navy p-8 text-white shadow-soft">
+        <p className="text-xs font-black uppercase tracking-[0.18em] text-orange-100">Mentor store partner</p>
+        <div className="mt-3 grid gap-6 lg:grid-cols-[1fr_420px] lg:items-center">
+          <div><h2 className="text-4xl font-black tracking-[-0.04em]">Create your expert learning store.</h2><p className="mt-4 text-sm leading-7 text-blue-100">Mentors and educators can create profiles, list services, set prices, manage availability, host expert talks, upload recordings, and earn through bookings.</p></div>
+          <div className="grid gap-3 sm:grid-cols-2">{["Create listings", "Set pricing", "Manage availability", "Host talks", "Track earnings"].map((item) => <div key={item} className="rounded-2xl bg-white/10 p-4 text-sm font-black">{item}</div>)}<Link href="/for-mentors" className="rounded-2xl bg-coral p-4 text-center text-sm font-black text-white">Join as Mentor</Link></div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function InstitutionProgramsStoreSection() {
+  return (
+    <section className="bg-ivory py-10">
+      <div className="container-shell">
+        <ShelfHeader eyebrow="Institutions" title="Learning programs for institutions." href="/contact" />
+        <div className="grid gap-4 md:grid-cols-5">{["Expert talk series", "Placement support", "Exam support", "Project review camps", "Skill programs"].map((item) => <Link href="/contact" key={item} className="rounded-2xl border border-navy/10 bg-white p-5 font-black text-navy shadow-sm transition hover:-translate-y-1 hover:shadow-soft">{item}</Link>)}</div>
+      </div>
+    </section>
   );
 }
 
 function MarqueeStrip() {
-  const repeated = [...marqueeItems, ...marqueeItems];
-  return (
-    <div className="overflow-hidden border-y border-coral/20 bg-coral py-3 text-white">
-      <div className="flex w-max animate-[marquee_36s_linear_infinite] gap-6 whitespace-nowrap">
-        {repeated.map((item, index) => (
-          <span key={`${item}-${index}`} className="inline-flex items-center gap-6 text-xs font-black uppercase tracking-[0.18em]">
-            <Star size={13} fill="currentColor" /> {item}
-          </span>
-        ))}
-      </div>
-    </div>
-  );
+  const repeated = ["Search fast", "Book mentors", "Join expert talks", "Watch recordings", "Register events", "Track bookings", "Learn smarter", "Mentor-set pricing"];
+  return <div className="overflow-hidden border-y border-coral/20 bg-coral py-3 text-white"><div className="flex w-max animate-[marquee_32s_linear_infinite] gap-6 whitespace-nowrap">{[...repeated, ...repeated].map((item, index) => <span key={`${item}-${index}`} className="inline-flex items-center gap-6 text-xs font-black uppercase tracking-[0.18em]"><Star size={13} fill="currentColor" /> {item}</span>)}</div></div>;
 }

@@ -19,10 +19,10 @@ export default async function ServicesPage({
   return (
     <>
       <PageHero
-        eyebrow="Mentor services"
-        title="Book mentor services based on your learning need."
-        description="Mentors list services, set availability, and define what students receive from each session."
-        ctaLabel="Join as Mentor"
+        eyebrow="Learning store"
+        title="Browse mentor services like store listings."
+        description="Search by need, compare mentor-created listings, check duration and availability, then book the service that fits."
+        ctaLabel="Create Mentor Store"
         ctaHref="/for-mentors"
       />
       <ServiceDiscovery services={services} initialCategory={category} initialSearch={search} />

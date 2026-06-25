@@ -29,7 +29,7 @@ export default async function UserBookingsPage({ searchParams }: { searchParams:
               </div>
               <p className="mt-4 text-sm text-slate-600"><strong>Booking intent:</strong> {booking.requirement_details}</p>
               <div className="mt-4 grid grid-cols-2 gap-3 rounded-2xl bg-ivory p-4 text-sm">
-                <p><strong>Price</strong><br />₹{Number(booking.price).toLocaleString("en-IN")}</p>
+                <p><strong>Price</strong><br />â‚¹{Number(booking.price).toLocaleString("en-IN")}</p>
                 <p><strong>Payment</strong><br /><span className="capitalize">{booking.payment_status}</span></p>
                 <p><strong>Preferred</strong><br />{booking.preferred_date} - {booking.preferred_time}</p>
                 <p><strong>Duration</strong><br />{booking.service?.duration_minutes ?? "-"} minutes</p>
@@ -41,7 +41,7 @@ export default async function UserBookingsPage({ searchParams }: { searchParams:
         {bookings.length === 0 && (
           <div className="card p-10 text-center">
             <h2 className="text-xl font-black">No bookings yet.</h2>
-            <p className="mt-2 text-slate-600">Browse expert services and choose the exact learning outcome you need.</p>
+            <p className="mt-2 text-slate-600">Browse mentor services and choose the exact learning outcome you need.</p>
             <Link href="/services" className="btn-primary mt-6">Explore Services</Link>
           </div>
         )}
