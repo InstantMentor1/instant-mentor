@@ -22,8 +22,8 @@ export default async function MentorDashboard() {
       <div className="container-shell">
         <DashboardHeader
           profile={profile}
-          title="Mentor Dashboard"
-          description="Create mentor services, manage expert talks, handle bookings, and track your earnings on My Expert Talk."
+          title="Expert Dashboard"
+          description="Create expert services, manage expert talks, handle bookings, and track your earnings on My Expert Talk."
         />
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
           {[
@@ -64,7 +64,7 @@ export default async function MentorDashboard() {
               {menu.length === 0 && (
                 <div className="card border-blue-100 p-5">
                   <CheckCircle2 className="text-teal-700" />
-                  <p className="mt-3 font-bold">Create your first mentor service to start receiving bookings.</p>
+                  <p className="mt-3 font-bold">Create your first expert service to start receiving bookings.</p>
                 </div>
               )}
             </div>

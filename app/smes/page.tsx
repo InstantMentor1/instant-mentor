@@ -3,9 +3,9 @@ import ServiceDiscovery from "@/components/marketplace/ServiceDiscovery";
 import { getPublicServices } from "@/lib/marketplace-data";
 
 export const metadata = {
-  title: "Explore Mentors | My Expert Talk",
+  title: "Explore Experts | My Expert Talk",
   description:
-    "Search verified mentor services and compare outcomes by category, price, duration, availability, and format.",
+    "Search verified expert services and compare outcomes by category, price, duration, availability, and format.",
 };
 
 export default async function LegacyMentorsPage({
@@ -19,9 +19,9 @@ export default async function LegacyMentorsPage({
   return (
     <>
       <PageHero
-        eyebrow="Verified mentor marketplace"
-        title="Explore mentor profiles and service menus."
-        description="Search verified mentors and compare outcome, mentor-set price, duration, delivery format, availability, and deliverables before booking."
+        eyebrow="Verified expert marketplace"
+        title="Explore expert profiles and service menus."
+        description="Search verified experts and compare outcome, expert-set price, duration, delivery format, availability, and deliverables before booking."
       />
       <ServiceDiscovery services={services} initialCategory={category} />
     </>

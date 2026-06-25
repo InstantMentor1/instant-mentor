@@ -4,8 +4,8 @@ import PageHero from "@/components/PageHero";
 import { getPublicServices } from "@/lib/marketplace-data";
 
 export const metadata: Metadata = {
-  title: "Mentor Services",
-  description: "Browse mentor-created services by category, duration, availability, and price set by mentor.",
+  title: "Expert Services",
+  description: "Browse expert-created services by category, duration, availability, and price set by expert.",
 };
 
 export default async function ServicesPage({
@@ -19,10 +19,10 @@ export default async function ServicesPage({
   return (
     <>
       <PageHero
-        eyebrow="Mentor services"
-        title="Book mentor services based on your learning need."
-        description="Mentors and experts list services, set availability, and define what students receive from each session."
-        ctaLabel="Join as Mentor"
+        eyebrow="Expert services"
+        title="Book expert services based on your learning need."
+        description="Experts list services, set availability, and define what students receive from each session."
+        ctaLabel="Join as Expert"
         ctaHref="/for-mentors"
       />
       <ServiceDiscovery services={services} initialCategory={category} initialSearch={search} />

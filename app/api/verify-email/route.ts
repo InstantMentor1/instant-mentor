@@ -84,10 +84,7 @@ export async function GET(request: Request) {
       throw new Error(updateError.message);
     }
 
-    const message =
-      data.role === "Institution"
-        ? "Your email is verified. Your institution request is now pending admin approval."
-        : "Your email has been verified successfully. Your My Expert Talk request is confirmed.";
+    const message = "Your email has been verified successfully. Your My Expert Talk request is confirmed.";
 
     return verificationPage("Email verified", message, true);
   } catch (error) {

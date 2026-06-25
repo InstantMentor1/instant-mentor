@@ -7,11 +7,11 @@ students.
 ## Marketplace Components
 
 - `marketplace/HomeSections.tsx`: Homepage sections for mentor discovery,
-  expertise menus, domains, mentors, institutions, and conversion.
+  expertise menus, domains, experts, students, and conversion.
 - `marketplace/ServiceDiscovery.tsx`: Client-side search and domain filtering
   for published mentor services.
 - `marketplace/ServiceCard.tsx`: Public expertise preview showing the mentor,
-  Mentor-set price, duration, deliverables, and availability.
+  Expert-set price, duration, deliverables, and availability.
 - `marketplace/ExpertServiceForm.tsx`: mentor service creation and editing.
 - `marketplace/ServiceBookingForm.tsx`: Student booking intent, no-show
   acknowledgement, and existing test checkout flow.

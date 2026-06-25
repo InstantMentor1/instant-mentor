@@ -18,7 +18,7 @@ export default function PricingCards({ role = null }: { role?: AppRole | null })
     <>
       {isMentor && (
         <p className="mb-6 rounded-2xl border border-teal-200 bg-teal-50 p-5 font-semibold text-teal-900">
-          Student pricing is not applicable to mentor accounts.
+          Student pricing is not applicable to expert accounts.
         </p>
       )}
       {role === "Admin" && (

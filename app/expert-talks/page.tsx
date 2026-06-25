@@ -17,7 +17,7 @@ export default function ExpertTalksPage() {
         eyebrow="Expert talks"
         title="Talk with experts across subjects, careers, and skills."
         description="Explore live and upcoming expert-led learning sessions for students and lifelong learners."
-        ctaLabel="Join as Mentor"
+        ctaLabel="Join as Expert"
         ctaHref="/for-mentors"
       />
       <section className="section-pad bg-sky-50">

@@ -16,10 +16,10 @@ export const metadata: Metadata = {
     template: "%s | My Expert Talk",
   },
   description:
-    "My Expert Talk helps students and learners join expert talks, book mentor services, access recordings, and connect with verified educators and subject-matter experts.",
+    "My Expert Talk helps students and learners join expert talks, book expert services, access recordings, and connect with verified educators and subject-matter experts.",
   keywords: [
     "expert talks",
-    "mentor services",
+    "expert services",
     "student learning platform",
     "academic support",
     "career guidance",
@@ -32,12 +32,12 @@ export const metadata: Metadata = {
     siteName: "My Expert Talk",
     title: "Learn directly from experts, mentors, and educators.",
     description:
-      "Join live expert talks, explore mentor-led services, access recordings, and book guidance sessions.",
+      "Join live expert talks, explore expert-led services, access recordings, and book guidance sessions.",
     images: [{ url: "/my-expert-talk-logo.png", alt: "My Expert Talk" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "My Expert Talk | Expert talks and mentor services",
+    title: "My Expert Talk | Expert talks and expert services",
     description:
       "Connect with verified experts for academic support, career guidance, skill development, and live learning sessions.",
     images: ["/my-expert-talk-logo.png"],
@@ -58,7 +58,7 @@ export default async function RootLayout({
       logo: `${siteUrl}/my-expert-talk-logo.png`,
       email: "support@myexperttalk.com",
       description:
-        "An education and expert-service platform for students, mentors, institutions, and subject-matter experts.",
+        "An education and expert-service platform for students, experts, and subject-matter mentors.",
     },
     {
       "@context": "https://schema.org",

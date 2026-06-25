@@ -2,7 +2,7 @@ import { BadgeCheck, EyeOff, LockKeyhole, ShieldCheck, UserCheck } from "lucide-
 
 const trustPoints = [
   { label: "Reviewed mentor profiles", icon: BadgeCheck },
-  { label: "Institution-based student accounts", icon: UserCheck },
+  { label: "Student and expert accounts", icon: UserCheck },
   { label: "Private session conversations", icon: LockKeyhole },
   { label: "Protected meeting links", icon: EyeOff },
   { label: "Transparent request tracking", icon: ShieldCheck },

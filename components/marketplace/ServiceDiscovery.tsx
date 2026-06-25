@@ -47,7 +47,7 @@ export default function ServiceDiscovery({
       <div className="container-shell">
         <div className="card grid gap-4 border-blue-100 p-5 md:grid-cols-[1fr_320px]">
           <label className="relative block">
-            <span className="sr-only">Search mentor services</span>
+            <span className="sr-only">Search expert services</span>
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={19} />
             <input
               value={search}
@@ -68,11 +68,11 @@ export default function ServiceDiscovery({
         <div className="mb-7 mt-8 flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
           <div>
             <p className="text-sm font-bold uppercase tracking-wide text-teal-700">
-              {category || "All mentor services"}
+              {category || "All expert services"}
             </p>
             <h2 className="mt-1 text-3xl font-black">{filtered.length} services available</h2>
           </div>
-          <Link href="/for-mentors" className="text-sm font-bold text-teal-700">Create your mentor service menu -&gt;</Link>
+          <Link href="/for-mentors" className="text-sm font-bold text-teal-700">Create your expert service menu -&gt;</Link>
         </div>
 
         {filtered.length > 0 ? (
@@ -84,16 +84,16 @@ export default function ServiceDiscovery({
             <Store className="mx-auto text-teal-700" size={36} />
             <h2 className="mt-4 text-2xl font-black">
               {services.length === 0
-                ? "No mentor services are live yet."
+                ? "No expert services are live yet."
                 : "No services match your search."}
             </h2>
             <p className="mx-auto mt-3 max-w-2xl text-slate-600">
               {services.length === 0
-                ? "Verified mentors can create services from the mentor dashboard."
+                ? "Verified experts can create services from the expert dashboard."
                 : "Try another search term or browse all categories."}
             </p>
             {services.length === 0 ? (
-              <Link href="/for-mentors" className="btn-primary mt-6">Join as Mentor</Link>
+              <Link href="/for-mentors" className="btn-primary mt-6">Join as Expert</Link>
             ) : (
               <button type="button" onClick={() => { setCategory(""); setSearch(""); }} className="btn-secondary mt-6">Clear filters</button>
             )}

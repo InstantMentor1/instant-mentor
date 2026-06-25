@@ -44,7 +44,7 @@ export default function ServiceBookingForm({
   const [formData, setFormData] = useState({
     specific_goal: "",
     already_tried: "",
-    institution_program: "",
+    learning_context: "",
     preferred_date: "",
     preferred_time: "",
     attachment_link: "",
@@ -78,7 +78,11 @@ export default function ServiceBookingForm({
       const response = await fetch("/api/service-bookings/create-order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ service_id: serviceId, ...formData }),
+        body: JSON.stringify({
+          service_id: serviceId,
+          institution_program: formData.learning_context,
+          ...formData,
+        }),
       });
       const result = await response.json();
       if (!response.ok) throw new Error(result.error ?? "Unable to start booking.");
@@ -129,19 +133,19 @@ export default function ServiceBookingForm({
           <p className="text-sm font-bold text-teal-800">{title}</p>
           <p className="mt-1 text-3xl font-black text-teal-900">₹{price.toLocaleString("en-IN")}</p>
           <p className="mt-1 text-xs text-teal-800">
-            Mentor-set price · My Expert Talk fee {fee.commissionPercent}% · Estimated mentor payout ₹{fee.smePayout.toLocaleString("en-IN")}
+            Expert-set price · My Expert Talk fee {fee.commissionPercent}% · Estimated expert payout ₹{fee.smePayout.toLocaleString("en-IN")}
           </p>
         </div>
         {error && <p role="alert" className="rounded-xl bg-red-50 p-4 text-sm font-semibold text-red-700">{error}</p>}
-        <Field label="What exact outcome do you want from this mentor?">
+        <Field label="What exact outcome do you want from this expert?">
           <textarea required minLength={50} rows={5} className="form-input" value={formData.specific_goal} onChange={(event) => setFormData((current) => ({ ...current, specific_goal: event.target.value }))} placeholder="Example: I need my project reviewed for assumptions, structure, and presentation before submission." />
         </Field>
         <Field label="What have you already tried?">
           <textarea required minLength={30} rows={4} className="form-input" value={formData.already_tried} onChange={(event) => setFormData((current) => ({ ...current, already_tried: event.target.value }))} placeholder="Share resources, attempts, drafts, blockers, or feedback you already received." />
         </Field>
         <div className="grid gap-5 sm:grid-cols-2">
-          <Field label="Institution / program">
-            <input required className="form-input" value={formData.institution_program} onChange={(event) => setFormData((current) => ({ ...current, institution_program: event.target.value }))} placeholder="College, school, MBA, exam prep, or program" />
+          <Field label="Learning context">
+            <input required className="form-input" value={formData.learning_context} onChange={(event) => setFormData((current) => ({ ...current, learning_context: event.target.value }))} placeholder="School, college, exam prep, career goal, or program" />
           </Field>
           <Field label="Attachment link (optional)">
             <input type="url" className="form-input" value={formData.attachment_link} onChange={(event) => setFormData((current) => ({ ...current, attachment_link: event.target.value }))} placeholder="Drive, portfolio, document, project link" />

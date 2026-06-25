@@ -13,7 +13,6 @@ export const marketplaceCategories = [
   "Design & Product",
   "HR & Organisational Behaviour",
   "Economics & Public Policy",
-  "Institution Programs",
 ] as const;
 
 export const deliveryModes = [

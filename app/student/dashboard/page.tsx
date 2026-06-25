@@ -20,7 +20,7 @@ export default async function StudentDashboard() {
         <DashboardHeader
           profile={profile}
           title="Student Learning Dashboard"
-          description={`Welcome, ${profile.full_name}. Explore expert talks, book mentor services, and manage your learning activity.`}
+          description={`Welcome, ${profile.full_name}. Explore expert talks, book expert services, and manage your learning activity.`}
         />
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
           {[
@@ -39,7 +39,7 @@ export default async function StudentDashboard() {
         </div>
         <div className="mt-6 flex flex-wrap gap-3">
           <Link href="/expert-talks" className="btn-primary">Explore Expert Talks</Link>
-          <Link href="/services" className="btn-secondary">Book Mentor Service</Link>
+          <Link href="/services" className="btn-secondary">Book Expert Service</Link>
           <Link href="/recordings" className="btn-secondary">View Recordings</Link>
         </div>
         <div className="mt-9 flex items-center justify-between">
@@ -68,7 +68,7 @@ export default async function StudentDashboard() {
           <div className="card mt-6 border-blue-100 p-10 text-center">
             <CheckCircle2 className="mx-auto text-teal-700" />
             <h2 className="mt-3 text-xl font-black">Start your learning journey.</h2>
-            <p className="mt-2 text-slate-600">Join expert talks, explore recordings, or book a mentor service.</p>
+            <p className="mt-2 text-slate-600">Join expert talks, explore recordings, or book an expert service.</p>
             <Link href="/expert-talks" className="btn-primary mt-6">Explore Expert Talks</Link>
           </div>
         )}

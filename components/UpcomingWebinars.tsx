@@ -53,8 +53,8 @@ export default function UpcomingWebinars({
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <SectionHeader
             eyebrow="Live learning"
-            title="Upcoming mentor-led Expert Talks"
-            description="Join focused sessions led by verified mentors and educators."
+            title="Upcoming expert-led talks"
+            description="Join focused sessions led by verified experts and educators."
           />
           <Link href={ctaHref} className="btn-secondary shrink-0">
             View Expert Talks <ArrowRight size={17} />
@@ -92,7 +92,7 @@ export default function UpcomingWebinars({
                   </dl>
                   <div className="mt-auto flex items-end justify-between gap-4 pt-6">
                     <div>
-                      <p className="text-xs font-semibold text-slate-500">Mentor-set price</p>
+                      <p className="text-xs font-semibold text-slate-500">Expert-set price</p>
                       <p className="text-2xl font-black text-ink">₹{webinar.price}</p>
                     </div>
                     <Link href={`/expert-talks`} className="btn-primary !px-5 !py-3">View details</Link>
@@ -106,7 +106,7 @@ export default function UpcomingWebinars({
             <Presentation className="mx-auto text-teal-700" size={30} aria-hidden="true" />
             <h3 className="mt-4 text-xl font-extrabold text-ink">No public Expert Talks are scheduled right now</h3>
             <p className="mx-auto mt-2 max-w-xl text-slate-600">
-              New mentor-led Expert Talks will appear here when they are announced. Create an account to access the Expert Talk hub.
+              New expert-led talks will appear here when they are announced. Create an account to access the Expert Talk hub.
             </p>
             <Link href={ctaHref} className="btn-primary mt-6">Open Expert Talk Hub</Link>
           </div>

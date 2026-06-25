@@ -133,13 +133,12 @@ export default function WaitlistForm() {
           <option>Student</option>
           <option>Mentor</option>
           <option>Faculty</option>
-          <option>Institution</option>
         </select>
         <FieldError field="role" errors={fieldErrors} />
       </label>
       <label className="text-sm font-bold text-slate-700">
         College or Company Name
-        <input required name="collegeOrCompany" type="text" autoComplete="organization" placeholder="Your institution or company" className={inputClass} aria-invalid={Boolean(fieldErrors.collegeOrCompany)} />
+        <input required name="collegeOrCompany" type="text" autoComplete="organization" placeholder="Your school, college, or company" className={inputClass} aria-invalid={Boolean(fieldErrors.collegeOrCompany)} />
         <FieldError field="collegeOrCompany" errors={fieldErrors} />
       </label>
       <label className="text-sm font-bold text-slate-700">

@@ -6,7 +6,7 @@ export default function ContactPage() {
       <PageHero
         eyebrow="Contact"
         title="Talk to the My Expert Talk team."
-        description="For mentor onboarding, institution programs, partnerships, or platform support, send us a message."
+        description="For student support, expert onboarding, partnerships, or platform help, send us a message."
         ctaLabel="Join"
         ctaHref="/signup"
       />

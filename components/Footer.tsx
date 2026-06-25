@@ -7,15 +7,14 @@ const quickLinks = [
   ["Expert Talks", "/expert-talks"],
   ["Services", "/services"],
   ["Recordings", "/recordings"],
-  ["Mentors", "/mentors"],
+  ["Experts", "/mentors"],
   ["Events", "/events"],
   ["Contact", "/contact"],
 ] as const;
 
 const joinLinks = [
   ["Join as Student", "/signup"],
-  ["Join as Mentor", "/for-mentors"],
-  ["Join as Institution", "/institutions"],
+  ["Join as Expert", "/for-mentors"],
 ] as const;
 
 export default function Footer() {
@@ -32,7 +31,7 @@ export default function Footer() {
           />
           <p className="max-w-sm text-sm leading-6 text-slate-300">
             My Expert Talk is an education and expert-service platform for
-            students, mentors, institutions, and subject-matter experts.
+            students, experts, and subject-matter mentors.
           </p>
         </div>
         <div>

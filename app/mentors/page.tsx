@@ -2,9 +2,9 @@ import PageHero from "@/components/PageHero";
 import { BadgeCheck } from "lucide-react";
 
 const mentors = [
-  ["Aarav Mehta", "Career Mentor", "Resume, interviews, placements"],
+  ["Aarav Mehta", "Career Expert", "Resume, interviews, placements"],
   ["Dr. Kavya Rao", "Academic Expert", "Research, exams, study planning"],
-  ["Rohan Iyer", "Technology Mentor", "AI, projects, software careers"],
+  ["Rohan Iyer", "Technology Expert", "AI, projects, software careers"],
   ["Meera Shah", "Skill Coach", "Communication, confidence, professional growth"],
 ] as const;
 
@@ -12,10 +12,10 @@ export default function MentorsPage() {
   return (
     <>
       <PageHero
-        eyebrow="Mentors"
-        title="Meet mentors and subject-matter experts."
-        description="Discover verified mentors available for expert talks, services, recordings, and learner support."
-        ctaLabel="Join as Mentor"
+        eyebrow="Experts"
+        title="Meet experts and subject-matter mentors."
+        description="Discover verified experts available for expert talks, services, recordings, and learner support."
+        ctaLabel="Join as Expert"
         ctaHref="/for-mentors"
       />
       <section className="section-pad bg-sky-50">
@@ -26,7 +26,7 @@ export default function MentorsPage() {
               <h2 className="mt-4 text-xl font-black">{name}</h2>
               <p className="text-sm font-bold text-teal-700">{role}</p>
               <p className="mt-3 text-sm leading-6 text-slate-600">{expertise}</p>
-              <p className="mt-4 inline-flex items-center gap-1 rounded-full bg-orange-50 px-3 py-1 text-xs font-bold text-orange-700"><BadgeCheck size={13} /> Verified mentor</p>
+              <p className="mt-4 inline-flex items-center gap-1 rounded-full bg-orange-50 px-3 py-1 text-xs font-bold text-orange-700"><BadgeCheck size={13} /> Verified expert</p>
             </article>
           ))}
         </div>

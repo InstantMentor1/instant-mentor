@@ -7,15 +7,15 @@ export type MarketplaceMetrics = {
   studentsMentored: number;
   activeMentors: number;
   sessionsConducted: number;
-  institutionsRepresented: number;
+  learnerCommunities: number;
   communityMembers: number;
 };
 
 const metricDefinitions = [
   { key: "studentsMentored", label: "Students mentored", icon: GraduationCap },
-  { key: "activeMentors", label: "Verified mentors", icon: BadgeCheck },
+  { key: "activeMentors", label: "Verified experts", icon: BadgeCheck },
   { key: "sessionsConducted", label: "Sessions conducted", icon: CalendarCheck2 },
-  { key: "institutionsRepresented", label: "Institutions represented", icon: Building2 },
+  { key: "learnerCommunities", label: "Learner communities", icon: Building2 },
   { key: "communityMembers", label: "Community members", icon: Users },
 ] as const;
 
@@ -41,7 +41,7 @@ export default function TrustMetrics({ metrics }: { metrics: MarketplaceMetrics 
           ))}
         </dl>
         <p className="mt-4 text-center text-xs text-slate-500">
-          Counts are calculated from current platform records. “Institutions represented” does not imply a formal partnership.
+          Counts are calculated from current platform records and show active student/expert activity.
         </p>
       </div>
     </section>

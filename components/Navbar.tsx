@@ -13,7 +13,7 @@ const publicLinks = [
   { href: "/expert-talks", label: "Expert Talks" },
   { href: "/services", label: "Services" },
   { href: "/recordings", label: "Recordings" },
-  { href: "/mentors", label: "Mentors" },
+  { href: "/mentors", label: "Experts" },
   { href: "/events", label: "Events" },
   { href: "/contact", label: "Contact" },
 ];
@@ -51,7 +51,7 @@ export default function Navbar() {
           ? [
               { href: "/admin/dashboard", label: "Admin Dashboard" },
               { href: "/admin/users", label: "Users" },
-              { href: "/admin/experts", label: "Mentors" },
+              { href: "/admin/experts", label: "Experts" },
               { href: "/admin/services", label: "Services" },
               { href: "/expert-talks", label: "Expert Talks" },
               { href: "/events", label: "Events" },

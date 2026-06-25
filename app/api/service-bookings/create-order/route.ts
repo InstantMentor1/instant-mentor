@@ -19,7 +19,7 @@ export async function POST(request: Request) {
   if (!serviceId) return NextResponse.json({ error: "Service is required." }, { status: 400 });
   if (specificGoal.length < 50) return NextResponse.json({ error: "Please explain your specific goal in at least 50 characters." }, { status: 400 });
   if (alreadyTried.length < 30) return NextResponse.json({ error: "Please share what you already tried in at least 30 characters." }, { status: 400 });
-  if (!institutionProgram) return NextResponse.json({ error: "Institution or program is required." }, { status: 400 });
+  if (!institutionProgram) return NextResponse.json({ error: "Learning context is required." }, { status: 400 });
   if (!preferredDate) return NextResponse.json({ error: "Preferred date is required." }, { status: 400 });
   if (!preferredTime) return NextResponse.json({ error: "Preferred time is required." }, { status: 400 });
   if (!depositAcknowledged) return NextResponse.json({ error: "Please acknowledge the booking deposit and no-show policy." }, { status: 400 });
@@ -54,7 +54,7 @@ export async function POST(request: Request) {
     user_id: auth.user.id,
     expert_id: service.expert_id,
     user_goal: specificGoal,
-    requirement_details: `${specificGoal}\n\nAlready tried:\n${alreadyTried}\n\nInstitution/program:\n${institutionProgram}`,
+    requirement_details: `${specificGoal}\n\nAlready tried:\n${alreadyTried}\n\nLearning context:\n${institutionProgram}`,
     booking_intent: {
       specific_goal: specificGoal,
       already_tried: alreadyTried,

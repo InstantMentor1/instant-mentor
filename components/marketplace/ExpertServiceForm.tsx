@@ -100,14 +100,14 @@ export default function ExpertServiceForm({ initialService }: { initialService?:
       </div>
       <Field label="Requirements before session"><textarea required rows={3} className="form-input" value={formData.requirements} onChange={(event) => update("requirements", event.target.value)} placeholder="Ask students to share resume, assignment, project link, topic, or context." /></Field>
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-        <Field label="Price set by mentor (₹)"><input required min="500" step="1" type="number" className="form-input" value={formData.price} onChange={(event) => update("price", event.target.value)} /></Field>
+        <Field label="Price set by expert (₹)"><input required min="500" step="1" type="number" className="form-input" value={formData.price} onChange={(event) => update("price", event.target.value)} /></Field>
         <Field label="Duration (minutes)"><input required min="15" max="480" step="15" type="number" className="form-input" value={formData.duration_minutes} onChange={(event) => update("duration_minutes", event.target.value)} /></Field>
         <Field label="Delivery mode"><select required className="form-input" value={formData.delivery_mode} onChange={(event) => update("delivery_mode", event.target.value)}>{deliveryModes.map((mode) => <option key={mode.value} value={mode.value}>{mode.label}</option>)}</select></Field>
         <Field label="Max bookings/week"><input required min="1" max="100" type="number" className="form-input" value={formData.max_bookings_per_week} onChange={(event) => update("max_bookings_per_week", event.target.value)} /></Field>
       </div>
       <Field label="Availability"><input className="form-input" value={formData.availability_notes} onChange={(event) => update("availability_notes", event.target.value)} placeholder="Weekday evenings and Saturday mornings" /></Field>
       <div className="rounded-2xl bg-sky-50 p-4 text-sm font-semibold text-teal-900">
-        Minimum service price is ₹500. Estimated mentor payout at this price is ₹{pricePreview.smePayout.toLocaleString("en-IN")}.
+        Minimum service price is ₹500. Estimated expert payout at this price is ₹{pricePreview.smePayout.toLocaleString("en-IN")}.
       </div>
       <Field label="Status"><select className="form-input max-w-xs" value={formData.status} onChange={(event) => update("status", event.target.value)}><option value="active">Active</option><option value="inactive">Inactive</option></select></Field>
       <button type="submit" disabled={loading} className="btn-primary disabled:cursor-not-allowed disabled:opacity-60">{loading ? "Saving service..." : initialService ? "Save Changes" : "Create Service"}</button>

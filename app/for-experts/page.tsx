@@ -3,7 +3,7 @@ import { Banknote, CalendarClock, ListChecks, Mic2, Star, UserRoundCheck, type L
 import PageHero from "@/components/PageHero";
 
 const benefits: Array<{ title: string; text: string; icon: LucideIcon }> = [
-  { title: "Create mentor profile", text: "Show your expertise, background, experience, and learner outcomes.", icon: UserRoundCheck },
+  { title: "Create expert profile", text: "Show your expertise, background, experience, and learner outcomes.", icon: UserRoundCheck },
   { title: "List services", text: "Create services with duration, deliverables, requirements, price, and availability.", icon: ListChecks },
   { title: "Host expert talks", text: "Run live learning sessions and event-style talks for students.", icon: Mic2 },
   { title: "Set availability", text: "Control when learners can book your support.", icon: CalendarClock },
@@ -15,10 +15,10 @@ export default function ForExpertsPage() {
   return (
     <>
       <PageHero
-        eyebrow="For mentors"
+        eyebrow="For experts"
         title="Share your expertise with learners."
-        description="Create your profile, list your services, host expert talks, upload recordings, manage bookings, and earn through expert-led learning."
-        ctaLabel="Join as Mentor"
+        description="Create your profile, list services, host expert talks, upload recordings, manage bookings, and earn through expert-led learning."
+        ctaLabel="Join as Expert"
         ctaHref="/signup"
       />
       <section className="section-pad bg-sky-50">
@@ -33,9 +33,9 @@ export default function ForExpertsPage() {
         </div>
         <div className="container-shell mt-8">
           <div className="card border-blue-100 p-7 text-center">
-            <h2 className="text-2xl font-black">Ready to start mentoring?</h2>
-            <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-slate-600">Create your mentor account, complete your profile, and publish your first service or expert talk.</p>
-            <Link href="/signup" className="btn-primary mt-6">Join as Mentor</Link>
+            <h2 className="text-2xl font-black">Ready to start as an expert?</h2>
+            <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-slate-600">Create your expert account, complete your profile, and publish your first service or expert talk.</p>
+            <Link href="/signup" className="btn-primary mt-6">Join as Expert</Link>
           </div>
         </div>
       </section>

@@ -38,7 +38,7 @@ export default async function ServiceDetailsPage({ params }: { params: Promise<{
         </article>
         <aside className="h-fit lg:sticky lg:top-28">
           <div className="card border-blue-100 p-6">
-            <p className="text-sm font-bold uppercase tracking-wide text-slate-400">Mentor-set price</p>
+            <p className="text-sm font-bold uppercase tracking-wide text-slate-400">Expert-set price</p>
             <p className="mt-2 text-4xl font-black text-teal-800">₹{Number(service.price).toLocaleString("en-IN")}</p>
             <div className="mt-5 space-y-3 border-y border-slate-100 py-5 text-sm font-semibold">
               <p className="flex items-center gap-2"><Clock3 size={17} className="text-teal-700" /> {service.duration_minutes} minutes</p>
@@ -48,12 +48,12 @@ export default async function ServiceDetailsPage({ params }: { params: Promise<{
             <div className="mt-5 flex items-center gap-3">
               <span className="flex h-11 w-11 items-center justify-center rounded-full bg-teal-700 font-black text-white">{(service.expert?.full_name ?? "M")[0]}</span>
               <div>
-                <p className="flex items-center gap-1 font-black">{service.expert?.full_name ?? "Verified Mentor"} <BadgeCheck size={16} className="text-teal-600" /></p>
+                <p className="flex items-center gap-1 font-black">{service.expert?.full_name ?? "Verified Expert"} <BadgeCheck size={16} className="text-teal-600" /></p>
                 <p className="text-xs text-slate-500">{service.expert?.college_or_company ?? "Mentor on My Expert Talk"}</p>
               </div>
             </div>
             <div className="mt-5 rounded-2xl bg-sky-50 p-4 text-xs font-semibold text-slate-600">
-              My Expert Talk fee: {fee.commissionPercent}% · mentor payout estimate: ₹{fee.smePayout.toLocaleString("en-IN")}
+              My Expert Talk fee: {fee.commissionPercent}% · expert payout estimate: ₹{fee.smePayout.toLocaleString("en-IN")}
             </div>
             <Link href={bookingHref} className="btn-primary mt-6 w-full">
               Book Service

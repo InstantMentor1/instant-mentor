@@ -41,7 +41,7 @@ export default async function UserBookingsPage({ searchParams }: { searchParams:
         {bookings.length === 0 && (
           <div className="card border-blue-100 p-10 text-center">
             <h2 className="text-xl font-black">No bookings yet.</h2>
-            <p className="mt-2 text-slate-600">Browse mentor services and choose the exact learning outcome you need.</p>
+            <p className="mt-2 text-slate-600">Browse expert services and choose the exact learning outcome you need.</p>
             <Link href="/services" className="btn-primary mt-6">Explore Services</Link>
           </div>
         )}

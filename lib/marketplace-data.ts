@@ -5,9 +5,18 @@ import { createSupabaseAdminClient } from "@/lib/supabase/server";
 export async function getPublicServices(category?: string): Promise<ExpertService[]> {
   try {
     const admin = createSupabaseAdminClient();
-    let query = admin.from("expert_services").select("*").eq("status", "active").order("created_at", { ascending: false });
+    let query = admin
+      .from("expert_services")
+      .select("*")
+      .eq("status", "active")
+      .order("created_at", { ascending: false })
+      .limit(24);
     if (category) query = query.eq("category", category);
-    const { data: services, error } = await query;
+    const { data: services, error } = await withTimeout(
+      query,
+      { data: [], error: null, count: null, status: 200, statusText: "OK", success: true },
+      4500,
+    );
     if (error) {
       console.error("Unable to load expert services", error);
       return [];
@@ -17,8 +26,16 @@ export async function getPublicServices(category?: string): Promise<ExpertServic
     const expertIds = Array.from(new Set(services.map((service) => service.expert_id)));
     const serviceIds = services.map((service) => service.id);
     const [{ data: profiles }, { data: reviews }] = await Promise.all([
-      admin.from("profiles").select("user_id,full_name,college_or_company,linkedin_or_portfolio").in("user_id", expertIds),
-      admin.from("service_reviews").select("service_id,rating").in("service_id", serviceIds),
+      withTimeout(
+        admin.from("profiles").select("user_id,full_name,college_or_company,linkedin_or_portfolio").in("user_id", expertIds),
+        { data: [], error: null, count: null, status: 200, statusText: "OK", success: true },
+        2500,
+      ),
+      withTimeout(
+        admin.from("service_reviews").select("service_id,rating").in("service_id", serviceIds),
+        { data: [], error: null, count: null, status: 200, statusText: "OK", success: true },
+        2500,
+      ),
     ]);
     const profileMap = new Map((profiles ?? []).map((profile) => [profile.user_id, profile]));
 
@@ -38,6 +55,13 @@ export async function getPublicServices(category?: string): Promise<ExpertServic
     console.error("Unable to load public service marketplace", error);
     return [];
   }
+}
+
+function withTimeout<T>(promise: PromiseLike<T>, fallback: T, ms: number): Promise<T> {
+  return Promise.race([
+    Promise.resolve(promise),
+    new Promise<T>((resolve) => setTimeout(() => resolve(fallback), ms)),
+  ]);
 }
 
 export async function getPublicService(id: string): Promise<ExpertService | null> {
