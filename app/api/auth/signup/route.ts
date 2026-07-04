@@ -34,6 +34,52 @@ function isDuplicateAuthError(error: { message?: string } | null | undefined) {
   );
 }
 
+function authSignupErrorResponse(error: { message?: string; status?: number; code?: string } | null | undefined) {
+  const message = error?.message?.toLowerCase() ?? "";
+  const status = error?.status;
+
+  if (isDuplicateAuthError(error)) return duplicateAccountResponse();
+
+  if (
+    status === 401 ||
+    status === 403 ||
+    message.includes("jwt") ||
+    message.includes("api key") ||
+    message.includes("invalid key")
+  ) {
+    return NextResponse.json(
+      { error: "Account creation service is not configured correctly. Please contact support." },
+      { status: 500 },
+    );
+  }
+
+  if (message.includes("password")) {
+    return NextResponse.json(
+      { error: "Password does not meet the account security requirements. Please use a stronger password." },
+      { status: 400 },
+    );
+  }
+
+  if (message.includes("email")) {
+    return NextResponse.json(
+      { error: "Please check your email address and try again." },
+      { status: 400 },
+    );
+  }
+
+  if (message.includes("database")) {
+    return NextResponse.json(
+      { error: "Account setup is temporarily unavailable. Please try again in a few minutes or contact support." },
+      { status: 500 },
+    );
+  }
+
+  return NextResponse.json(
+    { error: "Account could not be created. Please try again or contact support." },
+    { status: 500 },
+  );
+}
+
 function duplicateAccountResponse() {
   return NextResponse.json(
     { error: "An account with this email already exists. Please log in." },
@@ -109,12 +155,12 @@ export async function POST(request: Request) {
     });
 
     if (error || !data.user) {
-      console.error("Account signup failed:", error);
-      if (isDuplicateAuthError(error)) return duplicateAccountResponse();
-      return NextResponse.json(
-        { error: "Account could not be created. Please check your details and try again." },
-        { status: 500 },
-      );
+      console.error("Account signup failed:", {
+        message: error?.message,
+        status: error?.status,
+        code: error?.code,
+      });
+      return authSignupErrorResponse(error);
     }
 
     let { data: profile, error: profileUpsertError } = await admin
