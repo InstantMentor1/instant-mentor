@@ -11,7 +11,7 @@ const benefits = [
 
 export default function CampusAmbassadorSection() {
   const emailHref =
-    "mailto:hello.instantmentor@gmail.com?subject=Instant%20Mentor%20Campus%20Ambassador%20Interest";
+    "mailto:support@myexperttalk.com?subject=My%20Expert%20Talk%20Campus%20Ambassador%20Interest";
 
   return (
     <section className="section-pad bg-slate-50" aria-labelledby="campus-ambassador-title">

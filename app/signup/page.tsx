@@ -13,7 +13,7 @@ export default async function SignupPage() {
         <div className="mb-8 text-center">
           <span className="eyebrow">Create your account</span>
           <h1 className="text-4xl font-black text-navy">Join My Expert Talk</h1>
-          <p className="mt-3 text-slate-600">Create a student account to explore expert talks and mentor services, or join as a mentor to publish your own service menu.</p>
+          <p className="mt-3 text-slate-600">Create a student account to prepare for interviews, walk-in drives, and career opportunities. Mentors can publish services, expert talks, and courses.</p>
         </div>
         <AuthForm mode="signup" />
       </div>

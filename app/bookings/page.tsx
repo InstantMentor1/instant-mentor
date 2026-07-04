@@ -29,7 +29,7 @@ export default async function UserBookingsPage({ searchParams }: { searchParams:
               </div>
               <p className="mt-4 text-sm text-slate-600"><strong>Booking intent:</strong> {booking.requirement_details}</p>
               <div className="mt-4 grid grid-cols-2 gap-3 rounded-2xl bg-ivory p-4 text-sm">
-                <p><strong>Price</strong><br />â‚¹{Number(booking.price).toLocaleString("en-IN")}</p>
+                <p><strong>Price</strong><br />Rs. {Number(booking.price).toLocaleString("en-IN")}</p>
                 <p><strong>Payment</strong><br /><span className="capitalize">{booking.payment_status}</span></p>
                 <p><strong>Preferred</strong><br />{booking.preferred_date} - {booking.preferred_time}</p>
                 <p><strong>Duration</strong><br />{booking.service?.duration_minutes ?? "-"} minutes</p>

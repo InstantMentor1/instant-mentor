@@ -17,7 +17,7 @@ export default function ForExpertsPage() {
       <PageHero
         eyebrow="For experts"
         title="Share your expertise with learners."
-        description="Create your profile, list services, host expert talks, upload recordings, manage bookings, and earn through expert-led learning."
+        description="Create your profile, list 1:1 services, host expert talks, add mini courses or monthly programs, manage bookings, and earn through expert-led learning."
         ctaLabel="Join as Mentor"
         ctaHref="/signup"
       />

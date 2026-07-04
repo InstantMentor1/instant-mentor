@@ -57,11 +57,14 @@ export default function ServiceDiscovery({ services, initialCategory, initialSea
 
         <div className="mb-6 mt-8 flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
           <div>
-            <p className="inline-flex items-center gap-2 text-sm font-black uppercase tracking-wide text-coral"><SlidersHorizontal size={16} /> {category || "Learning store"}</p>
-            <h2 className="mt-1 text-3xl font-black tracking-[-0.035em] text-navy">{filtered.length} mentor services ready to browse</h2>
-            <p className="mt-1 text-sm text-slate-600">Mentor-created listings, mentor-set pricing, and availability-based booking.</p>
+            <p className="inline-flex items-center gap-2 text-sm font-black uppercase tracking-wide text-coral"><SlidersHorizontal size={16} /> {category || "Interview and readiness services"}</p>
+            <h2 className="mt-1 text-3xl font-black tracking-[-0.035em] text-navy">Mentor services - browse and book</h2>
+            <p className="mt-1 text-sm text-slate-600">Use services for personal practice and reviews. Use courses for structured learning tracks.</p>
           </div>
-          <Link href="/for-mentors" className="text-sm font-black text-coral">Create your mentor store -&gt;</Link>
+          <div className="flex flex-wrap gap-3">
+            <Link href="/courses" className="text-sm font-black text-academic">Explore courses -&gt;</Link>
+            <Link href="/for-mentors" className="text-sm font-black text-coral">Create your mentor store -&gt;</Link>
+          </div>
         </div>
 
         {filtered.length > 0 ? (
@@ -71,8 +74,8 @@ export default function ServiceDiscovery({ services, initialCategory, initialSea
         ) : (
           <div className="rounded-[2rem] border border-dashed border-navy/20 bg-white p-10 text-center shadow-sm">
             <Store className="mx-auto text-coral" size={40} />
-            <h2 className="mt-4 text-2xl font-black text-navy">{services.length === 0 ? "No mentor services are live yet." : "No services match your search."}</h2>
-            <p className="mx-auto mt-3 max-w-2xl text-slate-600">{services.length === 0 ? "Verified mentors can create service listings from the mentor dashboard. Students will see them here like store items." : "Try another keyword, category, or sort option."}</p>
+            <h2 className="mt-4 text-2xl font-black text-navy">{services.length === 0 ? "Mentor services are being prepared." : "No services match your search."}</h2>
+            <p className="mx-auto mt-3 max-w-2xl text-slate-600">{services.length === 0 ? "Demo mentor services appear here until verified mentors publish their live listings." : "Try another keyword, category, or sort option."}</p>
             {services.length === 0 ? <Link href="/for-mentors" className="btn-primary mt-6">Join as Mentor</Link> : <button type="button" onClick={() => { setCategory(""); setSearch(""); }} className="btn-secondary mt-6">Clear filters</button>}
           </div>
         )}

@@ -12,11 +12,11 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://instant-mentor.verc
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "My Expert Talk | Learn Directly From Experts",
+    default: "My Expert Talk | Premium Student Readiness Platform",
     template: "%s | My Expert Talk",
   },
   description:
-    "My Expert Talk helps students and learners join expert talks, book mentor services, access recordings, and connect with verified educators and subject-matter experts.",
+    "My Expert Talk helps serious students prepare for interviews, walk-in drives, career moves, and technical domains through mentor services, expert talks, recordings, and expert-led courses.",
   keywords: [
     "expert talks",
     "mentor services",
@@ -32,12 +32,12 @@ export const metadata: Metadata = {
     siteName: "My Expert Talk",
     title: "Learn directly from experts, mentors, and educators.",
     description:
-      "Join live expert talks, explore expert-led services, access recordings, and book guidance sessions.",
+      "Prepare before interviews and career opportunities with mentor services, expert talks, recordings, and expert-led courses.",
     images: [{ url: "/my-expert-talk-logo.png", alt: "My Expert Talk" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "My Expert Talk | Expert talks and mentor services",
+    title: "My Expert Talk | Interview practice, mentor services, and expert courses",
     description:
       "Connect with verified experts for academic support, career guidance, skill development, and live learning sessions.",
     images: ["/my-expert-talk-logo.png"],
@@ -70,7 +70,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${inter.className} bg-[#020818] text-slate-100`}>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

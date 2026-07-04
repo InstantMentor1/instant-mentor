@@ -1,8 +1,12 @@
 node_modules
 .next
 .next-local
+.next-check
+.next-build*
+.next-fresh
 .next-marketplace
 out
+tsconfig.tsbuildinfo
 .env*
 !.env.example
 npm-debug.log*

@@ -33,7 +33,7 @@ export default function ServiceCard({ service }: { service: ExpertService }) {
         <div className="mt-5 grid grid-cols-2 gap-3 rounded-2xl bg-ivory p-4 text-sm">
           <div>
             <p className="text-xs font-bold uppercase tracking-wide text-slate-400">Price set by mentor</p>
-            <p className="mt-1 text-xl font-black text-navy">₹{Number(service.price).toLocaleString("en-IN")}</p>
+            <p className="mt-1 text-lg font-black text-navy">Price set by mentor</p>
           </div>
           <div>
             <p className="text-xs font-bold uppercase tracking-wide text-slate-400">Format</p>
@@ -50,7 +50,7 @@ export default function ServiceCard({ service }: { service: ExpertService }) {
           Availability: {service.availability_notes ?? "Confirmed with the mentor after booking request"}
         </p>
         <Link href={`/services/${service.id}`} className="btn-primary mt-6 w-full">
-          Book Service
+          Book Now -&gt;
         </Link>
       </div>
     </article>

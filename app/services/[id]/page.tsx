@@ -1,27 +1,38 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { BadgeCheck, Check, Clock3, Star } from "lucide-react";
-import { getAuthContext } from "@/lib/auth";
-import { calculatePlatformFee, formatDeliveryMode } from "@/lib/marketplace";
+import { formatDeliveryMode } from "@/lib/marketplace";
 import { getPublicService } from "@/lib/marketplace-data";
+
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const { id } = await params;
+  const service = await getPublicService(id);
+  const title = service ? `${service.title} | My Expert Talk` : "Find Expert Help | My Expert Talk";
+  const description = service
+    ? `${service.title} with mentor-set pricing on My Expert Talk.`
+    : "Browse verified mentor services for interview prep, exam guidance, resume review, and career clarity. Mentor-set pricing.";
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      siteName: "My Expert Talk",
+      images: [{ url: "/my-expert-talk-logo.png", alt: "My Expert Talk" }],
+    },
+  };
+}
 
 export default async function ServiceDetailsPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const [service, auth] = await Promise.all([getPublicService(id), getAuthContext()]);
+  const service = await getPublicService(id);
   if (!service) notFound();
-  const bookingHref = !auth.user
-    ? `/login?next=/services/${id}/book`
-    : auth.profile?.role === "Student"
-      ? `/services/${id}/book`
-      : auth.profile?.role === "Admin"
-        ? "/admin/dashboard"
-        : "/mentor/dashboard";
-  const fee = calculatePlatformFee(Number(service.price));
-
   return (
     <section className="bg-ivory py-10 sm:py-14">
       <div className="container-shell grid gap-7 lg:grid-cols-[1fr_360px]">
         <article className="card p-6 sm:p-9">
+          <Link href="/services" className="mb-6 inline-flex text-sm font-black text-academic">&larr; All services</Link>
           <span className="rounded-full bg-skysoft px-3 py-1 text-xs font-bold text-navy">{service.category}</span>
           <h1 className="mt-5 text-4xl font-black tracking-tight">{service.title}</h1>
           <p className="mt-5 text-lg leading-8 text-slate-600">{service.description}</p>
@@ -39,7 +50,8 @@ export default async function ServiceDetailsPage({ params }: { params: Promise<{
         <aside className="h-fit lg:sticky lg:top-28">
           <div className="card p-6">
             <p className="text-sm font-bold uppercase tracking-wide text-slate-400">Mentor-set price</p>
-            <p className="mt-2 text-4xl font-black text-navy">₹{Number(service.price).toLocaleString("en-IN")}</p>
+            <p className="mt-2 text-3xl font-black text-navy">Price set by mentor</p>
+            <p className="mt-2 text-sm leading-6 text-slate-600">Price set by mentor - visible on mentor&apos;s profile.</p>
             <div className="mt-5 space-y-3 border-y border-slate-100 py-5 text-sm font-semibold">
               <p className="flex items-center gap-2"><Clock3 size={17} className="text-coral" /> {service.duration_minutes} minutes</p>
               <p className="flex items-center gap-2"><Check size={17} className="text-coral" /> {formatDeliveryMode(service.delivery_mode)}</p>
@@ -52,13 +64,10 @@ export default async function ServiceDetailsPage({ params }: { params: Promise<{
                 <p className="text-xs text-slate-500">{service.expert?.college_or_company ?? "Mentor on My Expert Talk"}</p>
               </div>
             </div>
-            <div className="mt-5 rounded-2xl bg-ivory p-4 text-xs font-semibold text-slate-600">
-              My Expert Talk fee: {fee.commissionPercent}% - mentor payout estimate: ₹{fee.smePayout.toLocaleString("en-IN")}
-            </div>
-            <Link href={bookingHref} className="btn-primary mt-6 w-full">
-              Book Service
+            <Link href="/mentors" className="btn-primary mt-6 w-full">
+              Browse mentors who offer this -&gt;
             </Link>
-            <p className="mt-3 text-center text-xs leading-5 text-slate-500">Your booking intent is shared privately with the mentor after payment.</p>
+            <p className="mt-3 text-center text-xs leading-5 text-slate-500">Your booking intent is shared privately with the mentor after you request the service.</p>
           </div>
         </aside>
       </div>

@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: light;
+  color-scheme: dark;
 }
 
 html {
@@ -11,13 +11,17 @@ html {
 }
 
 body {
-  color: #172033;
-  background: #fff8f0;
+  color: #f8fafc;
+  background: #020818;
 }
 
 ::selection {
   color: #ffffff;
-  background: #dc2626;
+  background: #2563EB;
+}
+
+* {
+  transition: border-color 0.2s ease, background-color 0.2s ease;
 }
 
 @keyframes marquee {
@@ -44,15 +48,15 @@ body {
   }
 
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-full bg-coral px-5 py-3 text-sm font-bold text-white shadow-lg shadow-coral/20 transition hover:-translate-y-0.5 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-coral focus:ring-offset-2;
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-electric-500 px-5 py-3 text-sm font-bold text-white shadow-[0_0_20px_rgba(37,99,235,0.4)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-electric-400 focus:outline-none focus:ring-2 focus:ring-electric-300 focus:ring-offset-2 focus:ring-offset-navy-950;
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 rounded-full border border-navy/15 bg-white px-5 py-3 text-sm font-bold text-navy transition hover:-translate-y-0.5 hover:border-academic hover:text-academic focus:outline-none focus:ring-2 focus:ring-academic focus:ring-offset-2;
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-electric-300 bg-transparent px-5 py-3 text-sm font-bold text-electric-300 transition-all duration-200 hover:-translate-y-0.5 hover:bg-electric-500/10 focus:outline-none focus:ring-2 focus:ring-electric-300 focus:ring-offset-2 focus:ring-offset-navy-950;
   }
 
   .card {
-    @apply rounded-3xl border border-navy/10 bg-white shadow-soft;
+    @apply rounded-3xl border border-electric-500/20 bg-navy-800 shadow-soft transition-all duration-200 hover:-translate-y-1 hover:border-electric-500/60 hover:bg-navy-700;
   }
 
   .form-input {

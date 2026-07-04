@@ -1,296 +1,178 @@
-﻿import Image from "next/image";
-import Link from "next/link";
-import {
-  ArrowRight,
-  BookOpen,
-  BriefcaseBusiness,
-  Building2,
-  CalendarDays,
-  Clock3,
-  GraduationCap,
-  MessageSquareText,
-  Mic2,
-  MonitorPlay,
-  PackageCheck,
-  Search,
-  Sparkles,
-  Star,
-  Store,
-  Users,
-} from "lucide-react";
-import type { AppRole } from "@/lib/auth-shared";
+﻿"use client";
 
-const chips = ["Career Guidance", "Exam Help", "Resume Review", "Mock Interview", "Project Support", "AI & Tech Skills", "Business Guidance", "Recordings"];
-const categories = [
-  ["Expert Talks", "Live mentor-led sessions", "/expert-talks", Mic2, "bg-peach"],
-  ["Mentor Services", "Book 1:1 help", "/services", Store, "bg-skysoft"],
-  ["Resume Review", "Improve shortlisting", "/services?search=resume", BriefcaseBusiness, "bg-white"],
-  ["Mock Interview", "Practice with mentors", "/services?search=mock", MessageSquareText, "bg-peach"],
-  ["Exam Preparation", "Strategy and support", "/services?search=exam", GraduationCap, "bg-skysoft"],
-  ["Project Support", "Review and improve", "/services?search=project", BookOpen, "bg-white"],
-  ["Skill Development", "Roadmaps and practice", "/services?search=skills", Sparkles, "bg-peach"],
-  ["Career Guidance", "Clarity and planning", "/services?search=career", PackageCheck, "bg-skysoft"],
-  ["Recordings", "Learn anytime", "/recordings", MonitorPlay, "bg-white"],
-  ["Events", "Upcoming calendar", "/events", CalendarDays, "bg-peach"],
-  ["Mentors", "Verified experts", "/mentors", Users, "bg-skysoft"],
-  ["Institutions", "Programs at scale", "/contact", Building2, "bg-white"],
+import Link from "next/link";
+import { ArrowRight, Check, Sparkles } from "lucide-react";
+import type { AppRole } from "@/lib/auth-shared";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
+
+const situations = [
+  ["I have an interview coming up", "interview-prep", "Practice with a hiring manager before the real thing.", "murthy"],
+  ["My resume isn't getting shortlisted", "resume-help", "Get your resume seen — and shortlisted.", "kalam"],
+  ["I don't know which career path to take", "career-clarity", "Talk to someone who's built a career you admire.", "tata"],
+  ["I'm stuck on a concept or exam topic", "exam-doubt", "Instant doubt-clearing from people who've cracked it.", "pichai"],
+  ["I want to build real skills fast", "skill-building", "Practical skills from engineers and builders.", "nadella"],
+  ["I'm in my first job and lost", "first-job", "Navigate your first job without the guesswork.", "nooyi"],
+  ["I want to crack GATE / CAT / UPSC", "competitive-exams", "Strategy and doubt-solving from toppers who've been there.", "bedi"],
+  ["I run a small business and need advice", "business-guidance", "Expert business advice without the consultant fee.", "kiyosaki"],
 ] as const;
 
 const talks = [
-  { title: "Placement Prep Sprint", mentor: "Career mentor", category: "Career", date: "26 Jun", time: "7:00 PM" },
-  { title: "AI Tools for Students", mentor: "AI educator", category: "Skills", date: "28 Jun", time: "6:00 PM" },
-  { title: "Exam Strategy Clinic", mentor: "Academic expert", category: "Exam Help", date: "30 Jun", time: "11:00 AM" },
-  { title: "Project Portfolio Review", mentor: "Tech mentor", category: "Projects", date: "2 Jul", time: "5:30 PM" },
-];
+  ["Placement Prep Sprint", "placement-prep-sprint", "Priya Nair, HR Manager · TCS", "Career", 2, "7:00 PM"],
+  ["AI Tools for Students", "ai-tools-students", "Rohan Iyer, Technology Mentor", "Skills", 4, "6:00 PM"],
+  ["Exam Strategy Clinic", "exam-strategy-clinic", "Sneha Patel, GATE AIR 47 · DRDO", "Exam Help", 7, "11:00 AM"],
+  ["Project Portfolio Review", "project-portfolio-review", "Arjun Mehta, Product Manager · Flipkart", "Projects", 10, "5:00 PM"],
+] as const;
 
 const services = [
-  { title: "Resume Review for Freshers", mentor: "Aarav Mehta", role: "Career Mentor", category: "Resume Review", duration: "30 min", availability: "Slots this week" },
-  { title: "Mock Interview for Software Roles", mentor: "Rohan Iyer", role: "Tech Mentor", category: "Mock Interview", duration: "45 min", availability: "Evening slots" },
-  { title: "Career Roadmap Session", mentor: "Kavya Rao", role: "Academic Mentor", category: "Career Guidance", duration: "60 min", availability: "Weekend" },
-  { title: "Project Review Session", mentor: "Meera Shah", role: "Skill Coach", category: "Project Support", duration: "45 min", availability: "2 seats left" },
-];
+  ["Resume Review for Freshers", "resume-review", "Aarav Mehta", "Career Mentor", "Resume", "30 min", "available", "Slots this week"],
+  ["Mock Interview for Software Roles", "software-mock-interview", "Rohan Iyer", "Technology Mentor", "Mock Interview", "45 min", "available", "Evening slots"],
+  ["Career Roadmap Session", "career-roadmap", "Kavya Rao", "Academic Educator", "Career", "60 min", "available", "Weekend slots"],
+  ["Project Review Session", "project-review", "Rohan Iyer", "Technology Mentor", "Project", "45 min", "limited", "2 seats left"],
+] as const;
 
 const recordings = [
-  ["Resume teardown replay", "Career", "32 min"],
-  ["AI study workflow", "AI & Tech", "41 min"],
-  ["Interview mistakes to avoid", "Placement", "28 min"],
-  ["Project demo clinic", "Projects", "36 min"],
+  ["Resume teardown replay", "Career", "32 min", "bg-electric-500"],
+  ["AI study workflow", "AI", "41 min", "bg-violet-500"],
+  ["Interview mistakes to avoid", "Placement", "28 min", "bg-green-500"],
+  ["Project demo clinic", "Projects", "36 min", "bg-amber-500"],
 ] as const;
 
 const mentors = [
-  { name: "Aarav Mehta", role: "Career Mentor", tags: ["Resume", "Placements"] },
-  { name: "Kavya Rao", role: "Academic Educator", tags: ["Exams", "Research"] },
-  { name: "Rohan Iyer", role: "Technology Mentor", tags: ["AI", "Projects"] },
-  { name: "Meera Shah", role: "Skill Coach", tags: ["Communication", "Growth"] },
-];
+  ["Aarav Mehta", "aarav-mehta", "Career Mentor", ["Resume", "Placements"]],
+  ["Kavya Rao", "kavya-rao", "Academic Educator", ["Career", "Study Planning"]],
+  ["Rohan Iyer", "rohan-iyer", "Technology Mentor", ["AI", "Projects"]],
+  ["Meera Shah", "meera-shah", "Skill Coach", ["Communication", "Growth"]],
+] as const;
 
-export function MinimalLandingPage({ dashboardHref, role }: { dashboardHref: string | null; role: AppRole | null }) {
-  const isExpert = role === "Mentor" || role === "Faculty" || role === "Institution";
-  const isStudent = role === "Student";
-
-  return (
-    <>
-      <section className="bg-ivory pb-8 pt-8 sm:pb-10 sm:pt-12">
-        <div className="container-shell grid gap-8 lg:grid-cols-[1fr_420px] lg:items-center">
-          <div className="rounded-[2rem] border border-navy/10 bg-white p-6 shadow-soft sm:p-8 lg:p-10">
-            <div className="flex flex-wrap items-center gap-3">
-              <Image src="/my-expert-talk-logo.png" alt="My Expert Talk" width={1600} height={1600} priority className="h-14 w-auto object-contain" />
-              <span className="rounded-full bg-peach px-4 py-2 text-xs font-black uppercase tracking-[0.16em] text-coral">Quick learning store</span>
-            </div>
-            <h1 className="mt-7 max-w-4xl text-5xl font-black leading-[0.98] tracking-[-0.055em] text-navy sm:text-7xl">
-              Order expert learning support in minutes.
-            </h1>
-            <p className="mt-5 max-w-2xl text-base leading-8 text-slate-700 sm:text-lg">
-              Browse expert talks, mentor services, recordings, and learning events created by verified mentors and educators. Choose what you need, check availability, and book.
-            </p>
-            <form action="/services" className="mt-7 flex flex-col gap-3 rounded-[1.4rem] border border-navy/10 bg-ivory p-2 sm:flex-row">
-              <label className="relative flex-1">
-                <span className="sr-only">Search learning store</span>
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-coral" size={19} />
-                <input name="search" className="form-input border-0 bg-white pl-12 focus:ring-0" placeholder="Search for resume review, exam help, career guidance, AI skills, project review..." />
-              </label>
-              <button className="btn-primary" type="submit">Start Exploring</button>
-            </form>
-            <div className="mt-4 flex flex-wrap gap-2">
-              {chips.map((chip) => <Link key={chip} href={`/services?search=${encodeURIComponent(chip)}`} className="rounded-full border border-navy/10 bg-white px-3 py-2 text-xs font-bold text-slate-600 transition hover:-translate-y-0.5 hover:border-coral/30 hover:text-coral">{chip}</Link>)}
-            </div>
-            <div className="mt-7 flex flex-wrap gap-3">
-              <Link href={dashboardHref ?? "/services"} className="btn-primary">{dashboardHref ? "Open Dashboard" : "Start Exploring"}<ArrowRight size={17} /></Link>
-              {!dashboardHref && <Link href="/for-mentors" className="btn-secondary">Join as Mentor</Link>}
-              {isStudent && <Link href="/bookings" className="btn-secondary">My Bookings</Link>}
-              {isExpert && <Link href="/mentor/services/new" className="btn-secondary">Create Listing</Link>}
-            </div>
-          </div>
-
-          <div className="grid gap-4">
-            <div className="rounded-[2rem] border border-navy/10 bg-navy p-6 text-white shadow-soft">
-              <p className="text-xs font-black uppercase tracking-[0.18em] text-orange-100">Fast checkout idea</p>
-              <h2 className="mt-3 text-3xl font-black">Services are products. Availability is stock.</h2>
-              <p className="mt-3 text-sm leading-6 text-blue-100">Pick a listing, share context, book the slot, and track fulfilment from your dashboard.</p>
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              {[["Live", "Expert Talks", Mic2], ["Book", "Mentor Services", Store], ["Watch", "Recordings", MonitorPlay], ["Join", "Events", CalendarDays]].map(([verb, title, Icon]) => (
-                <Link href={title === "Mentor Services" ? "/services" : title === "Expert Talks" ? "/expert-talks" : `/${String(title).toLowerCase()}`} key={String(title)} className="rounded-[1.6rem] border border-navy/10 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-soft">
-                  <Icon className="text-coral" />
-                  <p className="mt-4 text-xs font-black uppercase tracking-[0.16em] text-slate-400">{String(verb)}</p>
-                  <p className="text-lg font-black text-navy">{String(title)}</p>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <MarqueeStrip />
-      <StoreCategoryShelfSection />
-      <ExpertTalksShelfSection />
-      <MentorServicesStoreShelf />
-      <RecordingsStoreShelf />
-      <MentorsStoreShelf />
-      <EventsStoreShelf />
-      <QuickBookingFlowSection />
-      <MentorPartnerStoreSection />
-      <InstitutionProgramsStoreSection />
-    </>
-  );
+function addDays(days: number) {
+  const date = new Date();
+  date.setDate(date.getDate() + days);
+  return date;
 }
 
-function ShelfHeader({ eyebrow, title, href }: { eyebrow: string; title: string; href?: string }) {
+function formatDate(date: Date) {
+  return date.toLocaleDateString("en-IN", { day: "2-digit", month: "short" });
+}
+
+function Reveal({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+  return <div data-reveal className={`opacity-0 translate-y-8 transition-all duration-500 ease-out ${className}`}>{children}</div>;
+}
+
+export function MinimalLandingPage({ dashboardHref, role }: { dashboardHref: string | null; role: AppRole | null }) {
+  useScrollReveal();
+  const primaryHref = dashboardHref ?? "/services";
+
   return (
-    <div className="mb-5 flex items-end justify-between gap-4">
-      <div>
-        <p className="text-xs font-black uppercase tracking-[0.18em] text-coral">{eyebrow}</p>
-        <h2 className="mt-1 text-2xl font-black tracking-[-0.035em] text-navy sm:text-4xl">{title}</h2>
-      </div>
-      {href && <Link href={href} className="hidden text-sm font-black text-coral sm:inline-flex">View all -&gt;</Link>}
+    <div className="bg-navy-950 text-chalk">
+      <Hero primaryHref={primaryHref} role={role} />
+      <SituationSection />
+      <TalksSection />
+      <ServicesSection />
+      <RecordingsSection />
+      <MentorsSection />
+      <MentorCTA />
+      <InstitutionsSection />
     </div>
   );
 }
 
-function StoreCategoryShelfSection() {
+function Hero({ primaryHref, role }: { primaryHref: string; role: AppRole | null }) {
   return (
-    <section className="bg-ivory py-8 sm:py-10">
-      <div className="container-shell">
-        <ShelfHeader eyebrow="Shop by learning need" title="Fast shelves for every learning moment." />
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
-          {categories.map(([title, text, href, Icon, tone]) => (
-            <Link key={title} href={href} className={`rounded-[1.4rem] border border-navy/10 ${tone} p-4 shadow-sm transition hover:-translate-y-1 hover:shadow-soft`}>
-              <Icon className="text-coral" size={24} />
-              <h3 className="mt-4 text-sm font-black text-navy sm:text-base">{title}</h3>
-              <p className="mt-1 text-xs leading-5 text-slate-600">{text}</p>
-            </Link>
-          ))}
-        </div>
+    <section className="relative flex min-h-screen items-center overflow-hidden bg-navy-900">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(37,99,235,0.16),transparent_34%)]" />
+      <div className="absolute inset-0 opacity-70 [background-image:radial-gradient(circle_at_1px_1px,rgba(37,99,235,0.16)_1px,transparent_0)] [background-size:48px_48px]" />
+      <div className="absolute left-10 top-24 h-72 w-72 animate-pulse rounded-full bg-electric-500/10 blur-3xl" />
+      <div className="absolute bottom-10 right-10 h-80 w-80 animate-pulse rounded-full bg-electric-300/10 blur-3xl [animation-delay:1s]" />
+      <div className="container-shell relative grid items-center gap-10 py-20 lg:grid-cols-[1.2fr_0.8fr]">
+        <Reveal>
+          <div className="max-w-3xl">
+            <span className="inline-flex rounded-full bg-electric-500/20 px-3 py-1 text-sm font-semibold text-electric-300">India&apos;s expert learning platform</span>
+            <h1 className="mt-6 text-5xl font-bold tracking-tight text-chalk sm:text-6xl lg:text-7xl">
+              <span className="block">Get interview-ready.</span>
+              <span className="block">Get exam-clear.</span>
+              <span className="block">Get <span className="text-electric-400">career-certain.</span></span>
+            </h1>
+            <p className="mt-5 max-w-xl text-lg leading-8 text-slate-300">Connect with verified industry experts who&apos;ve been exactly where you are. Book a session, join a live talk, or watch expert recordings — all in one place.</p>
+            <div className="mt-8 flex flex-wrap gap-4">
+              <Link href={primaryHref} className="rounded-xl bg-electric-500 px-6 py-3 font-semibold text-white shadow-[0_0_20px_rgba(37,99,235,0.4)] transition hover:-translate-y-1 hover:bg-electric-400">Find help for my situation <ArrowRight className="inline" size={18} /></Link>
+              <Link href="/expert-talks" className="rounded-xl border border-electric-300 px-6 py-3 font-semibold text-electric-300 transition hover:-translate-y-1 hover:bg-electric-500/10">See live expert talks <ArrowRight className="inline" size={18} /></Link>
+            </div>
+            <div className="mt-6 flex flex-wrap gap-3">
+              {["Verified experts", "Mentor-set pricing", "Free first session"].map((chip) => <span key={chip} className="rounded-full border border-electric-500/20 bg-navy-800 px-3 py-1 text-sm text-slate-300">✓ {chip}</span>)}
+            </div>
+            {role && <p className="mt-5 text-sm text-slate-400">You&apos;re signed in. Use the dashboard link above to continue.</p>}
+          </div>
+        </Reveal>
+        <Reveal className="relative hidden min-h-[420px] lg:block">
+          <StudentHeroCharacter />
+        </Reveal>
       </div>
     </section>
   );
 }
 
-function ExpertTalksShelfSection() {
-  return <Shelf title="Live expert talks" eyebrow="Register now" href="/expert-talks">{talks.map((talk) => <TalkCard key={talk.title} {...talk} />)}</Shelf>;
+function SectionTitle({ title, sub }: { title: string; sub?: string }) {
+  return <div className="mb-10 text-center"><h2 className="text-3xl font-bold tracking-tight text-chalk sm:text-5xl">{title}</h2>{sub && <p className="mx-auto mt-4 max-w-2xl text-base text-slate-300">{sub}</p>}</div>;
 }
 
-function MentorServicesStoreShelf() {
-  return <Shelf title="Book mentor services" eyebrow="Popular listings" href="/services">{services.map((service) => <ServicePreviewCard key={service.title} {...service} />)}</Shelf>;
+function SituationSection() {
+  return <section className="bg-navy-900 py-24"><div className="container-shell"><Reveal><SectionTitle title="What's your situation right now?" sub="Pick where you are — we'll connect you with the right expert." /></Reveal><div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">{situations.map(([title, slug, text, variant]) => <Reveal key={slug}><Link href={`/services?situation=${slug}`} className="group block h-full cursor-pointer rounded-2xl border border-electric-500/20 bg-navy-800 p-6 transition-all duration-200 hover:-translate-y-1 hover:border-electric-500/60 hover:bg-navy-700 hover:shadow-lg hover:shadow-electric-500/10"><MiniCharacter variant={variant} /><h3 className="mt-4 text-lg font-semibold text-chalk">{title}</h3><p className="mt-2 text-sm text-slate-400">{text}</p><span className="mt-5 inline-flex text-sm font-semibold text-electric-300">Get help <ArrowRight className="ml-1 transition-transform group-hover:translate-x-1" size={16} /></span></Link></Reveal>)}</div></div></section>;
 }
 
-function RecordingsStoreShelf() {
-  return <Shelf title="Learn anytime with recordings" eyebrow="Learning library" href="/recordings">{recordings.map(([title, topic, duration]) => <RecordingCard key={title} title={title} topic={topic} duration={duration} />)}</Shelf>;
+function TalksSection() {
+  return <section className="bg-navy-950 py-24"><div className="container-shell"><Reveal><SectionTitle title="Live expert talks" /></Reveal><div className="flex gap-5 overflow-x-auto pb-3 lg:grid lg:grid-cols-4 lg:overflow-visible">{talks.map(([title, slug, mentor, category, offset, time]) => { const date = formatDate(addDays(offset)); return <Reveal key={slug} className="min-w-[260px]"><article className="h-full rounded-2xl border border-electric-500/20 bg-navy-800 transition-all hover:-translate-y-1 hover:border-electric-500/60"><div className="flex items-start justify-between p-4"><div className="rounded-xl bg-electric-500 px-3 py-2 text-center text-white"><p className="text-xl font-bold leading-none">{date.split(" ")[0]}</p><p className="text-xs font-semibold uppercase">{date.split(" ")[1]}</p></div><span className="rounded-full bg-electric-500/20 px-3 py-1 text-xs font-semibold text-electric-300">{category}</span></div><h3 className="px-4 text-base font-semibold text-chalk">{title}</h3><p className="mt-2 px-4 text-sm text-slate-400">{mentor}</p><p className="px-4 pb-4 pt-2 text-sm text-slate-500">{time} · Online</p><Link href={`/expert-talks/${slug}`} className="mx-4 mb-4 flex justify-center rounded-lg bg-electric-500 px-4 py-2 font-semibold text-white shadow-[0_0_16px_rgba(37,99,235,0.35)] hover:bg-electric-400">Register -&gt;</Link></article></Reveal>; })}</div></div></section>;
 }
 
-function MentorsStoreShelf() {
-  return <Shelf title="Top mentors and educators" eyebrow="Verified supply" href="/mentors">{mentors.map((mentor) => <MentorCard key={mentor.name} {...mentor} />)}</Shelf>;
+function ServicesSection() {
+  return <section className="bg-navy-900 py-24"><div className="container-shell"><Reveal><SectionTitle title="Book mentor services" /></Reveal><div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">{services.map(([title, slug, mentor, mentorTitle, category, duration, status, availability]) => <Reveal key={slug}><article className="h-full rounded-2xl border border-electric-500/20 bg-navy-800 p-5 transition-all hover:-translate-y-1 hover:border-electric-500/60 hover:bg-navy-700"><span className="rounded-full bg-electric-500/20 px-3 py-1 text-xs font-semibold text-electric-300">{category}</span><h3 className="mt-3 text-base font-semibold text-chalk">{title}</h3><p className="mt-2 text-sm font-medium text-electric-300">{mentor}</p><p className="text-xs text-slate-400">{mentorTitle}</p><div className="mt-3 flex flex-wrap items-center gap-3 text-xs text-slate-400"><span>{duration}</span><span className={`rounded-full px-2 py-1 ${status === "limited" ? "bg-amber-500/20 text-amber-300" : "bg-green-500/20 text-green-300"}`}>{availability}</span></div><p className="mt-3 text-xs italic text-slate-500">Price set by mentor</p><Link href={`/services/${slug}`} className="mt-4 flex w-full justify-center rounded-lg bg-electric-500 px-4 py-2 font-semibold text-white hover:bg-electric-400">Book Now -&gt;</Link></article></Reveal>)}</div></div></section>;
 }
 
-function EventsStoreShelf() {
-  return <Shelf title="Upcoming learning events" eyebrow="Calendar shelf" href="/events">{talks.map((talk) => <TalkCard key={`event-${talk.title}`} {...talk} cta="Register" />)}</Shelf>;
+function RecordingsSection() {
+  return <section className="bg-navy-950 py-24"><div className="container-shell"><Reveal><SectionTitle title="Learn anytime with recordings" /></Reveal><div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">{recordings.map(([title, category, duration, color]) => <Reveal key={title}><article className="overflow-hidden rounded-2xl border border-electric-500/20 bg-navy-800 transition-all hover:-translate-y-1 hover:border-electric-500/60 hover:bg-navy-700"><div className={`h-12 ${color}`} /><h3 className="p-4 pb-1 text-sm font-semibold text-chalk">{title}</h3><p className="px-4 pb-4 text-xs text-slate-400">{category} · {duration}</p><Link href="/recordings" className="block px-4 pb-4 text-sm font-semibold text-electric-300 hover:underline">Watch -&gt;</Link></article></Reveal>)}</div></div></section>;
 }
 
-function Shelf({ eyebrow, title, href, children }: { eyebrow: string; title: string; href: string; children: React.ReactNode }) {
-  return (
-    <section className="bg-white py-8 sm:py-10">
-      <div className="container-shell">
-        <ShelfHeader eyebrow={eyebrow} title={title} href={href} />
-        <div className="flex gap-4 overflow-x-auto pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          {children}
-        </div>
-      </div>
-    </section>
-  );
+function MentorsSection() {
+  return <section className="bg-navy-900 py-24"><div className="container-shell"><Reveal><SectionTitle title="Top mentors and educators" /></Reveal><div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">{mentors.map(([name, slug, title, tags]) => <Reveal key={slug}><article className="group rounded-2xl border border-electric-500/20 bg-navy-800 p-5 transition-all hover:-translate-y-1 hover:border-electric-500/60 hover:bg-navy-700"><div className="relative grid h-14 w-14 place-items-center rounded-full bg-electric-500/20 text-xl font-bold text-electric-300"><span>{name.split(" ").map((part) => part[0]).join("").slice(0, 2)}</span><span className="absolute right-0 top-0 h-3 w-3 animate-pulse rounded-full bg-green-400" /></div><h3 className="mt-4 text-base font-semibold text-chalk">{name}</h3><p className="mt-1 text-sm text-slate-400">{title}</p><div className="mt-3 flex flex-wrap gap-2">{tags.map((tag) => <span key={tag} className="rounded-full bg-electric-500/20 px-2 py-0.5 text-xs text-electric-300">{tag}</span>)}</div><p className="mt-3 text-xs text-green-400">Verified ✓</p><p className="mt-1 translate-y-2 text-xs text-green-300 opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100">Available now -&gt;</p><Link href={`/mentors/${slug}`} className="mt-4 inline-flex text-sm font-semibold text-electric-300 hover:text-electric-400">View Profile -&gt;</Link></article></Reveal>)}</div></div></section>;
 }
 
-function TalkCard({ title, mentor, category, date, time, cta = "Register" }: { title: string; mentor: string; category: string; date: string; time: string; cta?: string }) {
-  return (
-    <article className="min-w-[250px] rounded-[1.6rem] border border-navy/10 bg-ivory p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-soft sm:min-w-[290px]">
-      <div className="flex items-start justify-between gap-4">
-        <div className="rounded-2xl bg-coral px-3 py-2 text-center text-white"><p className="text-lg font-black">{date.split(' ')[0]}</p><p className="text-[10px] font-black uppercase">{date.split(' ')[1]}</p></div>
-        <span className="rounded-full bg-white px-3 py-1 text-xs font-black text-coral">{category}</span>
-      </div>
-      <h3 className="mt-5 text-xl font-black text-navy">{title}</h3>
-      <p className="mt-2 text-sm text-slate-600">{mentor}</p>
-      <p className="mt-4 flex items-center gap-2 text-sm font-bold text-navy"><Clock3 size={15} className="text-academic" /> {time} - Online</p>
-      <Link href="/expert-talks" className="btn-primary mt-5 !px-4 !py-2">{cta}</Link>
-    </article>
-  );
+function MentorCTA() {
+  return <section className="relative overflow-hidden bg-navy-900 py-24"><div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(37,99,235,0.13),transparent_35%)]" /><div className="container-shell relative grid gap-10 lg:grid-cols-[1fr_360px] lg:items-center"><Reveal><div><h2 className="text-3xl font-bold tracking-tight text-chalk sm:text-5xl">Share your expertise. Earn from it.</h2><p className="mt-4 max-w-2xl text-slate-300">Create your mentor profile, list services, host live talks, upload recordings, and earn — on your terms.</p><div className="mt-6 grid gap-3 sm:grid-cols-2">{["Create service listings", "Set your own pricing", "Manage your availability", "Host expert talks", "Track your earnings"].map((item) => <p key={item} className="flex items-center gap-2 text-sm text-slate-300"><Check size={16} className="text-electric-300" /> {item}</p>)}</div><Link href="/for-mentors" className="mt-8 inline-flex rounded-xl bg-electric-500 px-6 py-3 font-semibold text-white shadow-[0_0_20px_rgba(37,99,235,0.4)] hover:bg-electric-400">Join as Mentor -&gt;</Link></div></Reveal><Reveal><MentorCharacter /></Reveal></div></section>;
 }
 
-function ServicePreviewCard({ title, mentor, role, category, duration, availability }: { title: string; mentor: string; role: string; category: string; duration: string; availability: string }) {
-  return (
-    <article className="min-w-[270px] rounded-[1.6rem] border border-navy/10 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-soft sm:min-w-[320px]">
-      <span className="rounded-full bg-skysoft px-3 py-1 text-xs font-black text-academic">{category}</span>
-      <h3 className="mt-4 text-xl font-black text-navy">{title}</h3>
-      <p className="mt-2 text-sm font-bold text-slate-700">{mentor}</p>
-      <p className="text-xs text-slate-500">{role}</p>
-      <div className="mt-4 grid grid-cols-2 gap-3 rounded-2xl bg-ivory p-4 text-xs font-bold text-slate-600">
-        <p>{duration}</p><p>{availability}</p><p className="col-span-2 text-navy">Price set by mentor</p>
-      </div>
-      <Link href="/services" className="btn-primary mt-5 w-full !py-2.5">Book Now</Link>
-    </article>
-  );
+function InstitutionsSection() {
+  return <section className="bg-navy-950 py-24"><div className="container-shell"><Reveal><div className="rounded-3xl border border-electric-500/20 bg-navy-800 p-8 text-center"><Sparkles className="mx-auto text-electric-300" /><h2 className="mt-4 text-3xl font-bold text-chalk">Expert access for institutions</h2><p className="mx-auto mt-3 max-w-2xl text-slate-300">Run placement prep, resume clinics, expert talks, and guided learning programs for your students.</p><Link href="/contact" className="mt-6 inline-flex rounded-xl border border-electric-300 px-6 py-3 font-semibold text-electric-300 hover:bg-electric-500/10">Partner with us -&gt;</Link></div></Reveal></div></section>;
 }
 
-function RecordingCard({ title, topic, duration }: { title: string; topic: string; duration: string }) {
-  return (
-    <article className="min-w-[230px] rounded-[1.6rem] border border-navy/10 bg-skysoft p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-soft sm:min-w-[280px]">
-      <MonitorPlay className="text-academic" />
-      <h3 className="mt-4 text-xl font-black text-navy">{title}</h3>
-      <p className="mt-2 text-sm text-slate-600">{topic} - {duration}</p>
-      <Link href="/recordings" className="mt-5 inline-flex text-sm font-black text-coral">View Recording -&gt;</Link>
-    </article>
-  );
+function StudentHeroCharacter() {
+  return <svg viewBox="0 0 300 360" className="absolute bottom-0 right-0 w-[330px] animate-bounce drop-shadow-2xl [animation-duration:3s]" role="img" aria-label="Confident student with laptop"><defs><filter id="heroShadow"><feDropShadow dx="0" dy="8" stdDeviation="8" floodColor="#2563EB" floodOpacity="0.28" /></filter></defs><g filter="url(#heroShadow)"><ellipse cx="150" cy="328" rx="82" ry="18" fill="#2563EB" opacity="0.18"/><rect x="90" y="162" width="122" height="132" rx="34" fill="#2563EB"/><rect x="110" y="178" width="80" height="62" rx="12" fill="#BFDBFE"/><circle cx="150" cy="98" r="68" fill="#D4956A"/><path d="M82 86c10-52 55-76 103-54 28 13 43 38 42 65-24-18-49-21-79-17-28 4-45 1-66 6z" fill="#1a1a1a"/><circle cx="126" cy="100" r="11" fill="#111827"/><circle cx="174" cy="100" r="11" fill="#111827"/><circle cx="130" cy="96" r="3" fill="#fff"/><circle cx="178" cy="96" r="3" fill="#fff"/><ellipse cx="150" cy="124" rx="23" ry="13" fill="#C68642" opacity="0.35"/><path d="M128 139c14 12 32 12 46 0" fill="none" stroke="#7c2d12" strokeWidth="5" strokeLinecap="round"/><rect x="52" y="184" width="58" height="88" rx="20" fill="#0e2260"/><rect x="96" y="218" width="112" height="62" rx="10" fill="#0a1845"/><rect x="106" y="228" width="92" height="40" rx="6" fill="#60A5FA"/></g></svg>;
 }
 
-function MentorCard({ name, role, tags }: { name: string; role: string; tags: string[] }) {
-  return (
-    <article className="min-w-[230px] rounded-[1.6rem] border border-navy/10 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-soft sm:min-w-[280px]">
-      <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-peach text-xl font-black text-coral">{name[0]}</div>
-      <h3 className="mt-4 text-xl font-black text-navy">{name}</h3>
-      <p className="text-sm font-bold text-coral">{role}</p>
-      <div className="mt-3 flex flex-wrap gap-2">{tags.map((tag) => <span key={tag} className="rounded-full bg-ivory px-3 py-1 text-xs font-bold text-slate-600">{tag}</span>)}</div>
-      <p className="mt-4 text-xs font-bold text-academic">Verified - Available for talks/services</p>
-      <Link href="/mentors" className="btn-secondary mt-5 !px-4 !py-2">View Profile</Link>
-    </article>
-  );
+function MentorCharacter() {
+  return <svg viewBox="0 0 300 360" className="mx-auto w-[270px] animate-bounce [animation-duration:3s]" role="img" aria-label="Mentor with laptop"><defs><filter id="mentorShadow"><feDropShadow dx="0" dy="8" stdDeviation="8" floodColor="#2563EB" floodOpacity="0.24" /></filter></defs><g filter="url(#mentorShadow)"><ellipse cx="150" cy="330" rx="86" ry="18" fill="#2563EB" opacity="0.18"/><rect x="96" y="160" width="108" height="125" rx="28" fill="#3B82F6"/><circle cx="150" cy="92" r="62" fill="#C68642"/><path d="M93 78c12-42 76-58 112-18 8 9 11 23 9 36-37-22-72-22-121-18z" fill="#1a1a1a"/><circle cx="128" cy="96" r="10" fill="#111827"/><circle cx="172" cy="96" r="10" fill="#111827"/><circle cx="132" cy="92" r="3" fill="#fff"/><circle cx="176" cy="92" r="3" fill="#fff"/><path d="M130 128c13 10 29 10 42 0" fill="none" stroke="#7c2d12" strokeWidth="5" strokeLinecap="round"/><rect x="82" y="224" width="136" height="70" rx="10" fill="#0a1845"/><path d="M105 260l24-20 20 12 28-34" fill="none" stroke="#60A5FA" strokeWidth="7" strokeLinecap="round" strokeLinejoin="round"/><rect x="210" y="178" width="32" height="44" rx="10" fill="#F8FAFC"/></g></svg>;
 }
 
-function QuickBookingFlowSection() {
-  const steps = ["Search or choose a category", "Pick a mentor service or expert talk", "Check price and availability", "Book or register", "Share notes", "Attend or watch"];
-  return (
-    <section className="bg-ivory py-10">
-      <div className="container-shell">
-        <ShelfHeader eyebrow="How ordering works" title="Book learning support like ordering online." />
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-6">{steps.map((step, index) => <div key={step} className="rounded-2xl border border-navy/10 bg-white p-4 shadow-sm"><p className="text-xs font-black text-coral">0{index + 1}</p><p className="mt-2 text-sm font-black text-navy">{step}</p></div>)}</div>
-      </div>
-    </section>
-  );
+function MiniCharacter({ variant }: { variant: string }) {
+  const config: Record<string, { skin: string; hair: string; shirt: string; glasses?: boolean; prop: string }> = {
+    murthy: { skin: "#D4956A", hair: "#888", shirt: "#60A5FA", glasses: true, prop: "briefcase" },
+    kalam: { skin: "#8D5524", hair: "#888", shirt: "#F8FAFC", glasses: true, prop: "paper" },
+    tata: { skin: "#D4956A", hair: "#c0c0c0", shirt: "#0e2260", prop: "sign" },
+    pichai: { skin: "#C68642", hair: "#1a1a1a", shirt: "#2563EB", prop: "bulb" },
+    nadella: { skin: "#C68642", hair: "#1a1a1a", shirt: "#3B82F6", prop: "code" },
+    nooyi: { skin: "#8D5524", hair: "#1a1a1a", shirt: "#0e2260", prop: "chai" },
+    bedi: { skin: "#C68642", hair: "#4a4a4a", shirt: "#64748b", prop: "book" },
+    kiyosaki: { skin: "#F1C27D", hair: "#c0c0c0", shirt: "#4a4a4a", prop: "coins" },
+  };
+  const c = config[variant] ?? config.murthy;
+  return <svg viewBox="0 0 120 140" className="h-20 w-20 transition-transform duration-200 group-hover:scale-110" role="img" aria-hidden="true"><defs><filter id={`shadow-${variant}`}><feDropShadow dx="0" dy="4" stdDeviation="3" floodColor="#2563EB" floodOpacity="0.2" /></filter></defs><g filter={`url(#shadow-${variant})`}><rect x="34" y="76" width="52" height="48" rx="16" fill={c.shirt}/><circle cx="60" cy="45" r="31" fill={c.skin}/><path d="M30 38c7-25 39-35 62-14 6 6 8 14 7 22-21-13-43-13-69-8z" fill={c.hair}/><circle cx="49" cy="48" r="6" fill="#111827"/><circle cx="72" cy="48" r="6" fill="#111827"/><circle cx="51" cy="46" r="2" fill="#fff"/><circle cx="74" cy="46" r="2" fill="#fff"/>{c.glasses && <><circle cx="49" cy="48" r="10" fill="none" stroke="#0f172a" strokeWidth="2"/><circle cx="72" cy="48" r="10" fill="none" stroke="#0f172a" strokeWidth="2"/><rect x="59" y="47" width="3" height="2" fill="#0f172a"/></>}<path d="M49 62c8 6 16 6 24 0" fill="none" stroke="#7c2d12" strokeWidth="3" strokeLinecap="round"/><Accessory prop={c.prop} /></g></svg>;
 }
 
-function MentorPartnerStoreSection() {
-  return (
-    <section className="bg-white py-10">
-      <div className="container-shell rounded-[2rem] border border-navy/10 bg-navy p-8 text-white shadow-soft">
-        <p className="text-xs font-black uppercase tracking-[0.18em] text-orange-100">Mentor store partner</p>
-        <div className="mt-3 grid gap-6 lg:grid-cols-[1fr_420px] lg:items-center">
-          <div><h2 className="text-4xl font-black tracking-[-0.04em]">Create your expert learning store.</h2><p className="mt-4 text-sm leading-7 text-blue-100">Mentors and educators can create profiles, list services, set prices, manage availability, host expert talks, upload recordings, and earn through bookings.</p></div>
-          <div className="grid gap-3 sm:grid-cols-2">{["Create listings", "Set pricing", "Manage availability", "Host talks", "Track earnings"].map((item) => <div key={item} className="rounded-2xl bg-white/10 p-4 text-sm font-black">{item}</div>)}<Link href="/for-mentors" className="rounded-2xl bg-coral p-4 text-center text-sm font-black text-white">Join as Mentor</Link></div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function InstitutionProgramsStoreSection() {
-  return (
-    <section className="bg-ivory py-10">
-      <div className="container-shell">
-        <ShelfHeader eyebrow="Institutions" title="Learning programs for institutions." href="/contact" />
-        <div className="grid gap-4 md:grid-cols-5">{["Expert talk series", "Placement support", "Exam support", "Project review camps", "Skill programs"].map((item) => <Link href="/contact" key={item} className="rounded-2xl border border-navy/10 bg-white p-5 font-black text-navy shadow-sm transition hover:-translate-y-1 hover:shadow-soft">{item}</Link>)}</div>
-      </div>
-    </section>
-  );
-}
-
-function MarqueeStrip() {
-  const repeated = ["Search fast", "Book mentors", "Join expert talks", "Watch recordings", "Register events", "Track bookings", "Learn smarter", "Mentor-set pricing"];
-  return <div className="overflow-hidden border-y border-coral/20 bg-coral py-3 text-white"><div className="flex w-max animate-[marquee_32s_linear_infinite] gap-6 whitespace-nowrap">{[...repeated, ...repeated].map((item, index) => <span key={`${item}-${index}`} className="inline-flex items-center gap-6 text-xs font-black uppercase tracking-[0.18em]"><Star size={13} fill="currentColor" /> {item}</span>)}</div></div>;
+function Accessory({ prop }: { prop: string }) {
+  if (prop === "briefcase") return <rect x="78" y="88" width="26" height="18" rx="4" fill="#0f172a"/>;
+  if (prop === "paper") return <rect x="79" y="86" width="22" height="26" rx="3" fill="#F8FAFC"/>;
+  if (prop === "sign") return <path d="M86 82h22l-8 8 8 8H86z" fill="#60A5FA"/>;
+  if (prop === "bulb") return <circle cx="92" cy="22" r="9" fill="#FBBF24"/>;
+  if (prop === "code") return <rect x="78" y="88" width="30" height="20" rx="4" fill="#020818"/>;
+  if (prop === "chai") return <rect x="80" y="88" width="18" height="18" rx="5" fill="#F8FAFC"/>;
+  if (prop === "book") return <rect x="77" y="82" width="28" height="30" rx="4" fill="#F8FAFC"/>;
+  return <><circle cx="88" cy="90" r="5" fill="#FBBF24"/><circle cx="101" cy="102" r="5" fill="#FBBF24"/></>;
 }

@@ -20,13 +20,13 @@ export default async function StudentDashboard() {
         <DashboardHeader
           profile={profile}
           title="My Learning Dashboard"
-          description={`Welcome, ${profile.full_name}. Track your expert talks, booked mentor services, recordings, and messages.`}
+          description={`Welcome, ${profile.full_name}. Track interview prep, booked mentor services, expert courses, recordings, and messages.`}
         />
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
           {[
             { label: "Upcoming expert talks", value: 0, icon: Mic2 },
             { label: "Booked services", value: upcoming.length, icon: CalendarClock },
-            { label: "Saved recordings", value: 0, icon: MonitorPlay },
+            { label: "Expert courses", value: 0, icon: MonitorPlay },
             { label: "Messages", value: 0, icon: MessageCircle },
             { label: "Completed bookings", value: completed.length, icon: Bookmark },
           ].map(({ label, value, icon: Icon }) => (
@@ -40,7 +40,7 @@ export default async function StudentDashboard() {
         <div className="mt-6 flex flex-wrap gap-3">
           <Link href="/services" className="btn-primary">Explore Store</Link>
           <Link href="/services" className="btn-secondary">Book Mentor Service</Link>
-          <Link href="/recordings" className="btn-secondary">View Recordings</Link>
+          <Link href="/courses" className="btn-secondary">Explore Courses</Link>
         </div>
         <div className="mt-9 flex items-center justify-between">
           <div>
@@ -60,7 +60,7 @@ export default async function StudentDashboard() {
                 <span className="h-fit rounded-full bg-slate-100 px-3 py-1 text-xs font-bold capitalize">{booking.status}</span>
               </div>
               <p className="mt-4 text-sm text-slate-600">{booking.requirement_details}</p>
-              <p className="mt-4 font-black text-navy">â‚¹{Number(booking.price).toLocaleString("en-IN")} - <span className="capitalize">{booking.payment_status}</span></p>
+              <p className="mt-4 font-black text-navy">Rs. {Number(booking.price).toLocaleString("en-IN")} - <span className="capitalize">{booking.payment_status}</span></p>
             </article>
           ))}
         </div>
@@ -68,7 +68,7 @@ export default async function StudentDashboard() {
           <div className="card mt-6 p-10 text-center">
             <CheckCircle2 className="mx-auto text-coral" />
             <h2 className="mt-3 text-xl font-black">Start your learning journey.</h2>
-            <p className="mt-2 text-slate-600">Join expert talks, explore recordings, or book an expert service.</p>
+            <p className="mt-2 text-slate-600">Join expert talks, explore courses, or book a mentor service before your next opportunity.</p>
             <Link href="/expert-talks" className="btn-primary mt-6">Explore Expert Talks</Link>
           </div>
         )}

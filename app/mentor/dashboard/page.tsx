@@ -22,7 +22,7 @@ export default async function MentorDashboard() {
       <div className="container-shell">
         <DashboardHeader
           profile={profile}
-          title="Mentor Store Dashboard"
+          title="Mentor Studio Dashboard"
           description="Create service listings, manage expert talks, handle bookings, and track your earnings on My Expert Talk."
         />
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
@@ -31,7 +31,7 @@ export default async function MentorDashboard() {
             { label: "Upcoming talks", value: 0, icon: Mic2 },
             { label: "Pending bookings", value: requests.filter((booking) => booking.status === "pending").length, icon: CalendarClock },
             { label: "Scheduled", value: requests.filter((booking) => booking.status === "scheduled").length, icon: Clock3 },
-            { label: "Earnings", value: `₹${paidPayout.toLocaleString("en-IN")}`, icon: Banknote },
+            { label: "Earnings", value: `Rs. ${paidPayout.toLocaleString("en-IN")}`, icon: Banknote },
             { label: "Reviews", value: reviews?.length ?? 0, icon: Star },
           ].map(({ label, value, icon: Icon }) => (
             <div key={label} className="card p-5">
@@ -44,6 +44,7 @@ export default async function MentorDashboard() {
         <div className="mt-6 flex flex-wrap gap-3">
           <Link href="/mentor/services/new" className="btn-primary">Create Service Listing</Link>
           <Link href="/expert-talks" className="btn-secondary">Plan Expert Talk</Link>
+          <Link href="/courses" className="btn-secondary">Plan Course</Link>
           <Link href="/mentor/services" className="btn-secondary">My Services</Link>
           <Link href="/mentor/bookings" className="btn-secondary">Bookings</Link>
           <Link href="/mentor/earnings" className="btn-secondary">Earnings</Link>
@@ -58,7 +59,7 @@ export default async function MentorDashboard() {
                     <h3 className="font-black">{service.title}</h3>
                     <p className="mt-1 text-xs text-slate-500">{service.category} - <span className="capitalize">{service.status}</span></p>
                   </div>
-                  <p className="font-black text-navy">₹{Number(service.price).toLocaleString("en-IN")}</p>
+                  <p className="font-black text-navy">Rs. {Number(service.price).toLocaleString("en-IN")}</p>
                 </article>
               ))}
               {menu.length === 0 && (
