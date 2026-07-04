@@ -60,18 +60,175 @@ function Reveal({ children, className = "" }: { children: React.ReactNode; class
 
 export function MinimalLandingPage({ dashboardHref, role }: { dashboardHref: string | null; role: AppRole | null }) {
   useScrollReveal();
-  const primaryHref = dashboardHref ?? "/services";
+  if (role) return <RoleLanding role={role} dashboardHref={dashboardHref ?? "/"} />;
 
   return (
-    <div className="bg-navy-950 text-chalk">
-      <Hero primaryHref={primaryHref} role={role} />
-      <SituationSection />
-      <TalksSection />
-      <ServicesSection />
-      <RecordingsSection />
-      <MentorsSection />
-      <MentorCTA />
-      <InstitutionsSection />
+    <div className="bg-ivory text-ink">
+      <PublicHero />
+      <PublicPathSection />
+      <PublicPreviewSection />
+    </div>
+  );
+}
+
+function PublicHero() {
+  return (
+    <section className="relative overflow-hidden bg-[linear-gradient(135deg,#FFF8F0_0%,#FFFFFF_48%,#EAF3FF_100%)] py-16 sm:py-24">
+      <div className="absolute -right-20 top-16 h-72 w-72 rounded-full bg-coral/10 blur-3xl" />
+      <div className="absolute -left-16 bottom-8 h-64 w-64 rounded-full bg-electric-500/10 blur-3xl" />
+      <div className="container-shell relative grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">
+        <Reveal>
+          <div className="max-w-3xl">
+            <span className="inline-flex rounded-full border border-coral/20 bg-peach px-3 py-1 text-sm font-bold text-coral">Premium readiness for serious learners</span>
+            <h1 className="mt-6 text-4xl font-black tracking-[-0.05em] text-navy sm:text-6xl">
+              Prepare before the opportunity arrives.
+            </h1>
+            <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-700">
+              My Expert Talk helps students get interview-ready, exam-clear, and career-confident through expert talks, mentor services, and practical courses.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link href="/services" className="btn-primary">Explore Services <ArrowRight size={18} /></Link>
+              <Link href="/courses" className="btn-secondary">View Courses <ArrowRight size={18} /></Link>
+            </div>
+            <div className="mt-6 flex flex-wrap gap-2 text-sm font-semibold text-slate-600">
+              {["Student-first", "Verified mentors", "Mentor-set pricing"].map((item) => (
+                <span key={item} className="rounded-full border border-navy/10 bg-white px-3 py-1">✓ {item}</span>
+              ))}
+            </div>
+          </div>
+        </Reveal>
+        <Reveal>
+          <div className="rounded-[2rem] border border-navy/10 bg-white p-5 shadow-soft">
+            <div className="rounded-[1.5rem] bg-navy p-5 text-white">
+              <p className="text-sm font-semibold text-coral">Your next prep board</p>
+              <h2 className="mt-2 text-2xl font-black">Walk-in drive in 7 days?</h2>
+              <div className="mt-5 grid gap-3">
+                {["HR round practice", "ATS resume course", "Mock interview slot"].map((item) => (
+                  <div key={item} className="rounded-2xl bg-white/10 p-4 text-sm font-semibold">{item}</div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+function PublicPathSection() {
+  const paths = [
+    ["Students", "Prepare for interviews, exams, first jobs, and skill growth.", "/signup"],
+    ["Experts", "Create services, courses, and talks for learners who value your experience.", "/for-mentors"],
+    ["Explore first", "Browse mentor services and courses before creating an account.", "/services"],
+  ] as const;
+
+  return (
+    <section className="bg-white py-14">
+      <div className="container-shell">
+        <Reveal>
+          <div className="mb-8 max-w-2xl">
+            <h2 className="text-3xl font-black tracking-[-0.04em] text-navy">Choose your path.</h2>
+            <p className="mt-3 text-slate-600">A lighter first page, with the deeper marketplace kept inside separate pages.</p>
+          </div>
+        </Reveal>
+        <div className="grid gap-5 md:grid-cols-3">
+          {paths.map(([title, text, href]) => (
+            <Reveal key={title}>
+              <Link href={href} className="group block h-full rounded-3xl border border-navy/10 bg-ivory p-6 shadow-soft transition hover:-translate-y-1 hover:border-coral/40 hover:bg-white">
+                <h3 className="text-xl font-black text-navy">{title}</h3>
+                <p className="mt-3 text-sm leading-6 text-slate-600">{text}</p>
+                <span className="mt-6 inline-flex items-center text-sm font-bold text-coral">Continue <ArrowRight className="ml-1 transition group-hover:translate-x-1" size={16} /></span>
+              </Link>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function PublicPreviewSection() {
+  return (
+    <section className="bg-ivory py-14">
+      <div className="container-shell grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+        <Reveal>
+          <div>
+            <span className="eyebrow">Minimal, not empty</span>
+            <h2 className="text-3xl font-black tracking-[-0.04em] text-navy">Everything else lives where it belongs.</h2>
+            <p className="mt-4 leading-7 text-slate-600">
+              Public visitors get a calm overview. Students and experts get their own focused dashboard after login, so mentor tools never crowd the student journey.
+            </p>
+          </div>
+        </Reveal>
+        <Reveal>
+          <div className="grid gap-4 sm:grid-cols-2">
+            {[
+              ["Expert Talks", "/expert-talks"],
+              ["Mentor Services", "/services"],
+              ["Courses", "/courses"],
+              ["Mentors", "/mentors"],
+            ].map(([title, href]) => (
+              <Link key={title} href={href} className="rounded-3xl border border-navy/10 bg-white p-5 font-black text-navy shadow-soft hover:-translate-y-1 hover:border-coral/40">
+                {title} <ArrowRight className="mt-4 text-coral" size={18} />
+              </Link>
+            ))}
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+function RoleLanding({ role, dashboardHref }: { role: AppRole; dashboardHref: string }) {
+  const isExpert = role === "Mentor" || role === "Faculty" || role === "Institution";
+  const title = isExpert ? "Expert Studio" : role === "Admin" ? "Admin Control Center" : "Student Learning Space";
+  const description = isExpert
+    ? "Manage services, course ideas, expert talks, bookings, messages, and earnings from one focused expert interface."
+    : role === "Admin"
+      ? "Review users, experts, services, bookings, and platform operations."
+      : "Explore talks, book mentor services, continue courses, and track your learning journey without expert-only tools in the way.";
+  const links = isExpert
+    ? [
+        ["Dashboard", dashboardHref],
+        ["My Services", "/mentor/services"],
+        ["Create Service", "/mentor/services/new"],
+        ["Bookings", "/mentor/bookings"],
+      ]
+    : role === "Admin"
+      ? [
+          ["Admin Dashboard", dashboardHref],
+          ["Users", "/admin/users"],
+          ["Services", "/admin/services"],
+          ["Bookings", "/admin/bookings"],
+        ]
+      : [
+          ["Dashboard", dashboardHref],
+          ["Explore Services", "/services"],
+          ["Courses", "/courses"],
+          ["My Bookings", "/bookings"],
+        ];
+
+  return (
+    <div className="bg-ivory text-ink">
+      <section className="bg-[linear-gradient(135deg,#FFF8F0_0%,#FFFFFF_54%,#EAF3FF_100%)] py-16">
+        <div className="container-shell">
+          <Reveal>
+            <span className="inline-flex rounded-full border border-coral/20 bg-peach px-3 py-1 text-sm font-bold text-coral">{isExpert ? "Expert login" : role === "Admin" ? "Admin login" : "Student login"}</span>
+            <h1 className="mt-5 text-4xl font-black tracking-[-0.05em] text-navy sm:text-6xl">{title}</h1>
+            <p className="mt-4 max-w-3xl text-lg leading-8 text-slate-700">{description}</p>
+          </Reveal>
+          <div className="mt-8 grid gap-4 md:grid-cols-4">
+            {links.map(([label, href]) => (
+              <Reveal key={label}>
+                <Link href={href} className="block rounded-3xl border border-navy/10 bg-white p-5 font-black text-navy shadow-soft hover:-translate-y-1 hover:border-coral/40">
+                  {label}
+                  <ArrowRight className="mt-5 text-coral" size={18} />
+                </Link>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

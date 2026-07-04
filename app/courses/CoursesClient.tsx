@@ -155,20 +155,20 @@ export default function CoursesClient() {
   );
 
   return (
-    <main className="bg-navy-950 text-chalk">
-      <section className="relative overflow-hidden bg-navy-900 py-20">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_10%,rgba(37,99,235,0.16),transparent_32%)]" />
+    <main className="bg-ivory text-ink">
+      <section className="relative overflow-hidden bg-[linear-gradient(135deg,#FFF8F0_0%,#FFFFFF_52%,#EAF3FF_100%)] py-20">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_10%,rgba(241,90,59,0.12),transparent_32%)]" />
         <div className="container-shell relative">
-          <Link href="/" className="text-sm font-semibold text-electric-300 hover:text-electric-200">&larr; Back home</Link>
+          <Link href="/" className="text-sm font-semibold text-coral hover:text-[#dc4429]">&larr; Back home</Link>
           <div className="mt-8 max-w-4xl">
-            <span className="rounded-full border border-electric-500/20 bg-electric-500/10 px-3 py-1 text-sm font-semibold text-electric-300">Mentor-created courses</span>
-            <h1 className="mt-5 text-4xl font-bold tracking-tight text-slate-100 sm:text-6xl">Courses by verified mentors — buy once, learn at your pace.</h1>
-            <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-300">Every course creator is bookable for a live session. Stuck after a lesson? Ask them directly.</p>
+            <span className="rounded-full border border-coral/20 bg-peach px-3 py-1 text-sm font-bold text-coral">Mentor-created courses</span>
+            <h1 className="mt-5 text-4xl font-black tracking-[-0.05em] text-navy sm:text-6xl">Courses by verified mentors — buy once, learn at your pace.</h1>
+            <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-700">Every course creator is bookable for a live session. Stuck after a lesson? Ask them directly.</p>
           </div>
         </div>
       </section>
 
-      <section className="bg-navy-950 py-12">
+      <section className="bg-ivory py-12">
         <div className="container-shell">
           <div className="flex flex-wrap gap-3">
             {filters.map(([value, label]) => (
@@ -178,8 +178,8 @@ export default function CoursesClient() {
                 onClick={() => setActiveFilter(value)}
                 className={`rounded-full border px-4 py-2 text-sm font-semibold transition hover:-translate-y-0.5 ${
                   activeFilter === value
-                    ? "border-electric-500 bg-electric-500 text-white shadow-[0_0_16px_rgba(37,99,235,0.35)]"
-                    : "border-electric-500/20 bg-navy-800 text-slate-400 hover:border-electric-500/50 hover:text-electric-300"
+                    ? "border-coral bg-coral text-white shadow-[0_14px_24px_-18px_rgba(241,90,59,0.9)]"
+                    : "border-navy/10 bg-white text-slate-600 hover:border-coral/40 hover:text-coral"
                 }`}
               >
                 {label}
@@ -189,19 +189,19 @@ export default function CoursesClient() {
 
           <div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
             {visibleCourses.map((course) => (
-              <article key={course.slug} className="overflow-hidden rounded-2xl border border-electric-500/15 bg-navy-800 transition-all hover:-translate-y-1 hover:border-electric-500/40 hover:bg-navy-700">
+              <article key={course.slug} className="overflow-hidden rounded-2xl border border-navy/10 bg-white shadow-soft transition-all hover:-translate-y-1 hover:border-coral/40">
                 <div className={`h-2 ${situationColors[course.situation] ?? "bg-electric-500"}`} />
                 <div className="p-5">
                   <div className="flex flex-wrap items-center gap-2">
-                    <span className="rounded-full bg-electric-500/15 px-3 py-1 text-xs font-semibold text-electric-300">{course.situationLabel}</span>
-                    <span className="rounded-full border border-electric-500/20 px-3 py-1 text-xs font-semibold text-slate-300">{course.type}</span>
+                    <span className="rounded-full bg-peach px-3 py-1 text-xs font-bold text-coral">{course.situationLabel}</span>
+                    <span className="rounded-full border border-navy/10 px-3 py-1 text-xs font-semibold text-slate-600">{course.type}</span>
                   </div>
-                  <h2 className="mt-3 text-base font-semibold text-slate-100">{course.title}</h2>
+                  <h2 className="mt-3 text-base font-black text-navy">{course.title}</h2>
                   <p className="mt-1 text-xs leading-5 text-slate-400">{course.subtitle}</p>
-                  <Link href={`/mentors/${course.mentorSlug}`} className="mt-4 flex items-center gap-3 rounded-xl border border-electric-500/10 bg-navy-900/70 p-3 hover:border-electric-500/30">
-                    <span className="grid h-6 w-6 place-items-center rounded-full bg-electric-500/20 text-xs font-bold text-electric-300">{course.mentor.split(" ").map((part) => part[0]).join("").slice(0, 2)}</span>
+                  <Link href={`/mentors/${course.mentorSlug}`} className="mt-4 flex items-center gap-3 rounded-xl border border-navy/10 bg-ivory p-3 hover:border-coral/30">
+                    <span className="grid h-6 w-6 place-items-center rounded-full bg-coral/10 text-xs font-bold text-coral">{course.mentor.split(" ").map((part) => part[0]).join("").slice(0, 2)}</span>
                     <span>
-                      <span className="block text-sm font-medium text-electric-300">{course.mentor}</span>
+                      <span className="block text-sm font-bold text-navy">{course.mentor}</span>
                       <span className="block text-xs text-slate-500">{course.mentorTitle}</span>
                     </span>
                   </Link>
@@ -211,11 +211,11 @@ export default function CoursesClient() {
                       <p key={outcome} className="text-xs leading-5 text-slate-400">✓ {outcome}</p>
                     ))}
                   </div>
-                  <p className="mt-4 text-xl font-bold text-slate-100">₹{course.price.toLocaleString("en-IN")}</p>
+                  <p className="mt-4 text-xl font-black text-navy">₹{course.price.toLocaleString("en-IN")}</p>
                   <p className="text-xs text-slate-500">one-time · yours forever</p>
                   <div className="mt-3 flex flex-col gap-2">
                     <Link href={`/courses/${course.slug}`} className="btn-primary w-full justify-center text-center">Buy now -&gt;</Link>
-                    <Link href={`/mentors/${course.mentorSlug}`} className="text-center text-xs font-semibold text-electric-300 hover:text-electric-200">
+                    <Link href={`/mentors/${course.mentorSlug}`} className="text-center text-xs font-bold text-coral hover:text-[#dc4429]">
                       or book {course.mentor} for a live session -&gt;
                     </Link>
                   </div>

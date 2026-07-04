@@ -177,15 +177,15 @@ export default async function MentorProfilePage({ params }: { params: Promise<{ 
   const initials = mentor.name.split(" ").map((part) => part[0]).join("").slice(0, 2);
 
   return (
-    <main className="bg-navy-950 py-12 text-slate-100">
+    <main className="bg-ivory py-12 text-ink">
       <div className="container-shell">
-        <Link href="/mentors" className="text-sm font-semibold text-electric-300 hover:text-electric-200">&larr; All mentors</Link>
+        <Link href="/mentors" className="text-sm font-semibold text-coral hover:text-[#dc4429]">&larr; All mentors</Link>
         <div className="mt-6 grid gap-6 lg:grid-cols-[0.4fr_0.6fr]">
-          <aside className="rounded-3xl border border-electric-500/15 bg-navy-800 p-6">
+          <aside className="rounded-3xl border border-navy/10 bg-white p-6 shadow-soft">
             <div className="flex items-center gap-4">
               <div className="relative grid h-[72px] w-[72px] place-items-center rounded-full bg-gradient-to-br from-[#1d4ed8] to-[#7c3aed] text-[28px] font-bold text-white">
                 {initials}
-                <span className={`absolute bottom-1 right-1 h-4 w-4 rounded-full border-2 border-navy-800 ${mentor.isOnline ? "animate-pulse bg-green-400" : "bg-slate-500"}`} />
+                <span className={`absolute bottom-1 right-1 h-4 w-4 rounded-full border-2 border-white ${mentor.isOnline ? "animate-pulse bg-green-400" : "bg-slate-500"}`} />
               </div>
               <div>
                 <p className={mentor.isOnline ? "text-sm font-semibold text-green-300" : "text-sm font-semibold text-slate-400"}>
@@ -193,23 +193,23 @@ export default async function MentorProfilePage({ params }: { params: Promise<{ 
                 </p>
               </div>
             </div>
-            <h1 className="mt-4 text-2xl font-bold text-slate-100">{mentor.name}</h1>
-            <p className="mt-1 text-base font-medium text-electric-300">{mentor.title}</p>
+            <h1 className="mt-4 text-2xl font-black text-navy">{mentor.name}</h1>
+            <p className="mt-1 text-base font-bold text-coral">{mentor.title}</p>
             <p className="mt-1 text-sm italic text-slate-400">{mentor.credential}</p>
-            <div className="mt-4 flex gap-6 text-sm text-slate-300">
+            <div className="mt-4 flex gap-6 text-sm font-semibold text-slate-700">
               <span>⭐ {mentor.rating}</span>
               <span>· {mentor.sessions} sessions</span>
             </div>
             <div className="mt-3 flex flex-wrap gap-2">
               {mentor.tags.map((tag) => (
-                <span key={tag} className="rounded-full bg-electric-500/15 px-3 py-1 text-xs font-semibold text-electric-300">{tag}</span>
+                <span key={tag} className="rounded-full bg-peach px-3 py-1 text-xs font-bold text-coral">{tag}</span>
               ))}
             </div>
             <p className="mt-4 text-sm leading-relaxed text-slate-400">{mentor.bio}</p>
             <p className="mb-2 mt-4 text-xs text-slate-500">Helps with:</p>
             <div className="flex flex-wrap gap-2">
               {mentor.situations.map((situation) => (
-                <span key={situation} className="rounded-full border border-electric-500/20 bg-navy-900 px-3 py-1 text-xs text-slate-300">
+                <span key={situation} className="rounded-full border border-navy/10 bg-ivory px-3 py-1 text-xs text-slate-700">
                   {situationLabels[situation] ?? situation}
                 </span>
               ))}
@@ -218,31 +218,31 @@ export default async function MentorProfilePage({ params }: { params: Promise<{ 
 
           <section>
             <div>
-              <h2 className="text-2xl font-bold text-slate-100">Services by {mentor.name}</h2>
+              <h2 className="text-2xl font-black text-navy">Services by {mentor.name}</h2>
               <div className="mt-4 space-y-3">
                 {mentor.services.map((service) => (
-                  <article key={service.name} className="rounded-xl border border-electric-500/15 bg-navy-800 p-4">
+                  <article key={service.name} className="rounded-xl border border-navy/10 bg-white p-4 shadow-soft">
                     <div className="flex items-start justify-between gap-4">
-                      <h3 className="text-sm font-semibold text-slate-100">{service.name}</h3>
-                      <span className="shrink-0 rounded-full bg-electric-500/15 px-3 py-1 text-xs font-semibold text-electric-300">{service.duration}</span>
+                      <h3 className="text-sm font-black text-navy">{service.name}</h3>
+                      <span className="shrink-0 rounded-full bg-peach px-3 py-1 text-xs font-bold text-coral">{service.duration}</span>
                     </div>
                     <p className="mt-1 text-xs text-slate-400">-&gt; {service.deliverable}</p>
-                    <Link href={`/services/${service.slug}`} className="mt-3 inline-flex text-xs font-semibold text-electric-300 hover:text-electric-200">Book this service -&gt;</Link>
+                    <Link href={`/services/${service.slug}`} className="mt-3 inline-flex text-xs font-bold text-coral hover:text-[#dc4429]">Book this service -&gt;</Link>
                   </article>
                 ))}
               </div>
             </div>
 
             <div className="mt-8">
-              <h2 className="text-2xl font-bold text-slate-100">Courses by {mentor.name}</h2>
+              <h2 className="text-2xl font-black text-navy">Courses by {mentor.name}</h2>
               <div className="mt-4 grid gap-3 sm:grid-cols-2">
                 {mentor.courses.map((courseSlug) => {
                   const course = courseData[courseSlug as keyof typeof courseData];
                   return (
-                    <article key={courseSlug} className="rounded-xl border border-electric-500/15 bg-navy-800 p-4">
-                      <h3 className="text-sm font-semibold text-slate-100">{course.title}</h3>
+                    <article key={courseSlug} className="rounded-xl border border-navy/10 bg-white p-4 shadow-soft">
+                      <h3 className="text-sm font-black text-navy">{course.title}</h3>
                       <p className="mt-2 text-xs text-slate-400">{course.lessons} lessons · {course.duration} · ₹{course.price.toLocaleString("en-IN")}</p>
-                      <Link href={`/courses/${courseSlug}`} className="mt-3 inline-flex text-xs font-semibold text-electric-300 hover:text-electric-200">Buy course -&gt;</Link>
+                      <Link href={`/courses/${courseSlug}`} className="mt-3 inline-flex text-xs font-bold text-coral hover:text-[#dc4429]">Buy course -&gt;</Link>
                     </article>
                   );
                 })}
@@ -250,12 +250,12 @@ export default async function MentorProfilePage({ params }: { params: Promise<{ 
             </div>
 
             <div className="mt-8">
-              <h2 className="text-2xl font-bold text-slate-100">What students say</h2>
+              <h2 className="text-2xl font-black text-navy">What students say</h2>
               <div className="mt-4 grid gap-3">
                 {mentor.reviews.map((review) => (
-                  <article key={`${review.initials}-${review.date}`} className="rounded-xl border border-electric-500/10 bg-navy-800 p-4">
+                  <article key={`${review.initials}-${review.date}`} className="rounded-xl border border-navy/10 bg-white p-4 shadow-soft">
                     <p className="text-sm text-amber-400">{"⭐".repeat(review.rating)}</p>
-                    <p className="mt-2 text-sm italic text-slate-300">"{review.text}"</p>
+                    <p className="mt-2 text-sm italic text-slate-700">"{review.text}"</p>
                     <p className="mt-2 text-xs text-slate-500">{review.initials} · {review.date}</p>
                   </article>
                 ))}

@@ -113,26 +113,26 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ s
   if (!course) notFound();
 
   return (
-    <main className="bg-navy-950 py-12 text-slate-100">
+    <main className="bg-ivory py-12 text-ink">
       <div className="container-shell">
-        <Link href="/courses" className="text-sm font-semibold text-electric-300 hover:text-electric-200">&larr; All courses</Link>
-        <section className="mt-6 rounded-3xl border border-electric-500/15 bg-navy-800 p-6 lg:p-9">
-          <span className="rounded-full bg-electric-500/15 px-3 py-1 text-sm font-semibold text-electric-300">Mini course</span>
-          <h1 className="mt-5 max-w-3xl text-4xl font-bold tracking-tight text-slate-100">{course.title}</h1>
-          <p className="mt-3 max-w-2xl text-lg text-slate-300">{course.subtitle}</p>
-          <Link href={`/mentors/${course.mentorSlug}`} className="mt-5 inline-flex text-sm font-semibold text-electric-300 hover:text-electric-200">
+        <Link href="/courses" className="text-sm font-semibold text-coral hover:text-[#dc4429]">&larr; All courses</Link>
+        <section className="mt-6 rounded-3xl border border-navy/10 bg-white p-6 shadow-soft lg:p-9">
+          <span className="rounded-full bg-peach px-3 py-1 text-sm font-bold text-coral">Mini course</span>
+          <h1 className="mt-5 max-w-3xl text-4xl font-black tracking-[-0.04em] text-navy">{course.title}</h1>
+          <p className="mt-3 max-w-2xl text-lg text-slate-700">{course.subtitle}</p>
+          <Link href={`/mentors/${course.mentorSlug}`} className="mt-5 inline-flex text-sm font-bold text-coral hover:text-[#dc4429]">
             Created by {course.mentor} -&gt;
           </Link>
           <div className="mt-6 grid gap-4 sm:grid-cols-3">
-            <div className="rounded-2xl border border-electric-500/10 bg-navy-900 p-4">
+            <div className="rounded-2xl border border-navy/10 bg-ivory p-4">
               <p className="text-xs text-slate-500">Lessons</p>
               <p className="mt-1 text-xl font-bold">{course.lessons}</p>
             </div>
-            <div className="rounded-2xl border border-electric-500/10 bg-navy-900 p-4">
+            <div className="rounded-2xl border border-navy/10 bg-ivory p-4">
               <p className="text-xs text-slate-500">Duration</p>
               <p className="mt-1 text-xl font-bold">{course.duration}</p>
             </div>
-            <div className="rounded-2xl border border-electric-500/10 bg-navy-900 p-4">
+            <div className="rounded-2xl border border-navy/10 bg-ivory p-4">
               <p className="text-xs text-slate-500">Price</p>
               <p className="mt-1 text-xl font-bold">₹{course.price.toLocaleString("en-IN")}</p>
             </div>
@@ -141,7 +141,7 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ s
             <h2 className="text-2xl font-bold">What you will learn</h2>
             <div className="mt-4 grid gap-3 md:grid-cols-2">
               {course.outcomes.map((outcome) => (
-                <p key={outcome} className="rounded-xl border border-electric-500/10 bg-navy-900 p-4 text-sm text-slate-300">✓ {outcome}</p>
+                <p key={outcome} className="rounded-xl border border-navy/10 bg-ivory p-4 text-sm text-slate-700">✓ {outcome}</p>
               ))}
             </div>
           </div>

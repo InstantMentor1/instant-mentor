@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { normalizeEmail, validateAccountEmail } from "@/lib/account-validation";
+import { normalizeEmail } from "@/lib/account-validation";
 import { dashboardForRole } from "@/lib/auth-shared";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
@@ -19,7 +19,7 @@ export async function POST(request: Request) {
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("role,email")
+    .select("role,email,account_status")
     .eq("user_id", data.user.id)
     .maybeSingle();
   if (!profile) {
@@ -27,13 +27,9 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Account profile not found. Please contact support." }, { status: 403 });
   }
 
-  const eligibilityError = validateAccountEmail(profile.email, profile.role);
-  if (eligibilityError && profile.role !== "Admin") {
+  if (profile.account_status === "disabled") {
     await supabase.auth.signOut();
-    return NextResponse.json(
-      { error: "This account is not eligible for My Expert Talk access. Please use your college, institution, or professional email." },
-      { status: 403 },
-    );
+    return NextResponse.json({ error: "This account is disabled. Please contact support." }, { status: 403 });
   }
 
   return NextResponse.json({ success: true, redirectTo: dashboardForRole(profile.role) });

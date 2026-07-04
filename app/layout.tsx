@@ -70,7 +70,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-[#020818] text-slate-100`}>
+      <body className={`${inter.className} bg-ivory text-ink`}>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

@@ -20,7 +20,7 @@ const joinLinks = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-electric-500/10 bg-navy-950 text-white">
+    <footer className="border-t border-navy/10 bg-white text-ink">
       <div className="container-shell grid gap-10 py-14 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
         <div>
           <Image
@@ -35,26 +35,26 @@ export default function Footer() {
           </p>
         </div>
         <div>
-          <h2 className="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-300">Quick Links</h2>
+          <h2 className="mb-3 text-xs font-semibold uppercase tracking-wider text-navy">Quick Links</h2>
           <div className="flex flex-col gap-3 text-sm text-slate-400">
-            {quickLinks.map(([label, href]) => <Link key={href} href={href} className="transition hover:text-electric-300">{label}</Link>)}
+            {quickLinks.map(([label, href]) => <Link key={href} href={href} className="transition hover:text-coral">{label}</Link>)}
           </div>
         </div>
         <div>
-          <h2 className="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-300">Join</h2>
+          <h2 className="mb-3 text-xs font-semibold uppercase tracking-wider text-navy">Join</h2>
           <div className="flex flex-col gap-3 text-sm text-slate-400">
-            {joinLinks.map(([label, href]) => <Link key={href} href={href} className="transition hover:text-electric-300">{label}</Link>)}
+            {joinLinks.map(([label, href]) => <Link key={href} href={href} className="transition hover:text-coral">{label}</Link>)}
           </div>
         </div>
         <div>
-          <h2 className="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-300">Connect</h2>
+          <h2 className="mb-3 text-xs font-semibold uppercase tracking-wider text-navy">Connect</h2>
           <div className="space-y-3 text-sm text-slate-400">
             <p className="flex items-center gap-2"><MapPin size={16} /> Built for learners across India</p>
-            <p className="flex items-center gap-2 text-electric-300"><Mail size={16} /> support@myexperttalk.com</p>
+            <p className="flex items-center gap-2 text-coral"><Mail size={16} /> support@myexperttalk.com</p>
           </div>
         </div>
       </div>
-      <div className="border-t border-electric-500/10 py-5 text-center text-xs text-slate-500">
+      <div className="border-t border-navy/10 py-5 text-center text-xs text-slate-500">
         (c) {new Date().getFullYear()} My Expert Talk. All rights reserved.
       </div>
     </footer>
