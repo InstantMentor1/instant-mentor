@@ -1,14 +1,30 @@
 import Link from "next/link";
 import DashboardHeader from "@/components/DashboardHeader";
-import { requireAuth } from "@/lib/auth";
+import { getAuthContext } from "@/lib/auth";
 import type { ServiceBooking } from "@/lib/marketplace";
+import LocalBookings from "./LocalBookings";
 
 export default async function UserBookingsPage({ searchParams }: { searchParams: Promise<{ success?: string }> }) {
   const { success } = await searchParams;
-  const { supabase, profile } = await requireAuth(["Student"]);
+  const { supabase, profile } = await getAuthContext();
+  if (!profile) {
+    return (
+      <section className="bg-ivory py-12">
+        <div className="container-shell">
+          <div className="mx-auto max-w-2xl rounded-3xl border border-navy/10 bg-white p-8 text-center shadow-soft">
+            <h1 className="text-3xl font-black text-navy">Sign in to see your bookings</h1>
+            <p className="mt-3 text-slate-600">Your mentor sessions, Calendly confirmations, payment status, and private meeting links stay inside your account.</p>
+            <Link href="/login" className="btn-primary mt-6">Login -&gt;</Link>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   const { data } = await supabase
     .from("service_bookings")
     .select("*,expert_services(title,category,duration_minutes)")
+    .eq("user_id", profile.user_id)
     .order("created_at", { ascending: false });
   const bookings = (data ?? []).map((booking) => ({ ...booking, service: booking.expert_services })) as ServiceBooking[];
 
@@ -38,11 +54,19 @@ export default async function UserBookingsPage({ searchParams }: { searchParams:
             </article>
           ))}
         </div>
-        {bookings.length === 0 && (
-          <div className="card p-10 text-center">
-            <h2 className="text-xl font-black">No bookings yet.</h2>
-            <p className="mt-2 text-slate-600">Browse mentor services and choose the exact learning outcome you need.</p>
-            <Link href="/services" className="btn-primary mt-6">Explore Services</Link>
+        {bookings.length === 0 ? (
+          <>
+            <div className="card p-10 text-center">
+              <h2 className="text-xl font-black">No database bookings yet.</h2>
+              <p className="mt-2 text-slate-600">Browse mentor services to choose a slot. Calendly bridge bookings saved on this device appear below.</p>
+              <Link href="/services" className="btn-primary mt-6">Explore Services</Link>
+            </div>
+            <LocalBookings />
+          </>
+        ) : (
+          <div className="mt-8">
+            <h2 className="text-2xl font-black text-navy">Calendly confirmations on this device</h2>
+            <LocalBookings />
           </div>
         )}
       </div>

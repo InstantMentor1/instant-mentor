@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CalendarDays, Clock3, Mic2 } from "lucide-react";
-import RegisterInterestForm from "./RegisterInterestForm";
+import { BookingWidget } from "@/components/BookingWidget";
+import { talkCalendlyUrls } from "@/lib/calendly-data";
 
 const talks = {
   "placement-prep-sprint": {
@@ -10,6 +11,7 @@ const talks = {
     category: "Career",
     offset: 2,
     time: "7:00 PM",
+    calendlyUrl: talkCalendlyUrls["placement-prep-sprint"],
     description: "A practical live session on placement preparation, interview expectations, and the mistakes students should avoid before speaking to recruiters.",
   },
   "ai-tools-students": {
@@ -18,6 +20,7 @@ const talks = {
     category: "Skills",
     offset: 4,
     time: "6:00 PM",
+    calendlyUrl: talkCalendlyUrls["ai-tools-students"],
     description: "Learn how students can use AI tools for study planning, projects, interview preparation, and faster learning without losing fundamentals.",
   },
   "exam-strategy-clinic": {
@@ -26,6 +29,7 @@ const talks = {
     category: "Exam Help",
     offset: 7,
     time: "11:00 AM",
+    calendlyUrl: talkCalendlyUrls["exam-strategy-clinic"],
     description: "A focused clinic on revision planning, mock analysis, weak-area prioritisation, and staying calm when the exam timeline is tight.",
   },
   "project-portfolio-review": {
@@ -34,6 +38,7 @@ const talks = {
     category: "Projects",
     offset: 10,
     time: "5:00 PM",
+    calendlyUrl: talkCalendlyUrls["project-portfolio-review"],
     description: "Understand how to present projects for interviews, portfolios, and career switches with clearer outcomes and stronger storytelling.",
   },
   "placement-prep-what-interviewers-want": {
@@ -42,6 +47,7 @@ const talks = {
     category: "Career",
     offset: 2,
     time: "7:00 PM",
+    calendlyUrl: undefined,
     description: "A practical live session on placement preparation, interview expectations, and the mistakes students should avoid before speaking to recruiters.",
   },
   "gate-last-minute-strategy-clinic": {
@@ -50,6 +56,7 @@ const talks = {
     category: "Exams",
     offset: 4,
     time: "11:00 AM",
+    calendlyUrl: undefined,
     description: "A focused clinic on revision planning, mock analysis, weak-area prioritisation, and staying calm when the exam timeline is tight.",
   },
   "build-skills-that-get-you-hired-in-2025": {
@@ -58,6 +65,7 @@ const talks = {
     category: "Skills",
     offset: 7,
     time: "5:00 PM",
+    calendlyUrl: undefined,
     description: "Learn which skills create hiring signals, how to build a practical portfolio, and how to avoid wasting time on shallow course completion.",
   },
   "from-idea-to-first-paying-customer": {
@@ -66,6 +74,7 @@ const talks = {
     category: "Startup",
     offset: 10,
     time: "6:00 PM",
+    calendlyUrl: undefined,
     description: "A founder-focused talk on validating an idea, finding first users, and moving from vague interest to a paying customer conversation.",
   },
   "ai-tools-every-student-should-know": {
@@ -74,6 +83,7 @@ const talks = {
     category: "Technology",
     offset: 12,
     time: "8:00 PM",
+    calendlyUrl: talkCalendlyUrls["ai-tools-students"],
     description: "Learn how students can use AI tools for study planning, projects, interview preparation, and faster learning without losing fundamentals.",
   },
   "cat-verbal-reading-comprehension-shortcuts": {
@@ -82,6 +92,7 @@ const talks = {
     category: "Academics",
     offset: 14,
     time: "6:30 PM",
+    calendlyUrl: undefined,
     description: "A compact session on CAT verbal strategy, reading comprehension shortcuts, and how to approach passages under time pressure.",
   },
 } as const;
@@ -143,10 +154,17 @@ export default async function ExpertTalkDetailsPage({ params }: { params: Promis
           <Link href="/expert-talks" className="mt-8 inline-flex text-sm font-black text-academic">Back to expert talks</Link>
         </article>
         <aside className="h-fit rounded-[2rem] border border-navy/10 bg-white p-6 shadow-soft">
-          <h2 className="text-2xl font-black text-navy">Register interest</h2>
-          <p className="mt-2 text-sm leading-6 text-slate-600">This is a mock registration for now. It confirms interest without collecting payment.</p>
+          <h2 className="text-2xl font-black text-navy">Register for free</h2>
+          <p className="mt-2 text-sm leading-6 text-slate-600">Free to attend. A Google Meet link will be emailed to you after registration.</p>
           <div className="mt-5">
-            <RegisterInterestForm />
+            <BookingWidget
+              mentorName={talk.mentor}
+              serviceName={talk.title}
+              duration={`${talk.time} · ${futureDate(talk.offset)}`}
+              deliverable="Free live expert talk registration"
+              calendlyUrl={talk.calendlyUrl}
+              mode="inline"
+            />
           </div>
         </aside>
       </div>

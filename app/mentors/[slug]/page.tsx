@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { BookingWidget } from "@/components/BookingWidget";
+import { mentorCalendlyProfiles } from "@/lib/calendly-data";
 
 const courseData = {
   "hr-round-decoded": { title: "HR Round Decoded", lessons: 5, duration: "2.5 hrs", price: 799 },
@@ -20,7 +22,22 @@ const situationLabels: Record<string, string> = {
   "competitive-exams": "Competitive Exams",
 };
 
-const mentorData = {
+const mentorData: Record<string, {
+  name: string;
+  title: string;
+  credential: string;
+  bio: string;
+  tags: string[];
+  rating: number;
+  sessions: number;
+  isOnline: boolean;
+  nextSlot?: string;
+  calendlyUrls: Record<string, string>;
+  situations: string[];
+  services: Array<{ name: string; duration: string; deliverable: string; slug: string }>;
+  courses: Array<keyof typeof courseData>;
+  reviews: Array<{ initials: string; text: string; rating: number; date: string }>;
+}> = {
   "priya-nair": {
     name: "Priya Nair",
     title: "HR Manager",
@@ -30,6 +47,7 @@ const mentorData = {
     rating: 4.9,
     sessions: 286,
     isOnline: true,
+    calendlyUrls: mentorCalendlyProfiles["priya-nair"].calendlyUrls,
     situations: ["interview-prep", "career-clarity"],
     services: [
       { name: "HR Round Practice", duration: "45 min", deliverable: "Question-by-question feedback + confidence checklist", slug: "software-mock-interview" },
@@ -50,6 +68,7 @@ const mentorData = {
     rating: 4.8,
     sessions: 234,
     isOnline: true,
+    calendlyUrls: mentorCalendlyProfiles["aarav-mehta"].calendlyUrls,
     situations: ["interview-prep", "resume-help"],
     services: [
       { name: "Resume Review for Freshers", duration: "30 min", deliverable: "Annotated PDF + 3 priority fixes", slug: "resume-review" },
@@ -73,6 +92,7 @@ const mentorData = {
     sessions: 187,
     isOnline: false,
     nextSlot: "Tomorrow 10:00 AM",
+    calendlyUrls: mentorCalendlyProfiles["kavya-rao"].calendlyUrls,
     situations: ["career-clarity", "first-job"],
     services: [
       { name: "Career Roadmap Session", duration: "60 min", deliverable: "90-day action plan PDF", slug: "career-roadmap" },
@@ -94,6 +114,7 @@ const mentorData = {
     sessions: 221,
     isOnline: false,
     nextSlot: "Friday 7:00 PM",
+    calendlyUrls: {},
     situations: ["competitive-exams", "exam-doubt"],
     services: [
       { name: "GATE Mock Test Analysis", duration: "60 min", deliverable: "Weak-area map + 14-day revision plan", slug: "career-roadmap" },
@@ -114,6 +135,7 @@ const mentorData = {
     rating: 4.9,
     sessions: 312,
     isOnline: true,
+    calendlyUrls: mentorCalendlyProfiles["rohan-iyer"].calendlyUrls,
     situations: ["interview-prep", "skill-building"],
     services: [
       { name: "Mock Interview for Software Roles", duration: "45 min", deliverable: "Performance breakdown + weak areas", slug: "software-mock-interview" },
@@ -137,6 +159,7 @@ const mentorData = {
     sessions: 143,
     isOnline: false,
     nextSlot: "Saturday 3:00 PM",
+    calendlyUrls: mentorCalendlyProfiles["meera-shah"].calendlyUrls,
     situations: ["first-job", "career-clarity"],
     services: [
       { name: "Communication for Interviews", duration: "45 min", deliverable: "Personalised word bank + phrase guide", slug: "career-roadmap" },
@@ -221,14 +244,28 @@ export default async function MentorProfilePage({ params }: { params: Promise<{ 
               <h2 className="text-2xl font-black text-navy">Services by {mentor.name}</h2>
               <div className="mt-4 space-y-3">
                 {mentor.services.map((service) => (
-                  <article key={service.name} className="rounded-xl border border-navy/10 bg-white p-4 shadow-soft">
-                    <div className="flex items-start justify-between gap-4">
-                      <h3 className="text-sm font-black text-navy">{service.name}</h3>
-                      <span className="shrink-0 rounded-full bg-peach px-3 py-1 text-xs font-bold text-coral">{service.duration}</span>
+                  <details key={service.name} className="group rounded-xl border border-navy/10 bg-white p-4 shadow-soft">
+                    <summary className="list-none cursor-pointer">
+                      <div className="flex items-center justify-between gap-4">
+                        <div>
+                          <p className="text-sm font-black text-navy">{service.name}</p>
+                          <p className="mt-0.5 text-xs text-slate-500">{service.duration} · -&gt; {service.deliverable}</p>
+                        </div>
+                        <span className="text-sm font-bold text-coral group-open:hidden">Book -&gt;</span>
+                        <span className="hidden text-sm font-bold text-slate-500 group-open:block">Close ↑</span>
+                      </div>
+                    </summary>
+                    <div className="pt-4">
+                      <BookingWidget
+                        mentorName={mentor.name}
+                        serviceName={service.name}
+                        duration={service.duration}
+                        deliverable={service.deliverable}
+                        calendlyUrl={mentor.calendlyUrls?.[service.slug]}
+                        mode="popup"
+                      />
                     </div>
-                    <p className="mt-1 text-xs text-slate-400">-&gt; {service.deliverable}</p>
-                    <Link href={`/services/${service.slug}`} className="mt-3 inline-flex text-xs font-bold text-coral hover:text-[#dc4429]">Book this service -&gt;</Link>
-                  </article>
+                  </details>
                 ))}
               </div>
             </div>
