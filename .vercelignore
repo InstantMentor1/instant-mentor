@@ -1,5 +1,6 @@
 .git
 .next
+.next-check
 .next-local
 .next-marketplace
 .vercel
