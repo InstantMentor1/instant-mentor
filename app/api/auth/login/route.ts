@@ -1,11 +1,17 @@
 import { NextResponse } from "next/server";
 import { normalizeEmail } from "@/lib/account-validation";
-import { dashboardForRole } from "@/lib/auth-shared";
-import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { dashboardForRole, type AppRole } from "@/lib/auth-shared";
+import { createSupabaseAdminClient, createSupabaseServerClient } from "@/lib/supabase/server";
 
 function isSupabaseConnectionError(error: { message?: string; status?: number } | null | undefined) {
   const message = error?.message?.toLowerCase() ?? "";
   return error?.status === 0 || message.includes("fetch failed") || message.includes("enotfound");
+}
+
+function normalizeRole(value: unknown): AppRole {
+  return value === "Mentor" || value === "Faculty" || value === "Institution" || value === "Admin"
+    ? value
+    : "Student";
 }
 
 export async function POST(request: Request) {
@@ -30,7 +36,8 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Invalid email or password." }, { status: 401 });
     }
 
-    const { data: profile, error: profileError } = await supabase
+    const admin = createSupabaseAdminClient();
+    let { data: profile, error: profileError } = await admin
       .from("profiles")
       .select("role,email,account_status")
       .eq("user_id", data.user.id)
@@ -46,8 +53,61 @@ export async function POST(request: Request) {
     }
 
     if (!profile) {
-      await supabase.auth.signOut();
-      return NextResponse.json({ error: "Account profile not found. Please contact support." }, { status: 403 });
+      const userRole = normalizeRole(data.user.user_metadata?.role);
+      const fullName =
+        String(data.user.user_metadata?.full_name ?? "").trim() ||
+        data.user.email?.split("@")[0] ||
+        "My Expert Talk User";
+      const userEmail = normalizeEmail(data.user.email ?? email);
+      const { data: repairedProfile, error: repairError } = await admin
+        .from("profiles")
+        .upsert(
+          {
+            user_id: data.user.id,
+            full_name: fullName,
+            email: userEmail,
+            phone: data.user.user_metadata?.phone ? String(data.user.user_metadata.phone) : null,
+            role: userRole,
+            college_or_company: String(data.user.user_metadata?.college_or_company ?? "Not provided"),
+            technical_track: String(data.user.user_metadata?.technical_track ?? "Career Roadmap Guidance"),
+            technical_tracks: [String(data.user.user_metadata?.technical_track ?? "Career Roadmap Guidance")],
+            linkedin_or_portfolio: data.user.user_metadata?.linkedin_or_portfolio
+              ? String(data.user.user_metadata.linkedin_or_portfolio)
+              : null,
+            email_verified: Boolean(data.user.email_confirmed_at),
+            verification_status: userRole === "Mentor" ? "pending" : "verified",
+            user_type: userRole === "Student" ? "Recent Graduate" : null,
+            strikes: 0,
+            account_status: "active",
+          },
+          { onConflict: "user_id" },
+        )
+        .select("role,email,account_status")
+        .single();
+
+      if (repairError || !repairedProfile) {
+        console.error("Login profile repair failed:", repairError);
+        await supabase.auth.signOut();
+        return NextResponse.json({ error: "Account profile could not be repaired. Please contact support." }, { status: 500 });
+      }
+
+      if (userRole === "Mentor" || userRole === "Faculty") {
+        const { error: mentorRepairError } = await admin
+          .from("mentor_profiles")
+          .upsert(
+            {
+              user_id: data.user.id,
+              expertise_areas: [String(data.user.user_metadata?.technical_track ?? "Career Roadmap Guidance")],
+              verification_status: "pending",
+            },
+            { onConflict: "user_id" },
+          );
+        if (mentorRepairError) {
+          console.error("Login mentor profile repair failed:", mentorRepairError);
+        }
+      }
+
+      profile = repairedProfile;
     }
 
     if (profile.account_status === "disabled") {
