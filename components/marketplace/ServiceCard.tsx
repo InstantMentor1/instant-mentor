@@ -25,15 +25,15 @@ export default function ServiceCard({ service }: { service: ExpertService }) {
           </span>
           <div>
             <p className="flex items-center gap-1 font-bold text-navy">
-              {service.expert?.full_name ?? "Verified Mentor"} <BadgeCheck size={16} className="text-academic" />
+              {service.expert?.full_name ?? "Verified Expert"} <BadgeCheck size={16} className="text-academic" />
             </p>
             <p className="text-xs text-slate-500">{service.expert?.college_or_company ?? "Educator / Subject expert"}</p>
           </div>
         </div>
         <div className="mt-5 grid grid-cols-2 gap-3 rounded-2xl bg-ivory p-4 text-sm">
           <div>
-            <p className="text-xs font-bold uppercase tracking-wide text-slate-400">Price set by mentor</p>
-            <p className="mt-1 text-lg font-black text-navy">Price set by mentor</p>
+            <p className="text-xs font-bold uppercase tracking-wide text-slate-400">Expert-set price</p>
+            <p className="mt-1 text-lg font-black text-navy">Set by expert</p>
           </div>
           <div>
             <p className="text-xs font-bold uppercase tracking-wide text-slate-400">Format</p>
@@ -47,7 +47,7 @@ export default function ServiceCard({ service }: { service: ExpertService }) {
           <strong className="text-navy">What students get:</strong> {service.deliverables}
         </p>
         <p className="mt-3 text-xs font-semibold text-slate-500">
-          Availability: {service.availability_notes ?? "Confirmed with the mentor after booking request"}
+          Availability: {service.availability_notes ?? "Confirmed with the expert after booking request"}
         </p>
         <Link href={`/services/${service.id}`} className="btn-primary mt-6 w-full">
           Book Now -&gt;

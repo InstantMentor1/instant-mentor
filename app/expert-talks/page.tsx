@@ -21,7 +21,7 @@ function futureDate(offsetDays: number) {
 export default function ExpertTalksPage() {
   return (
     <>
-      <PageHero eyebrow="Expert talks catalogue" title="Register for live expert talks." description="Search upcoming talks by topic, mentor, category, and time. Register for the learning session that fits your current need." ctaLabel="Join as Mentor" ctaHref="/for-mentors" />
+      <PageHero eyebrow="Expert talks catalogue" title="Register for live expert talks." description="Search upcoming talks by topic, expert, category, and time. Register for the learning session that fits your current need." ctaLabel="Join as Expert" ctaHref="/for-mentors" />
       <section className="section-pad bg-ivory">
         <div className="container-shell">
           <div className="card mb-7 flex flex-col gap-3 p-4 md:flex-row">

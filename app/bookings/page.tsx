@@ -13,7 +13,7 @@ export default async function UserBookingsPage({ searchParams }: { searchParams:
         <div className="container-shell">
           <div className="mx-auto max-w-2xl rounded-3xl border border-navy/10 bg-white p-8 text-center shadow-soft">
             <h1 className="text-3xl font-black text-navy">Sign in to see your bookings</h1>
-            <p className="mt-3 text-slate-600">Your mentor sessions, Calendly confirmations, payment status, and private meeting links stay inside your account.</p>
+            <p className="mt-3 text-slate-600">Your expert bookings, Calendly confirmations, payment status, and private meeting links stay inside your account.</p>
             <Link href="/login" className="btn-primary mt-6">Login -&gt;</Link>
           </div>
         </div>
@@ -31,15 +31,15 @@ export default async function UserBookingsPage({ searchParams }: { searchParams:
   return (
     <section className="bg-ivory py-10">
       <div className="container-shell">
-        <DashboardHeader profile={profile} title="My Bookings" description="Track payment, mentor acceptance, scheduling, and completed services." />
-        {success === "1" && <p className="mb-6 rounded-2xl bg-skysoft p-5 font-bold text-navy">Payment verified. Your booking request has been sent to the mentor.</p>}
+        <DashboardHeader profile={profile} title="My Bookings" description="Track payment, expert acceptance, scheduling, and completed services." />
+        {success === "1" && <p className="mb-6 rounded-2xl bg-skysoft p-5 font-bold text-navy">Payment verified. Your booking request has been sent to the expert.</p>}
         <div className="grid gap-5 lg:grid-cols-2">
           {bookings.map((booking) => (
             <article key={booking.id} className="card p-6">
               <div className="flex justify-between gap-3">
                 <div>
                   <p className="text-xs font-bold uppercase tracking-wide text-coral">{booking.service?.category}</p>
-                  <h2 className="mt-2 text-xl font-black">{booking.service?.title ?? "Mentor service"}</h2>
+                  <h2 className="mt-2 text-xl font-black">{booking.service?.title ?? "Expert service"}</h2>
                 </div>
                 <span className="h-fit rounded-full bg-slate-100 px-3 py-1 text-xs font-bold capitalize">{booking.status}</span>
               </div>
@@ -58,7 +58,7 @@ export default async function UserBookingsPage({ searchParams }: { searchParams:
           <>
             <div className="card p-10 text-center">
               <h2 className="text-xl font-black">No database bookings yet.</h2>
-              <p className="mt-2 text-slate-600">Browse mentor services to choose a slot. Calendly bridge bookings saved on this device appear below.</p>
+              <p className="mt-2 text-slate-600">Browse expert-created services to choose a slot. Calendly bridge bookings saved on this device appear below.</p>
               <Link href="/services" className="btn-primary mt-6">Explore Services</Link>
             </div>
             <LocalBookings />

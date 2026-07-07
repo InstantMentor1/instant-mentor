@@ -22,7 +22,7 @@ export default async function MentorDashboard() {
         <DashboardHeader
           profile={profile}
           title="Expert Dashboard"
-          description="Manage your services, bookings, availability, students, earnings, and verification."
+          description="Create expert services, rooms, micro-courses, mentorship plans, promo codes, bookings, students, earnings, and verification."
         />
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
           {[
@@ -43,8 +43,10 @@ export default async function MentorDashboard() {
         <div className="mt-6 flex flex-wrap gap-3">
           <Link href="/mentor/services/new" className="btn-primary">Create Service Listing</Link>
           <Link href="/mentor/services" className="btn-secondary">My Services</Link>
+          <Link href="/mentor/rooms" className="btn-secondary">My Rooms</Link>
+          <Link href="/mentor/courses" className="btn-secondary">My Courses</Link>
           <Link href="/mentor/bookings" className="btn-secondary">Bookings</Link>
-          <Link href="/mentor/availability" className="btn-secondary">Availability</Link>
+          <Link href="/mentor/promo-codes" className="btn-secondary">Promo Codes</Link>
           <Link href="/mentor/students" className="btn-secondary">Students</Link>
           <Link href="/mentor/earnings" className="btn-secondary">Earnings</Link>
           <Link href="/mentor/verification" className="btn-secondary">Profile & Verification</Link>

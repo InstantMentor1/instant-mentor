@@ -81,7 +81,7 @@ export function BookingWidget({
           <button type="button" onClick={() => setShowCalendly(true)} className="btn-primary w-full py-3 text-sm">
             Choose a time slot -&gt;
           </button>
-          <p className="text-center text-xs text-slate-500">Price set by mentor · Payment link sent after booking</p>
+          <p className="text-center text-xs text-slate-500">Price set by expert · Payment link sent after booking</p>
         </div>
       ) : (
         <div>

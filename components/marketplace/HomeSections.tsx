@@ -55,6 +55,13 @@ const popularServices = [
   ["Monthly Mentorship", "career-roadmap", "Stay accountable with ongoing expert guidance."],
 ] as const;
 
+const marketplaceModels = [
+  ["Expert Services", "One-time help like resume review, mock interview, doubt-solving, project review, or skill roadmap."],
+  ["Expert Rooms", "Group learning support for topics like SQL doubts, BA practice, MBA projects, or interview preparation."],
+  ["Expert Micro-Courses", "Small recorded or live learning items with expert-created lessons, resources, and optional live support."],
+  ["Expert Mentorship Plans", "7-day, 30-day, or monthly support plans where experts define the format, price, and outcomes."],
+] as const;
+
 function addDays(days: number) {
   const date = new Date();
   date.setDate(date.getDate() + days);
@@ -77,6 +84,7 @@ export function MinimalLandingPage({ dashboardHref, role }: { dashboardHref: str
     <div className="bg-ivory text-ink">
       <PublicHero />
       <PopularServicesSection />
+      <MarketplaceModelsSection />
       <HowItWorksSection />
       <FeaturedExpertsSection />
       <TrustSection />
@@ -95,17 +103,17 @@ function PublicHero() {
           <div className="max-w-3xl">
             <span className="inline-flex rounded-full border border-coral/20 bg-peach px-3 py-1 text-sm font-bold text-coral">Verified expert sessions for serious learners</span>
             <h1 className="mt-6 text-4xl font-black tracking-[-0.05em] text-navy sm:text-6xl">
-              Book verified experts before your next big step.
+              Discover, book, and learn directly from independent experts.
             </h1>
             <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-700">
-              Book verified experts for career clarity, resume review, interview prep, skill learning, and mentorship.
+              Connect with verified experts for learning support, career guidance, doubt-solving, skill mentoring, and premium learning sessions delivered through 1:1 calls, group rooms, micro-courses, and mentorship plans.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link href="/mentors" className="btn-primary">Find an Expert <ArrowRight size={18} /></Link>
               <Link href="/for-mentors" className="btn-secondary">Join as Expert <ArrowRight size={18} /></Link>
             </div>
             <div className="mt-6 flex flex-wrap gap-2 text-sm font-semibold text-slate-600">
-              {["Student-first", "Verified mentors", "Mentor-set pricing"].map((item) => (
+              {["Expert-created offers", "Expert-set pricing", "Secure booking"].map((item) => (
                 <span key={item} className="rounded-full border border-navy/10 bg-white px-3 py-1">✓ {item}</span>
               ))}
             </div>
@@ -147,6 +155,33 @@ function PopularServicesSection() {
                 <p className="mt-3 text-sm leading-6 text-slate-600">{text}</p>
                 <span className="mt-5 inline-flex items-center text-sm font-bold text-coral">View service <ArrowRight className="ml-1 transition group-hover:translate-x-1" size={16} /></span>
               </Link>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function MarketplaceModelsSection() {
+  return (
+    <section className="bg-ivory py-14">
+      <div className="container-shell">
+        <Reveal>
+          <div className="mb-8 max-w-3xl">
+            <h2 className="text-3xl font-black tracking-[-0.04em] text-navy">Expert-led learning support marketplace</h2>
+            <p className="mt-3 text-slate-600">
+              Experts create their own services, set their own pricing, define promo codes, choose the session format, and decide the delivery method. My Expert Talk provides visibility, booking, payment, communication, and learning delivery tools.
+            </p>
+          </div>
+        </Reveal>
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          {marketplaceModels.map(([title, text]) => (
+            <Reveal key={title}>
+              <article className="h-full rounded-3xl border border-navy/10 bg-white p-5 shadow-soft">
+                <h3 className="text-lg font-black text-navy">{title}</h3>
+                <p className="mt-3 text-sm leading-6 text-slate-600">{text}</p>
+              </article>
             </Reveal>
           ))}
         </div>
@@ -212,7 +247,7 @@ function FeaturedExpertsSection() {
 }
 
 function TrustSection() {
-  const items = ["Verified experts", "Secure booking", "Affordable premium sessions", "Session notes / roadmap after session", "Refund or reschedule policy"];
+  const items = ["Verified expert profiles", "Secure booking and payment", "Expert-set pricing", "Chat and resource delivery", "Reviews and dispute support"];
   return (
     <section className="bg-ivory py-14">
       <div className="container-shell">
@@ -249,16 +284,18 @@ function RoleLanding({ role, dashboardHref }: { role: AppRole; dashboardHref: st
   const isExpert = role === "Mentor" || role === "Faculty" || role === "Institution";
   const title = isExpert ? "Expert Studio" : role === "Admin" ? "Admin Control Center" : "Student Learning Space";
   const description = isExpert
-    ? "Manage services, course ideas, expert talks, bookings, messages, and earnings from one focused expert interface."
+    ? "Create services, rooms, micro-courses, mentorship plans, promo codes, bookings, messages, and earnings from one focused expert interface."
     : role === "Admin"
       ? "Review users, experts, services, bookings, and platform operations."
-      : "Explore talks, book mentor services, continue courses, and track your learning journey without expert-only tools in the way.";
+      : "Explore experts, book services, join rooms or micro-courses, manage bookings, messages, payments, and coupons.";
   const links = isExpert
     ? [
         ["Dashboard", dashboardHref],
         ["My Services", "/mentor/services"],
+        ["My Rooms", "/mentor/rooms"],
+        ["My Courses", "/mentor/courses"],
         ["Bookings", "/mentor/bookings"],
-        ["Availability", "/mentor/availability"],
+        ["Promo Codes", "/mentor/promo-codes"],
         ["Students", "/mentor/students"],
         ["Earnings", "/mentor/earnings"],
         ["Profile & Verification", "/mentor/verification"],
@@ -272,11 +309,12 @@ function RoleLanding({ role, dashboardHref }: { role: AppRole; dashboardHref: st
         ]
       : [
           ["Dashboard", dashboardHref],
-          ["Find Experts", "/mentors"],
+          ["Explore Experts", "/mentors"],
+          ["Explore Services", "/services"],
           ["My Bookings", "/bookings"],
-          ["My Roadmap", "/roadmap"],
+          ["My Rooms / Courses", "/rooms-courses"],
           ["Messages", "/messages"],
-          ["Payments", "/payments"],
+          ["Payments & Coupons", "/payments"],
           ["Profile", "/profile"],
         ];
 
@@ -353,7 +391,7 @@ function TalksSection() {
 }
 
 function ServicesSection() {
-  return <section className="bg-navy-900 py-24"><div className="container-shell"><Reveal><SectionTitle title="Book mentor services" /></Reveal><div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">{services.map(([title, slug, mentor, mentorTitle, category, duration, status, availability]) => <Reveal key={slug}><article className="h-full rounded-2xl border border-electric-500/20 bg-navy-800 p-5 transition-all hover:-translate-y-1 hover:border-electric-500/60 hover:bg-navy-700"><span className="rounded-full bg-electric-500/20 px-3 py-1 text-xs font-semibold text-electric-300">{category}</span><h3 className="mt-3 text-base font-semibold text-chalk">{title}</h3><p className="mt-2 text-sm font-medium text-electric-300">{mentor}</p><p className="text-xs text-slate-400">{mentorTitle}</p><div className="mt-3 flex flex-wrap items-center gap-3 text-xs text-slate-400"><span>{duration}</span><span className={`rounded-full px-2 py-1 ${status === "limited" ? "bg-amber-500/20 text-amber-300" : "bg-green-500/20 text-green-300"}`}>{availability}</span></div><p className="mt-3 text-xs italic text-slate-500">Price set by mentor</p><Link href={`/services/${slug}`} className="mt-4 flex w-full justify-center rounded-lg bg-electric-500 px-4 py-2 font-semibold text-white hover:bg-electric-400">Book Now -&gt;</Link></article></Reveal>)}</div></div></section>;
+  return <section className="bg-navy-900 py-24"><div className="container-shell"><Reveal><SectionTitle title="Book expert services" /></Reveal><div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">{services.map(([title, slug, mentor, mentorTitle, category, duration, status, availability]) => <Reveal key={slug}><article className="h-full rounded-2xl border border-electric-500/20 bg-navy-800 p-5 transition-all hover:-translate-y-1 hover:border-electric-500/60 hover:bg-navy-700"><span className="rounded-full bg-electric-500/20 px-3 py-1 text-xs font-semibold text-electric-300">{category}</span><h3 className="mt-3 text-base font-semibold text-chalk">{title}</h3><p className="mt-2 text-sm font-medium text-electric-300">{mentor}</p><p className="text-xs text-slate-400">{mentorTitle}</p><div className="mt-3 flex flex-wrap items-center gap-3 text-xs text-slate-400"><span>{duration}</span><span className={`rounded-full px-2 py-1 ${status === "limited" ? "bg-amber-500/20 text-amber-300" : "bg-green-500/20 text-green-300"}`}>{availability}</span></div><p className="mt-3 text-xs italic text-slate-500">Price set by expert</p><Link href={`/services/${slug}`} className="mt-4 flex w-full justify-center rounded-lg bg-electric-500 px-4 py-2 font-semibold text-white hover:bg-electric-400">Book Now -&gt;</Link></article></Reveal>)}</div></div></section>;
 }
 
 function RecordingsSection() {
@@ -365,7 +403,7 @@ function MentorsSection() {
 }
 
 function MentorCTA() {
-  return <section className="relative overflow-hidden bg-navy-900 py-24"><div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(37,99,235,0.13),transparent_35%)]" /><div className="container-shell relative grid gap-10 lg:grid-cols-[1fr_360px] lg:items-center"><Reveal><div><h2 className="text-3xl font-bold tracking-tight text-chalk sm:text-5xl">Share your expertise. Earn from it.</h2><p className="mt-4 max-w-2xl text-slate-300">Create your mentor profile, list services, host live talks, upload recordings, and earn — on your terms.</p><div className="mt-6 grid gap-3 sm:grid-cols-2">{["Create service listings", "Set your own pricing", "Manage your availability", "Host expert talks", "Track your earnings"].map((item) => <p key={item} className="flex items-center gap-2 text-sm text-slate-300"><Check size={16} className="text-electric-300" /> {item}</p>)}</div><Link href="/for-mentors" className="mt-8 inline-flex rounded-xl bg-electric-500 px-6 py-3 font-semibold text-white shadow-[0_0_20px_rgba(37,99,235,0.4)] hover:bg-electric-400">Join as Mentor -&gt;</Link></div></Reveal><Reveal><MentorCharacter /></Reveal></div></section>;
+  return <section className="relative overflow-hidden bg-navy-900 py-24"><div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(37,99,235,0.13),transparent_35%)]" /><div className="container-shell relative grid gap-10 lg:grid-cols-[1fr_360px] lg:items-center"><Reveal><div><h2 className="text-3xl font-bold tracking-tight text-chalk sm:text-5xl">Share your expertise. Earn from it.</h2><p className="mt-4 max-w-2xl text-slate-300">Create your expert profile, list services, host live talks, upload recordings, and earn on your terms.</p><div className="mt-6 grid gap-3 sm:grid-cols-2">{["Create service listings", "Set your own pricing", "Manage your availability", "Host expert talks", "Track your earnings"].map((item) => <p key={item} className="flex items-center gap-2 text-sm text-slate-300"><Check size={16} className="text-electric-300" /> {item}</p>)}</div><Link href="/for-mentors" className="mt-8 inline-flex rounded-xl bg-electric-500 px-6 py-3 font-semibold text-white shadow-[0_0_20px_rgba(37,99,235,0.4)] hover:bg-electric-400">Join as Expert -&gt;</Link></div></Reveal><Reveal><MentorCharacter /></Reveal></div></section>;
 }
 
 function InstitutionsSection() {

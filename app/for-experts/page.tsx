@@ -17,8 +17,8 @@ export default function ForExpertsPage() {
       <PageHero
         eyebrow="For experts"
         title="Share your expertise with learners."
-        description="Create your profile, list 1:1 services, host expert talks, add mini courses or monthly programs, manage bookings, and earn through expert-led learning."
-        ctaLabel="Join as Mentor"
+        description="Create your profile, list expert services, rooms, micro-courses, or monthly support plans, set your pricing and promo offers, manage bookings, and earn through expert-led learning."
+        ctaLabel="Join as Expert"
         ctaHref="/signup"
       />
       <section className="section-pad bg-ivory">
@@ -35,7 +35,7 @@ export default function ForExpertsPage() {
           <div className="card p-7 text-center">
             <h2 className="text-2xl font-black">Ready to start as an expert?</h2>
             <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-slate-600">Create your expert account, complete your profile, and publish your first service or expert talk.</p>
-            <Link href="/signup" className="btn-primary mt-6">Join as Mentor</Link>
+            <Link href="/signup" className="btn-primary mt-6">Join as Expert</Link>
           </div>
         </div>
       </section>

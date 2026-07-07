@@ -103,7 +103,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const course = courses[slug as keyof typeof courses];
   return {
     title: course ? `${course.title} | My Expert Talk` : "Course | My Expert Talk",
-    description: course?.subtitle ?? "View mentor-created courses on My Expert Talk.",
+    description: course?.subtitle ?? "View expert-created micro-courses on My Expert Talk.",
   };
 }
 

@@ -18,13 +18,13 @@ import { technicalTracks as domainNames } from "@/lib/constants";
 
 export const features = [
   { title: "Verified student access", text: "A focused learning network built around trust and real student identities.", icon: BadgeCheck },
-  { title: "Mentor service menus", text: "Book focused mentor services with clear outcomes, availability, and pricing.", icon: MessageCircleQuestion },
+  { title: "Expert service menus", text: "Book focused expert-created services with clear outcomes, availability, and pricing.", icon: MessageCircleQuestion },
   { title: "Live Expert Talks", text: "Learn practical topics through interactive sessions, not passive recordings.", icon: Presentation },
   { title: "Faculty and industry mentors", text: "Get perspectives from educators and professionals doing the work.", icon: GraduationCap },
   { title: "Career guidance", text: "Move from uncertainty to a practical plan for internships, jobs, and growth.", icon: Compass },
   { title: "Community learning", text: "Learn with ambitious students who share your goals and domain.", icon: Users },
-  { title: "Service-based learning", text: "Choose the exact talk, recording, or mentor service you need next.", icon: WalletCards },
-  { title: "Mentor earnings dashboard", text: "Track services, student impact, and earnings in one place.", icon: BarChart3 },
+  { title: "Service-based learning", text: "Choose the exact expert service, room, micro-course, or support plan you need next.", icon: WalletCards },
+  { title: "Expert earnings dashboard", text: "Track services, student impact, and earnings in one place.", icon: BarChart3 },
 ];
 
 const domainIcons = {
@@ -58,10 +58,10 @@ export const plans = [
     ],
   },
   {
-    name: "Mentor Services",
-    price: "Mentor-set",
+    name: "Expert Services",
+    price: "Expert-set",
     suffix: " pricing",
-    description: "Book outcome-focused 1:1 services created and priced by mentors.",
+    description: "Book outcome-focused services created and priced by independent experts.",
     features: [
       "Resume reviews, mock interviews, project reviews",
       "Duration and deliverables shown upfront",
@@ -84,7 +84,7 @@ export const plans = [
     name: "Institution Programs",
     price: "Custom",
     suffix: " programs",
-    description: "Bring expert talks, mentor services, and guided learning programs to students at scale.",
+    description: "Bring expert-created services, rooms, talks, and guided learning programs to students at scale.",
     features: [
       "College or school programs",
       "Placement and academic support",
@@ -94,11 +94,11 @@ export const plans = [
 ];
 
 export const faqs = [
-  { question: "How does mentorship work?", answer: "Create an account, explore expert talks or mentor services, choose the support you need, and book a mentor-created service with clear outcomes." },
-  { question: "Are mentor service prices fixed by My Expert Talk?", answer: "No. Mentor services use mentor-set pricing based on duration, outcome, availability, and deliverables." },
+  { question: "How does expert-led support work?", answer: "Create an account, explore expert profiles or services, choose the support you need, and book an expert-created offer with clear outcomes." },
+  { question: "Are service prices fixed by My Expert Talk?", answer: "No. Experts decide their own pricing based on duration, outcome, availability, format, and deliverables." },
   { question: "How are mentors verified?", answer: "The My Expert Talk team reviews professional identity, relevant experience, expertise areas, and available professional profile evidence before marking a mentor as verified." },
   { question: "Who can join?", answer: "Students, placement aspirants, fresh graduates, early-career professionals, mentors, educators, experts, and institutions can use My Expert Talk." },
-  { question: "How do bookings work?", answer: "Students choose a mentor service, share context, pick a preferred slot, and complete the booking flow. The mentor can then manage the request from the dashboard." },
-  { question: "Can I switch mentors?", answer: "You can browse mentor profiles and services before booking. If a service is not a fit, you can choose another mentor-created service." },
+  { question: "How do bookings work?", answer: "Students choose an expert service, share context, pick a preferred slot, and complete the booking flow. The expert can then manage the request from the dashboard." },
+  { question: "Can I choose another expert?", answer: "You can browse expert profiles and services before booking. If a service is not a fit, you can choose another expert-created service." },
   { question: "What domains are available?", answer: "Current tracks include Full Stack Development, AI and Machine Learning, Data Analytics, Cloud and DevOps, Cybersecurity, UI/UX, core engineering, placement preparation, resume support, and career roadmaps." },
 ];

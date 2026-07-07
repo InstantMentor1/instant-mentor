@@ -12,8 +12,8 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   const service = await getPublicService(id);
   const title = service ? `${service.title} | My Expert Talk` : "Find Expert Help | My Expert Talk";
   const description = service
-    ? `${service.title} with mentor-set pricing on My Expert Talk.`
-    : "Browse verified mentor services for interview prep, exam guidance, resume review, and career clarity. Mentor-set pricing.";
+    ? `${service.title} with expert-set pricing on My Expert Talk.`
+    : "Browse expert-created services for interview prep, exam guidance, resume review, career clarity, skill learning, rooms, micro-courses, and mentorship plans.";
   return {
     title,
     description,
@@ -47,11 +47,11 @@ export default async function ServiceDetailsPage({ params }: { params: Promise<{
           </div>
           <div className="mt-8 rounded-2xl bg-ivory p-5">
             <h2 className="font-black">Verified reviews</h2>
-            <p className="mt-2 text-sm text-slate-600">{service.review_count ? `${service.review_count} verified booking reviews.` : "This mentor service is new. Verified reviews will appear after completed bookings."}</p>
+            <p className="mt-2 text-sm text-slate-600">{service.review_count ? `${service.review_count} verified booking reviews.` : "This expert service is new. Verified reviews will appear after completed bookings."}</p>
           </div>
           <div id="book-session" className="mt-8 rounded-2xl border border-navy/10 bg-white p-5 shadow-soft">
             <h2 className="text-2xl font-black text-navy">Book a session</h2>
-            <p className="mt-2 text-sm leading-6 text-slate-600">Pick a mentor and choose your slot. Payment link sent after you confirm.</p>
+            <p className="mt-2 text-sm leading-6 text-slate-600">Pick an expert and choose your slot. Payment link sent after you confirm.</p>
             <div className="mt-5 space-y-3">
               {mentorsForService.map((item) => {
                 const mentor = mentorCalendlyProfiles[item.mentorSlug];
@@ -82,7 +82,7 @@ export default async function ServiceDetailsPage({ params }: { params: Promise<{
               })}
               {mentorsForService.length === 0 && (
                 <BookingWidget
-                  mentorName={service.expert?.full_name ?? "Verified Mentor"}
+                  mentorName={service.expert?.full_name ?? "Verified Expert"}
                   serviceName={service.title}
                   duration={`${service.duration_minutes} min`}
                   deliverable={service.deliverables}
@@ -94,25 +94,25 @@ export default async function ServiceDetailsPage({ params }: { params: Promise<{
         </article>
         <aside className="h-fit lg:sticky lg:top-28">
           <div className="card p-6">
-            <p className="text-sm font-bold uppercase tracking-wide text-slate-400">Mentor-set price</p>
-            <p className="mt-2 text-3xl font-black text-navy">Price set by mentor</p>
-            <p className="mt-2 text-sm leading-6 text-slate-600">Price set by mentor - visible on mentor&apos;s profile.</p>
+            <p className="text-sm font-bold uppercase tracking-wide text-slate-400">Expert-set price</p>
+            <p className="mt-2 text-3xl font-black text-navy">Price set by expert</p>
+            <p className="mt-2 text-sm leading-6 text-slate-600">Experts decide their own pricing, format, deliverables, and availability.</p>
             <div className="mt-5 space-y-3 border-y border-slate-100 py-5 text-sm font-semibold">
               <p className="flex items-center gap-2"><Clock3 size={17} className="text-coral" /> {service.duration_minutes} minutes</p>
               <p className="flex items-center gap-2"><Check size={17} className="text-coral" /> {formatDeliveryMode(service.delivery_mode)}</p>
-              <p className="flex items-center gap-2"><Star size={17} className="text-amber-500" /> {service.rating ? `${service.rating.toFixed(1)} rating` : "New mentor service"}</p>
+              <p className="flex items-center gap-2"><Star size={17} className="text-amber-500" /> {service.rating ? `${service.rating.toFixed(1)} rating` : "New expert service"}</p>
             </div>
             <div className="mt-5 flex items-center gap-3">
               <span className="flex h-11 w-11 items-center justify-center rounded-full bg-coral font-black text-white">{(service.expert?.full_name ?? "M")[0]}</span>
               <div>
-                <p className="flex items-center gap-1 font-black">{service.expert?.full_name ?? "Verified Mentor"} <BadgeCheck size={16} className="text-academic" /></p>
-                <p className="text-xs text-slate-500">{service.expert?.college_or_company ?? "Mentor on My Expert Talk"}</p>
+                <p className="flex items-center gap-1 font-black">{service.expert?.full_name ?? "Verified Expert"} <BadgeCheck size={16} className="text-academic" /></p>
+                <p className="text-xs text-slate-500">{service.expert?.college_or_company ?? "Expert on My Expert Talk"}</p>
               </div>
             </div>
             <Link href="#book-session" className="btn-primary mt-6 w-full">
               Choose a slot -&gt;
             </Link>
-            <p className="mt-3 text-center text-xs leading-5 text-slate-500">Your booking intent is shared privately with the mentor after you request the service.</p>
+            <p className="mt-3 text-center text-xs leading-5 text-slate-500">Your booking intent is shared privately with the expert after you request the service.</p>
           </div>
         </aside>
       </div>

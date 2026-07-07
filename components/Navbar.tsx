@@ -25,19 +25,22 @@ export default function Navbar() {
     profile?.role === "Student"
       ? [
           { href: "/student/dashboard", label: "Dashboard" },
-          { href: "/mentors", label: "Find Experts" },
+          { href: "/mentors", label: "Explore Experts" },
+          { href: "/services", label: "Explore Services" },
           { href: "/bookings", label: "My Bookings" },
-          { href: "/roadmap", label: "My Roadmap" },
+          { href: "/rooms-courses", label: "My Rooms / Courses" },
           { href: "/messages", label: "Messages" },
-          { href: "/payments", label: "Payments" },
+          { href: "/payments", label: "Payments & Coupons" },
           { href: "/profile", label: "Profile" },
         ]
       : profile?.role === "Mentor" || profile?.role === "Faculty" || profile?.role === "Institution"
         ? [
             { href: "/mentor/dashboard", label: "Dashboard" },
             { href: "/mentor/services", label: "My Services" },
+            { href: "/mentor/rooms", label: "My Rooms" },
+            { href: "/mentor/courses", label: "My Courses" },
             { href: "/mentor/bookings", label: "Bookings" },
-            { href: "/mentor/availability", label: "Availability" },
+            { href: "/mentor/promo-codes", label: "Promo Codes" },
             { href: "/mentor/students", label: "Students" },
             { href: "/mentor/earnings", label: "Earnings" },
             { href: "/mentor/verification", label: "Profile & Verification" },

@@ -4,18 +4,16 @@ import { Mail, MapPin } from "lucide-react";
 
 const quickLinks = [
   ["Home", "/"],
-  ["Expert Talks", "/expert-talks"],
-  ["Mentor Services", "/services"],
-  ["Courses", "/courses"],
-  ["Recordings", "/recordings"],
-  ["Mentors", "/mentors"],
-  ["Events", "/events"],
+  ["Find Experts", "/mentors"],
+  ["Expert Services", "/services"],
+  ["For Experts", "/for-mentors"],
+  ["Rooms / Courses", "/rooms-courses"],
   ["Contact", "/contact"],
 ] as const;
 
 const joinLinks = [
   ["Join as Student", "/signup"],
-  ["Join as Mentor", "/for-mentors"],
+  ["Join as Expert", "/for-mentors"],
 ] as const;
 
 export default function Footer() {
@@ -31,7 +29,7 @@ export default function Footer() {
             className="mb-2 h-12 w-auto rounded-xl bg-white object-contain"
           />
           <p className="max-w-xs text-sm leading-6 text-slate-400">
-            My Expert Talk helps serious students prepare before interviews, walk-in drives, domain switches, and career opportunities through mentor services, expert talks, and expert-led courses.
+            My Expert Talk is an expert-led learning support marketplace where students discover and book independent experts for services, rooms, micro-courses, and mentorship plans.
           </p>
         </div>
         <div>

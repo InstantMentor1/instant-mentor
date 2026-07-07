@@ -10,7 +10,7 @@ export default async function RoadmapPage() {
         <div className="rounded-3xl border border-navy/10 bg-white p-8 shadow-soft">
           <h1 className="text-3xl font-black text-navy">My Roadmap</h1>
           <p className="mt-3 max-w-2xl text-slate-600">
-            After every completed session, your expert roadmap will show skill gaps, recommended tools, learning plan, projects to build, next session suggestion, and progress status.
+            After completed learning support sessions, your expert roadmap can show skill gaps, recommended tools, learning plan, projects to build, next session suggestion, and progress status.
           </p>
           <div className="mt-6 grid gap-4 md:grid-cols-3">
             {["Skill gap", "Learning plan", "Next session"].map((item) => (

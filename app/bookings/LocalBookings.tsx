@@ -29,8 +29,8 @@ export default function LocalBookings() {
     return (
       <div className="card mt-6 p-10 text-center">
         <h2 className="text-xl font-black">No Calendly bookings saved on this device.</h2>
-        <p className="mt-2 text-slate-600">Browse mentor services to choose a slot and start your preparation.</p>
-        <Link href="/services" className="btn-primary mt-6">Browse mentor services</Link>
+        <p className="mt-2 text-slate-600">Browse expert-created services to choose a slot and start your preparation.</p>
+        <Link href="/services" className="btn-primary mt-6">Browse expert services</Link>
       </div>
     );
   }

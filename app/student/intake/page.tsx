@@ -12,7 +12,7 @@ export default async function StudentIntakePage() {
         <DashboardHeader
           profile={profile}
           title="Student Intake"
-          description="Keep your student context current so My Expert Talk can recommend the right mentor services."
+          description="Keep your student context current so My Expert Talk can recommend the right expert-created services."
         />
         <div className="card space-y-5 p-7">
           <div>

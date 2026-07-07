@@ -12,34 +12,34 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://instant-mentor.verc
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "My Expert Talk | Premium Student Readiness Platform",
+    default: "My Expert Talk | Expert-Led Learning Support Marketplace",
     template: "%s | My Expert Talk",
   },
   description:
-    "My Expert Talk helps serious students prepare for interviews, walk-in drives, career moves, and technical domains through mentor services, expert talks, recordings, and expert-led courses.",
+    "My Expert Talk is an expert-led learning support marketplace where students discover, book, and learn directly from independent experts through services, rooms, micro-courses, and mentorship plans.",
   keywords: [
     "expert talks",
-    "mentor services",
+    "expert services",
     "student learning platform",
     "academic support",
     "career guidance",
-    "recorded learning sessions",
+    "expert-led learning support",
   ],
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     url: siteUrl,
     siteName: "My Expert Talk",
-    title: "Learn directly from experts, mentors, and educators.",
+    title: "Discover, book, and learn directly from independent experts.",
     description:
-      "Prepare before interviews and career opportunities with mentor services, expert talks, recordings, and expert-led courses.",
+      "Experts create their own services, set pricing, and deliver learning support through calls, rooms, micro-courses, and mentorship plans.",
     images: [{ url: "/my-expert-talk-logo.png", alt: "My Expert Talk" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "My Expert Talk | Interview practice, mentor services, and expert courses",
+    title: "My Expert Talk | Expert-led learning support marketplace",
     description:
-      "Connect with verified experts for academic support, career guidance, skill development, and live learning sessions.",
+      "Connect with verified experts for learning support, career guidance, doubt-solving, skill mentoring, and premium sessions.",
     images: ["/my-expert-talk-logo.png"],
   },
   robots: { index: true, follow: true },
@@ -58,7 +58,7 @@ export default async function RootLayout({
       logo: `${siteUrl}/my-expert-talk-logo.png`,
       email: "support@myexperttalk.com",
       description:
-        "An education and expert-service platform for students, experts, and subject-matter mentors.",
+        "An expert-led learning support marketplace for students and independent subject-matter experts.",
     },
     {
       "@context": "https://schema.org",

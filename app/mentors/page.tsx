@@ -12,13 +12,13 @@ const mentors = [
 export default function MentorsPage() {
   return (
     <>
-      <PageHero eyebrow="Mentor directory" title="Browse verified mentors." description="Search verified mentors by expertise, role, and availability for talks or services." ctaLabel="Join as Mentor" ctaHref="/for-mentors" />
+      <PageHero eyebrow="Expert directory" title="Browse verified experts." description="Search verified experts by expertise, role, language, availability, and services." ctaLabel="Join as Expert" ctaHref="/for-mentors" />
       <section className="section-pad bg-ivory">
         <div className="container-shell">
           <div className="card mb-7 flex flex-col gap-3 p-4 md:flex-row">
             <label className="relative flex-1">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-coral" size={18} />
-              <input className="form-input bg-white pl-11" placeholder="Search mentors, skills, domains" />
+              <input className="form-input bg-white pl-11" placeholder="Search experts, skills, domains" />
             </label>
             <select className="form-input md:max-w-xs"><option>All expertise</option><option>Career</option><option>Academic</option><option>Technology</option></select>
           </div>

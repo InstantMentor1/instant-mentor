@@ -124,7 +124,7 @@ export function sendWaitlistConfirmationEmail(user: WaitlistEmailUser) {
       <p>Hi ${escapeHtml(user.fullName)},</p>
       <p>Thank you for joining the My Expert Talk waitlist.</p>
       <p>Your request has been submitted successfully.</p>
-      <p>My Expert Talk helps students prepare for interviews, exams, career decisions, and domain learning through mentor services, expert talks, recordings, and expert-led courses.</p>
+      <p>My Expert Talk helps students discover and book independent experts for learning support, career guidance, doubt-solving, skill mentoring, expert rooms, micro-courses, and mentorship plans.</p>
       <p>Your current verification status is: <strong>${escapeHtml(user.verificationStatus)}</strong>.</p>
       <p>We'll contact you soon with the next steps.</p>
       <p>Regards,<br><strong>Team My Expert Talk</strong></p>

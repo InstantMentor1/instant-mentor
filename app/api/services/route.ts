@@ -21,13 +21,13 @@ export async function POST(request: Request) {
 
   if (!title) return NextResponse.json({ error: "Expertise title is required." }, { status: 400 });
   if (!marketplaceCategories.includes(category as (typeof marketplaceCategories)[number])) {
-    return NextResponse.json({ error: "Select a valid mentor category." }, { status: 400 });
+    return NextResponse.json({ error: "Select a valid expert category." }, { status: 400 });
   }
   if (!description) return NextResponse.json({ error: "Expertise description is required." }, { status: 400 });
   if (!targetAudience) return NextResponse.json({ error: "Target audience is required." }, { status: 400 });
   if (!deliverables) return NextResponse.json({ error: "Expertise deliverables are required." }, { status: 400 });
   if (!requirements) return NextResponse.json({ error: "Pre-session requirements are required." }, { status: 400 });
-  if (!Number.isFinite(price) || price < 500) return NextResponse.json({ error: "Minimum price on My Expert Talk is ₹500." }, { status: 400 });
+  if (!Number.isFinite(price) || price < 1) return NextResponse.json({ error: "Enter a valid expert-set price." }, { status: 400 });
   if (!Number.isInteger(durationMinutes) || durationMinutes < 15 || durationMinutes > 480) {
     return NextResponse.json({ error: "Duration must be between 15 and 480 minutes." }, { status: 400 });
   }
@@ -47,7 +47,7 @@ export async function POST(request: Request) {
       .eq("expert_id", auth.user.id)
       .eq("status", "active");
     if ((count ?? 0) >= 10) {
-      return NextResponse.json({ error: "Each mentor profile can have a maximum of 10 active expertise items." }, { status: 400 });
+      return NextResponse.json({ error: "Each expert profile can have a maximum of 10 active service items." }, { status: 400 });
     }
   }
   const { data, error } = await admin.from("expert_services").insert({
@@ -67,8 +67,8 @@ export async function POST(request: Request) {
   }).select("*").single();
 
   if (error) {
-    console.error("Unable to create mentor service", error);
-    return NextResponse.json({ error: "Unable to create the expertise item right now." }, { status: 500 });
+    console.error("Unable to create expert service", error);
+    return NextResponse.json({ error: "Unable to create the expert service right now." }, { status: 500 });
   }
   return NextResponse.json({ success: true, service: data });
 }
@@ -78,7 +78,7 @@ export async function PATCH(request: Request) {
   if (auth.error) return auth.error;
   const body = await request.json().catch(() => ({}));
   const id = String(body.id ?? "");
-  if (!id) return NextResponse.json({ error: "A valid expertise item is required." }, { status: 400 });
+  if (!id) return NextResponse.json({ error: "A valid expert service is required." }, { status: 400 });
 
   if (body.title !== undefined) {
     const title = String(body.title ?? "").trim();
@@ -95,13 +95,13 @@ export async function PATCH(request: Request) {
 
     if (!title) return NextResponse.json({ error: "Expertise title is required." }, { status: 400 });
     if (!marketplaceCategories.includes(category as (typeof marketplaceCategories)[number])) {
-      return NextResponse.json({ error: "Select a valid mentor category." }, { status: 400 });
+      return NextResponse.json({ error: "Select a valid expert category." }, { status: 400 });
     }
     if (!description || !targetAudience || !deliverables || !requirements) {
       return NextResponse.json({ error: "Complete all required expertise details." }, { status: 400 });
     }
-    if (!Number.isFinite(price) || price < 500) {
-      return NextResponse.json({ error: "Minimum price on My Expert Talk is ₹500." }, { status: 400 });
+    if (!Number.isFinite(price) || price < 1) {
+      return NextResponse.json({ error: "Enter a valid expert-set price." }, { status: 400 });
     }
     if (!Number.isInteger(durationMinutes) || durationMinutes < 15 || durationMinutes > 480) {
       return NextResponse.json({ error: "Duration must be between 15 and 480 minutes." }, { status: 400 });
@@ -123,7 +123,7 @@ export async function PATCH(request: Request) {
         .eq("status", "active")
         .neq("id", id);
       if ((count ?? 0) >= 10) {
-        return NextResponse.json({ error: "Each mentor profile can have a maximum of 10 active expertise items." }, { status: 400 });
+        return NextResponse.json({ error: "Each expert profile can have a maximum of 10 active service items." }, { status: 400 });
       }
     }
     const { error } = await admin.from("expert_services").update({
@@ -142,8 +142,8 @@ export async function PATCH(request: Request) {
     }).eq("id", id).eq("expert_id", auth.user.id);
 
     if (error) {
-      console.error("Unable to edit mentor service", error);
-      return NextResponse.json({ error: "Unable to update the expertise item." }, { status: 500 });
+      console.error("Unable to edit expert service", error);
+      return NextResponse.json({ error: "Unable to update the expert service." }, { status: 500 });
     }
     return NextResponse.json({ success: true });
   }
@@ -160,13 +160,13 @@ export async function PATCH(request: Request) {
       .eq("status", "active")
       .neq("id", id);
     if ((count ?? 0) >= 10) {
-      return NextResponse.json({ error: "Each mentor profile can have a maximum of 10 active expertise items." }, { status: 400 });
+      return NextResponse.json({ error: "Each expert profile can have a maximum of 10 active service items." }, { status: 400 });
     }
   }
   const { error } = await admin.from("expert_services").update({ status }).eq("id", id).eq("expert_id", auth.user.id);
   if (error) {
-    console.error("Unable to update mentor service", error);
-    return NextResponse.json({ error: "Unable to update the expertise item." }, { status: 500 });
+    console.error("Unable to update expert service", error);
+    return NextResponse.json({ error: "Unable to update the expert service." }, { status: 500 });
   }
   return NextResponse.json({ success: true });
 }
@@ -175,16 +175,16 @@ export async function DELETE(request: Request) {
   const auth = await requireApiAuth(["Mentor", "Faculty", "Institution"]);
   if (auth.error) return auth.error;
   const id = new URL(request.url).searchParams.get("id");
-  if (!id) return NextResponse.json({ error: "Expertise ID is required." }, { status: 400 });
+  if (!id) return NextResponse.json({ error: "Expert service ID is required." }, { status: 400 });
   const admin = createSupabaseAdminClient();
   const { count } = await admin.from("service_bookings").select("*", { count: "exact", head: true }).eq("service_id", id);
   if ((count ?? 0) > 0) {
-    return NextResponse.json({ error: "Disable this expertise item instead because it already has bookings." }, { status: 409 });
+    return NextResponse.json({ error: "Disable this expert service instead because it already has bookings." }, { status: 409 });
   }
   const { error } = await admin.from("expert_services").delete().eq("id", id).eq("expert_id", auth.user.id);
   if (error) {
-    console.error("Unable to delete mentor service", error);
-    return NextResponse.json({ error: "Unable to delete the expertise item." }, { status: 500 });
+    console.error("Unable to delete expert service", error);
+    return NextResponse.json({ error: "Unable to delete the expert service." }, { status: 500 });
   }
   return NextResponse.json({ success: true });
 }

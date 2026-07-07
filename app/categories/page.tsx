@@ -8,7 +8,7 @@ export default function CategoriesPage() {
       <PageHero
         eyebrow="Learning categories"
         title="Find verified mentors by learning area."
-        description="Browse mentor services for career support, academics, interviews, skills, business, finance, design, and technology."
+        description="Browse expert-created services for career support, academics, interviews, skills, business, finance, design, and technology."
       />
       <section className="section-pad bg-slate-50">
         <div className="container-shell grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

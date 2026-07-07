@@ -9,7 +9,7 @@ export default async function AdminServicesPage() {
   return (
     <section className="bg-ivory py-10">
       <div className="container-shell">
-        <DashboardHeader profile={profile} title="Mentor Services" description="Review active and inactive mentor-created service menus." />
+        <DashboardHeader profile={profile} title="Expert Services" description="Review active and inactive expert-created service menus." />
         <div className="grid gap-5 lg:grid-cols-2">
           {services.map((service) => (
             <article key={service.id} className="card p-6">
@@ -26,7 +26,7 @@ export default async function AdminServicesPage() {
             </article>
           ))}
         </div>
-        {services.length === 0 && <div className="card p-10 text-center text-slate-600">No mentor services have been created yet.</div>}
+        {services.length === 0 && <div className="card p-10 text-center text-slate-600">No expert services have been created yet.</div>}
       </div>
     </section>
   );

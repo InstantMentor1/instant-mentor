@@ -18,8 +18,8 @@ export default async function StudentDashboard() {
       <div className="container-shell">
         <DashboardHeader
           profile={profile}
-          title="Dashboard"
-          description={`Hi ${profile.full_name}, book expert sessions, track your roadmap, and prepare for your next opportunity.`}
+          title="Student Dashboard"
+          description={`Hi ${profile.full_name}, discover experts, book learning support, join rooms or courses, and track your bookings.`}
         />
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
           {[
@@ -37,9 +37,10 @@ export default async function StudentDashboard() {
           ))}
         </div>
         <div className="mt-6 flex flex-wrap gap-3">
-          <Link href="/services" className="btn-primary">Explore Store</Link>
-          <Link href="/mentors" className="btn-secondary">Find Experts</Link>
-          <Link href="/roadmap" className="btn-secondary">My Roadmap</Link>
+          <Link href="/mentors" className="btn-primary">Explore Experts</Link>
+          <Link href="/services" className="btn-secondary">Explore Services</Link>
+          <Link href="/rooms-courses" className="btn-secondary">My Rooms / Courses</Link>
+          <Link href="/payments" className="btn-secondary">Payments & Coupons</Link>
         </div>
         <div className="mt-9 flex items-center justify-between">
           <div>
@@ -66,9 +67,9 @@ export default async function StudentDashboard() {
         {items.length === 0 && (
           <div className="card mt-6 p-10 text-center">
             <CheckCircle2 className="mx-auto text-coral" />
-            <h2 className="mt-3 text-xl font-black">Start your learning journey.</h2>
-            <p className="mt-2 text-slate-600">Find an expert, book a slot, and get a clear roadmap after your session.</p>
-            <Link href="/mentors" className="btn-primary mt-6">Find Experts</Link>
+            <h2 className="mt-3 text-xl font-black">Start with expert-created learning support.</h2>
+            <p className="mt-2 text-slate-600">Choose an expert service, room, micro-course, or mentorship plan based on your need.</p>
+            <Link href="/mentors" className="btn-primary mt-6">Explore Experts</Link>
           </div>
         )}
       </div>
