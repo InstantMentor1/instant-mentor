@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Banknote, CalendarClock, CheckCircle2, MessageSquareQuote, ShieldCheck, Star, Store } from "lucide-react";
+import { Banknote, CalendarClock, CheckCircle2, MessageSquareQuote, ShieldCheck, Store, Users } from "lucide-react";
 import DashboardHeader from "@/components/DashboardHeader";
 import { requireAuth } from "@/lib/auth";
 import { calculatePlatformFee } from "@/lib/marketplace";
@@ -17,38 +17,38 @@ export default async function MentorDashboard() {
     .reduce((total, booking) => total + calculatePlatformFee(Number(booking.price)).smePayout, 0);
 
   return (
-    <section className="bg-ivory py-10">
+    <section className="bg-[#F8FAFC] py-10">
       <div className="container-shell">
         <DashboardHeader
           profile={profile}
           title="Expert Dashboard"
-          description="Get approved, create services, reply to custom quote requests, manage bookings, promo codes, earnings, and reviews."
+          description="Create services and rooms, respond to quotes, manage bookings, promo codes, earnings, and profile verification."
         />
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
           {[
             { label: "Approval", value: profile.role === "Mentor" ? "Pending" : "Review", icon: ShieldCheck },
             { label: "My services", value: menu.filter((service) => service.status === "active").length, icon: Store },
-            { label: "Custom quotes", value: 0, icon: MessageSquareQuote },
+            { label: "Quotes", value: 0, icon: MessageSquareQuote },
+            { label: "Rooms", value: 0, icon: Users },
             { label: "Pending bookings", value: requests.filter((booking) => booking.status === "pending").length, icon: CalendarClock },
             { label: "Earnings", value: `Rs. ${paidPayout.toLocaleString("en-IN")}`, icon: Banknote },
-            { label: "Reviews", value: "0", icon: Star },
           ].map(({ label, value, icon: Icon }) => (
             <div key={label} className="card p-5">
-              <Icon className="text-coral" />
+              <Icon className="text-blue-600" />
               <p className="mt-4 text-xs font-bold uppercase text-slate-500">{label}</p>
               <p className="mt-1 text-xl font-black capitalize">{value}</p>
             </div>
           ))}
         </div>
         <div className="mt-6 flex flex-wrap gap-3">
-          <Link href="/mentor/approval" className="btn-primary">Apply for Approval</Link>
-          <Link href="/mentor/services/new" className="btn-primary">Create Service Listing</Link>
+          <Link href="/mentor/services/new" className="btn-primary">Create Service</Link>
           <Link href="/mentor/services" className="btn-secondary">My Services</Link>
-          <Link href="/mentor/quotes" className="btn-secondary">Custom Quotes</Link>
+          <Link href="/mentor/rooms" className="btn-secondary">My Rooms</Link>
+          <Link href="/mentor/quotes" className="btn-secondary">Quotes</Link>
           <Link href="/mentor/bookings" className="btn-secondary">Bookings</Link>
           <Link href="/mentor/promo-codes" className="btn-secondary">Promo Codes</Link>
           <Link href="/mentor/earnings" className="btn-secondary">Earnings</Link>
-          <Link href="/mentor/reviews" className="btn-secondary">Reviews</Link>
+          <Link href="/mentor/verification" className="btn-secondary">Profile & Verification</Link>
         </div>
         <div className="mt-9 grid gap-6 lg:grid-cols-2">
           <div>
@@ -65,7 +65,7 @@ export default async function MentorDashboard() {
               ))}
               {menu.length === 0 && (
                 <div className="card p-5">
-                  <CheckCircle2 className="text-coral" />
+                  <CheckCircle2 className="text-blue-600" />
                   <p className="mt-3 font-bold">Create your first expert service to start receiving bookings.</p>
                 </div>
               )}
@@ -80,12 +80,12 @@ export default async function MentorDashboard() {
                     <h3 className="font-black">{booking.user_goal}</h3>
                     <p className="mt-1 text-xs text-slate-500 capitalize">{booking.status} - {booking.payment_status}</p>
                   </div>
-                  <p className="font-black text-navy">₹{Number(booking.price).toLocaleString("en-IN")}</p>
+                  <p className="font-black text-slate-900">Rs. {Number(booking.price).toLocaleString("en-IN")}</p>
                 </article>
               ))}
               {requests.length === 0 && (
                 <div className="card p-5">
-                  <CheckCircle2 className="text-coral" />
+                  <CheckCircle2 className="text-blue-600" />
                   <p className="mt-3 font-bold">Bookings will appear here after students choose your services.</p>
                 </div>
               )}

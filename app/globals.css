@@ -11,8 +11,8 @@ html {
 }
 
 body {
-  color: #172033;
-  background: #fff7ec;
+  color: #0F172A;
+  background: #F8FAFC;
 }
 
 ::selection {
@@ -44,23 +44,23 @@ body {
   }
 
   .eyebrow {
-    @apply mb-3 inline-flex rounded-full border border-coral/20 bg-peach px-3 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-coral;
+    @apply mb-3 inline-flex rounded-full border border-slate-200 bg-white px-3 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-blue-600;
   }
 
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-coral px-5 py-3 text-sm font-bold text-white shadow-[0_16px_30px_-18px_rgba(241,90,59,0.75)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#dc4429] focus:outline-none focus:ring-2 focus:ring-coral/40 focus:ring-offset-2 focus:ring-offset-ivory;
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-5 py-3 text-sm font-bold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:ring-offset-2 focus:ring-offset-slate-50;
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-navy/15 bg-white px-5 py-3 text-sm font-bold text-navy transition-all duration-200 hover:-translate-y-0.5 hover:border-coral/40 hover:bg-peach focus:outline-none focus:ring-2 focus:ring-coral/30 focus:ring-offset-2 focus:ring-offset-ivory;
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-bold text-slate-900 transition-all duration-200 hover:-translate-y-0.5 hover:border-blue-600 hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:ring-offset-2 focus:ring-offset-slate-50;
   }
 
   .card {
-    @apply rounded-3xl border border-navy/10 bg-white shadow-soft transition-all duration-200 hover:-translate-y-1 hover:border-coral/35 hover:bg-white;
+    @apply rounded-3xl border border-slate-200 bg-white transition-all duration-200 hover:-translate-y-1 hover:border-blue-600 hover:shadow-lg;
   }
 
   .form-input {
-    @apply w-full rounded-2xl border border-navy/15 bg-white px-4 py-3 text-sm text-ink outline-none transition placeholder:text-slate-400 focus:border-academic focus:ring-2 focus:ring-skysoft;
+    @apply w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-blue-600 focus:ring-2 focus:ring-blue-100;
   }
 }
 

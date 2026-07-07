@@ -10,8 +10,9 @@ import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 
 const publicLinks = [
   { href: "/", label: "Home" },
-  { href: "/mentors", label: "Find Experts" },
-  { href: "/services", label: "Services" },
+  { href: "/services", label: "Find Support" },
+  { href: "/mentors", label: "Experts" },
+  { href: "/rooms", label: "Rooms" },
   { href: "/for-mentors", label: "For Experts" },
 ];
 
@@ -25,27 +26,24 @@ export default function Navbar() {
     profile?.role === "Student"
       ? [
           { href: "/student/dashboard", label: "Dashboard" },
-          { href: "/mentors", label: "Explore Experts" },
-          { href: "/requirements/new", label: "Send Requirement" },
-          { href: "/quotes", label: "Quotes Received" },
+          { href: "/services", label: "Find Support" },
           { href: "/bookings", label: "My Bookings" },
-          { href: "/meet-session", label: "Google Meet Session Details" },
-          { href: "/recordings", label: "Recordings" },
-          { href: "/reviews", label: "Reviews" },
+          { href: "/rooms", label: "My Rooms" },
+          { href: "/messages", label: "Messages" },
           { href: "/payments", label: "Payments" },
+          { href: "/profile", label: "Profile" },
         ]
       : profile?.role === "Mentor" || profile?.role === "Faculty" || profile?.role === "Institution"
-        ? [
-            { href: "/mentor/dashboard", label: "Dashboard" },
-            { href: "/mentor/approval", label: "Apply for Approval" },
-            { href: "/mentor/verification", label: "Profile & Verification" },
-            { href: "/mentor/services", label: "My Services" },
-            { href: "/mentor/quotes", label: "Custom Quotes" },
-            { href: "/mentor/bookings", label: "Bookings" },
-            { href: "/mentor/promo-codes", label: "Promo Codes" },
-            { href: "/mentor/earnings", label: "Earnings" },
-            { href: "/mentor/reviews", label: "Reviews" },
-          ]
+          ? [
+              { href: "/mentor/dashboard", label: "Dashboard" },
+              { href: "/mentor/services", label: "My Services" },
+              { href: "/mentor/rooms", label: "My Rooms" },
+              { href: "/mentor/quotes", label: "Quotes" },
+              { href: "/mentor/bookings", label: "Bookings" },
+              { href: "/mentor/promo-codes", label: "Promo Codes" },
+              { href: "/mentor/earnings", label: "Earnings" },
+              { href: "/mentor/verification", label: "Profile & Verification" },
+            ]
         : profile?.role === "Admin"
           ? [
               { href: "/admin/dashboard", label: "Admin Dashboard" },
@@ -75,26 +73,26 @@ export default function Navbar() {
           href={link.href}
           onClick={() => setOpen(false)}
           className={`rounded-md px-2 py-1 text-sm font-medium transition-colors ${
-            pathname === link.href ? "bg-coral/10 text-coral" : "text-slate-700 hover:text-coral"
+            pathname === link.href ? "bg-blue-50 text-blue-600" : "text-slate-700 hover:text-blue-600"
           }`}
         >
           {link.label}
         </Link>
       ))}
       {profile ? (
-        <button type="button" onClick={logout} className="inline-flex items-center justify-center gap-2 rounded-full border border-navy/10 bg-white px-4 py-2 text-sm font-semibold text-navy transition hover:border-coral/40 hover:text-coral">
+        <button type="button" onClick={logout} className="inline-flex items-center justify-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-900 transition hover:border-blue-600 hover:text-blue-600">
           <LogOut size={15} /> Logout
         </button>
       ) : (
         <>
-          <Link href="/login" onClick={() => setOpen(false)} className="text-sm font-medium text-slate-700 hover:text-coral">Login</Link>
+          <Link href="/login" onClick={() => setOpen(false)} className="text-sm font-medium text-slate-700 hover:text-blue-600">Login</Link>
           <div className="group relative">
-            <Link href="/signup" onClick={() => setOpen(false)} className="inline-flex items-center gap-2 rounded-full bg-coral px-4 py-1.5 text-sm font-semibold text-white shadow-[0_12px_22px_-16px_rgba(241,90,59,0.9)] transition hover:-translate-y-0.5 hover:bg-[#dc4429]">
-              Join Now <ChevronDown size={15} />
+            <Link href="/signup" onClick={() => setOpen(false)} className="inline-flex items-center gap-2 rounded-full bg-blue-600 px-4 py-1.5 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-blue-700">
+              Join <ChevronDown size={15} />
             </Link>
-            <div className="pointer-events-none absolute right-0 top-full z-20 mt-3 w-56 rounded-2xl border border-navy/10 bg-white p-2 opacity-0 shadow-soft transition group-hover:pointer-events-auto group-hover:opacity-100">
-              <Link href="/signup" className="block rounded-xl px-4 py-3 text-sm font-bold text-slate-700 hover:bg-peach hover:text-coral">Join as Student</Link>
-              <Link href="/for-mentors" className="block rounded-xl px-4 py-3 text-sm font-bold text-slate-700 hover:bg-peach hover:text-coral">Join as Expert</Link>
+            <div className="pointer-events-none absolute right-0 top-full z-20 mt-3 w-56 rounded-2xl border border-slate-200 bg-white p-2 opacity-0 shadow-lg transition group-hover:pointer-events-auto group-hover:opacity-100">
+              <Link href="/signup" className="block rounded-xl px-4 py-3 text-sm font-bold text-slate-700 hover:bg-blue-50 hover:text-blue-600">Join as Student</Link>
+              <Link href="/for-mentors" className="block rounded-xl px-4 py-3 text-sm font-bold text-slate-700 hover:bg-blue-50 hover:text-blue-600">Join as Expert</Link>
             </div>
           </div>
         </>
@@ -103,7 +101,7 @@ export default function Navbar() {
   );
 
   return (
-    <header className="sticky top-0 z-50 border-b border-navy/10 bg-white/95 shadow-[0_12px_30px_-28px_rgba(11,31,77,0.45)] backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white">
       <nav className="container-shell flex min-h-[76px] items-center justify-between gap-4 py-3" aria-label="Main navigation">
         <Link href={profile ? links[0].href : "/"} aria-label="My Expert Talk home" onClick={() => setOpen(false)}>
           <Image src="/my-expert-talk-logo.png" alt="My Expert Talk Logo" width={1600} height={1600} priority className="h-12 w-auto object-contain" />
@@ -113,12 +111,12 @@ export default function Navbar() {
         ) : (
           <div className="hidden items-center gap-5 xl:flex">{navContent}</div>
         )}
-        <button type="button" disabled={loading} className="rounded-xl border border-navy/10 p-2 text-navy xl:hidden" aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} onClick={() => setOpen(!open)}>
+        <button type="button" disabled={loading} className="rounded-xl border border-slate-200 p-2 text-slate-900 xl:hidden" aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} onClick={() => setOpen(!open)}>
           {loading ? <Loader2 size={23} className="animate-spin" /> : open ? <X size={23} /> : <Menu size={23} />}
         </button>
       </nav>
       {open && !loading && (
-        <div className="border-t border-navy/10 bg-white px-5 pb-6 pt-3 xl:hidden">
+        <div className="border-t border-slate-200 bg-white px-5 pb-6 pt-3 xl:hidden">
           <div className="mx-auto flex max-w-7xl flex-col gap-4">{navContent}</div>
         </div>
       )}

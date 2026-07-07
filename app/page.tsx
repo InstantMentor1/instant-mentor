@@ -4,9 +4,9 @@ import { getAuthContext } from "@/lib/auth";
 import { dashboardForRole } from "@/lib/auth-shared";
 
 export const metadata: Metadata = {
-  title: "Learn Directly From Experts, Mentors, and Educators",
+  title: "Find Expert Learning Support | My Expert Talk",
   description:
-    "My Expert Talk helps students and learners join expert talks, explore mentor-led services, access recordings, and book guidance sessions.",
+    "My Expert Talk helps students find expert-created services, custom quotes, rooms, bookings, Google Meet sessions, reviews, payments, and learning support.",
 };
 
 export default async function Home() {
