@@ -34,11 +34,23 @@ function isDuplicateAuthError(error: { message?: string } | null | undefined) {
   );
 }
 
+function isSupabaseConnectionError(error: { message?: string; status?: number } | null | undefined) {
+  const message = error?.message?.toLowerCase() ?? "";
+  return error?.status === 0 || message.includes("fetch failed") || message.includes("enotfound");
+}
+
 function authSignupErrorResponse(error: { message?: string; status?: number; code?: string } | null | undefined) {
   const message = error?.message?.toLowerCase() ?? "";
   const status = error?.status;
 
   if (isDuplicateAuthError(error)) return duplicateAccountResponse();
+
+  if (isSupabaseConnectionError(error)) {
+    return NextResponse.json(
+      { error: "Database connection is currently unavailable. Please contact support." },
+      { status: 503 },
+    );
+  }
 
   if (
     status === 401 ||
@@ -121,11 +133,22 @@ export async function POST(request: Request) {
     if (emailError) return NextResponse.json({ error: emailError }, { status: 400 });
 
     const admin = createSupabaseAdminClient();
-    const { data: existing } = await admin
+    const { data: existing, error: existingProfileError } = await admin
       .from("profiles")
       .select("id")
       .eq("email", email)
       .maybeSingle();
+
+    if (existingProfileError) {
+      console.error("Signup duplicate profile check failed:", existingProfileError);
+      if (isSupabaseConnectionError(existingProfileError)) {
+        return NextResponse.json(
+          { error: "Database connection is currently unavailable. Please contact support." },
+          { status: 503 },
+        );
+      }
+    }
+
     if (existing) {
       return duplicateAccountResponse();
     }
