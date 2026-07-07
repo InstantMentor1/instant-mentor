@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { CalendarClock, CheckCircle2, ListChecks, MessageCircle, UserSearch } from "lucide-react";
+import { CalendarClock, CheckCircle2, FileText, MessageSquareQuote, Star, UserSearch } from "lucide-react";
 import DashboardHeader from "@/components/DashboardHeader";
 import { requireAuth } from "@/lib/auth";
 
@@ -19,15 +19,15 @@ export default async function StudentDashboard() {
         <DashboardHeader
           profile={profile}
           title="Student Dashboard"
-          description={`Hi ${profile.full_name}, discover experts, book learning support, join rooms or courses, and track your bookings.`}
+          description={`Hi ${profile.full_name}, search by problem, send requirements, compare expert quotes, book sessions, and review your learning support.`}
         />
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
           {[
-            { label: "Upcoming session", value: upcoming.length, icon: CalendarClock },
-            { label: "Recommended expert", value: "1", icon: UserSearch },
-            { label: "Active roadmap", value: "0", icon: ListChecks },
+            { label: "Upcoming sessions", value: upcoming.length, icon: CalendarClock },
+            { label: "Matching experts", value: "1", icon: UserSearch },
+            { label: "Quotes received", value: "0", icon: MessageSquareQuote },
             { label: "Pending actions", value: items.filter((booking) => booking.status === "pending").length, icon: CheckCircle2 },
-            { label: "Messages", value: 0, icon: MessageCircle },
+            { label: "Reviews pending", value: 0, icon: Star },
           ].map(({ label, value, icon: Icon }) => (
             <div key={label} className="card p-5">
               <Icon className="text-coral" />
@@ -38,9 +38,10 @@ export default async function StudentDashboard() {
         </div>
         <div className="mt-6 flex flex-wrap gap-3">
           <Link href="/mentors" className="btn-primary">Explore Experts</Link>
-          <Link href="/services" className="btn-secondary">Explore Services</Link>
-          <Link href="/rooms-courses" className="btn-secondary">My Rooms / Courses</Link>
-          <Link href="/payments" className="btn-secondary">Payments & Coupons</Link>
+          <Link href="/requirements/new" className="btn-secondary">Send Requirement</Link>
+          <Link href="/quotes" className="btn-secondary">Quotes Received</Link>
+          <Link href="/meet-session" className="btn-secondary">Google Meet Details</Link>
+          <Link href="/payments" className="btn-secondary">Payments</Link>
         </div>
         <div className="mt-9 flex items-center justify-between">
           <div>
@@ -55,7 +56,7 @@ export default async function StudentDashboard() {
               <div className="flex justify-between gap-4">
                 <div>
                   <p className="text-xs font-bold uppercase text-academic">{booking.expert_services?.category}</p>
-                  <h3 className="mt-2 text-xl font-black">{booking.expert_services?.title ?? "Mentor service"}</h3>
+                  <h3 className="mt-2 text-xl font-black">{booking.expert_services?.title ?? "Expert service"}</h3>
                 </div>
                 <span className="h-fit rounded-full bg-slate-100 px-3 py-1 text-xs font-bold capitalize">{booking.status}</span>
               </div>
@@ -66,10 +67,10 @@ export default async function StudentDashboard() {
         </div>
         {items.length === 0 && (
           <div className="card mt-6 p-10 text-center">
-            <CheckCircle2 className="mx-auto text-coral" />
-            <h2 className="mt-3 text-xl font-black">Start with expert-created learning support.</h2>
-            <p className="mt-2 text-slate-600">Choose an expert service, room, micro-course, or mentorship plan based on your need.</p>
-            <Link href="/mentors" className="btn-primary mt-6">Explore Experts</Link>
+            <FileText className="mx-auto text-coral" />
+            <h2 className="mt-3 text-xl font-black">Start with your requirement.</h2>
+            <p className="mt-2 text-slate-600">Describe your problem, compare matching expert services or quotes, and book the right support.</p>
+            <Link href="/requirements/new" className="btn-primary mt-6">Send Requirement</Link>
           </div>
         )}
       </div>

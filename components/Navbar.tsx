@@ -26,34 +26,36 @@ export default function Navbar() {
       ? [
           { href: "/student/dashboard", label: "Dashboard" },
           { href: "/mentors", label: "Explore Experts" },
-          { href: "/services", label: "Explore Services" },
+          { href: "/requirements/new", label: "Send Requirement" },
+          { href: "/quotes", label: "Quotes Received" },
           { href: "/bookings", label: "My Bookings" },
-          { href: "/rooms-courses", label: "My Rooms / Courses" },
-          { href: "/messages", label: "Messages" },
-          { href: "/payments", label: "Payments & Coupons" },
-          { href: "/profile", label: "Profile" },
+          { href: "/meet-session", label: "Google Meet Session Details" },
+          { href: "/recordings", label: "Recordings" },
+          { href: "/reviews", label: "Reviews" },
+          { href: "/payments", label: "Payments" },
         ]
       : profile?.role === "Mentor" || profile?.role === "Faculty" || profile?.role === "Institution"
         ? [
             { href: "/mentor/dashboard", label: "Dashboard" },
+            { href: "/mentor/approval", label: "Apply for Approval" },
+            { href: "/mentor/verification", label: "Profile & Verification" },
             { href: "/mentor/services", label: "My Services" },
-            { href: "/mentor/rooms", label: "My Rooms" },
-            { href: "/mentor/courses", label: "My Courses" },
+            { href: "/mentor/quotes", label: "Custom Quotes" },
             { href: "/mentor/bookings", label: "Bookings" },
             { href: "/mentor/promo-codes", label: "Promo Codes" },
-            { href: "/mentor/students", label: "Students" },
             { href: "/mentor/earnings", label: "Earnings" },
-            { href: "/mentor/verification", label: "Profile & Verification" },
+            { href: "/mentor/reviews", label: "Reviews" },
           ]
         : profile?.role === "Admin"
           ? [
               { href: "/admin/dashboard", label: "Admin Dashboard" },
-              { href: "/admin/users", label: "Users" },
-              { href: "/admin/experts", label: "Experts" },
-              { href: "/admin/services", label: "Services" },
-              { href: "/admin/bookings", label: "Bookings" },
-              { href: "/admin/payments", label: "Payments" },
-              { href: "/admin/categories", label: "Categories" },
+              { href: "/admin/experts", label: "Approve Experts" },
+              { href: "/admin/services", label: "Manage Services" },
+              { href: "/admin/bookings", label: "Track Bookings" },
+              { href: "/admin/commission", label: "Manage Commission" },
+              { href: "/admin/disputes", label: "Handle Disputes" },
+              { href: "/admin/payments", label: "Payments/Payouts" },
+              { href: "/admin/reviews", label: "Monitor Reviews" },
             ]
           : publicLinks;
 

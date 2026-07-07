@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Banknote, CalendarClock, CheckCircle2, Clock3, ShieldCheck, Store, Users } from "lucide-react";
+import { Banknote, CalendarClock, CheckCircle2, MessageSquareQuote, ShieldCheck, Star, Store } from "lucide-react";
 import DashboardHeader from "@/components/DashboardHeader";
 import { requireAuth } from "@/lib/auth";
 import { calculatePlatformFee } from "@/lib/marketplace";
@@ -22,16 +22,16 @@ export default async function MentorDashboard() {
         <DashboardHeader
           profile={profile}
           title="Expert Dashboard"
-          description="Create expert services, rooms, micro-courses, mentorship plans, promo codes, bookings, students, earnings, and verification."
+          description="Get approved, create services, reply to custom quote requests, manage bookings, promo codes, earnings, and reviews."
         />
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
           {[
+            { label: "Approval", value: profile.role === "Mentor" ? "Pending" : "Review", icon: ShieldCheck },
             { label: "My services", value: menu.filter((service) => service.status === "active").length, icon: Store },
-            { label: "Students", value: requests.length, icon: Users },
+            { label: "Custom quotes", value: 0, icon: MessageSquareQuote },
             { label: "Pending bookings", value: requests.filter((booking) => booking.status === "pending").length, icon: CalendarClock },
-            { label: "Scheduled", value: requests.filter((booking) => booking.status === "scheduled").length, icon: Clock3 },
             { label: "Earnings", value: `Rs. ${paidPayout.toLocaleString("en-IN")}`, icon: Banknote },
-            { label: "Verification", value: profile.role === "Mentor" ? "Pending" : "Review", icon: ShieldCheck },
+            { label: "Reviews", value: "0", icon: Star },
           ].map(({ label, value, icon: Icon }) => (
             <div key={label} className="card p-5">
               <Icon className="text-coral" />
@@ -41,15 +41,14 @@ export default async function MentorDashboard() {
           ))}
         </div>
         <div className="mt-6 flex flex-wrap gap-3">
+          <Link href="/mentor/approval" className="btn-primary">Apply for Approval</Link>
           <Link href="/mentor/services/new" className="btn-primary">Create Service Listing</Link>
           <Link href="/mentor/services" className="btn-secondary">My Services</Link>
-          <Link href="/mentor/rooms" className="btn-secondary">My Rooms</Link>
-          <Link href="/mentor/courses" className="btn-secondary">My Courses</Link>
+          <Link href="/mentor/quotes" className="btn-secondary">Custom Quotes</Link>
           <Link href="/mentor/bookings" className="btn-secondary">Bookings</Link>
           <Link href="/mentor/promo-codes" className="btn-secondary">Promo Codes</Link>
-          <Link href="/mentor/students" className="btn-secondary">Students</Link>
           <Link href="/mentor/earnings" className="btn-secondary">Earnings</Link>
-          <Link href="/mentor/verification" className="btn-secondary">Profile & Verification</Link>
+          <Link href="/mentor/reviews" className="btn-secondary">Reviews</Link>
         </div>
         <div className="mt-9 grid gap-6 lg:grid-cols-2">
           <div>
