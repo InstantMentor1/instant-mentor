@@ -39,7 +39,7 @@ export async function POST(request: Request) {
     const admin = createSupabaseAdminClient();
     let { data: profile, error: profileError } = await admin
       .from("profiles")
-      .select("role,email,account_status")
+      .select("role,email")
       .eq("user_id", data.user.id)
       .maybeSingle();
     if (profileError) {
@@ -82,13 +82,40 @@ export async function POST(request: Request) {
           },
           { onConflict: "user_id" },
         )
-        .select("role,email,account_status")
+        .select("role,email")
         .single();
 
       if (repairError || !repairedProfile) {
-        console.error("Login profile repair failed:", repairError);
-        await supabase.auth.signOut();
-        return NextResponse.json({ error: "Account profile could not be repaired. Please contact support." }, { status: 500 });
+        console.error("Full login profile repair failed, retrying minimal repair:", repairError);
+        const fallbackRepair = await admin
+          .from("profiles")
+          .upsert(
+            {
+              user_id: data.user.id,
+              full_name: fullName,
+              email: userEmail,
+              phone: data.user.user_metadata?.phone ? String(data.user.user_metadata.phone) : null,
+              role: userRole,
+              college_or_company: String(data.user.user_metadata?.college_or_company ?? "Not provided"),
+              technical_track: String(data.user.user_metadata?.technical_track ?? "Career Roadmap Guidance"),
+              linkedin_or_portfolio: data.user.user_metadata?.linkedin_or_portfolio
+                ? String(data.user.user_metadata.linkedin_or_portfolio)
+                : null,
+            },
+            { onConflict: "user_id" },
+          )
+          .select("role,email")
+          .single();
+
+        if (fallbackRepair.error || !fallbackRepair.data) {
+          console.error("Minimal login profile repair failed:", fallbackRepair.error);
+          await supabase.auth.signOut();
+          return NextResponse.json({ error: "Account profile could not be repaired. Please contact support." }, { status: 500 });
+        }
+
+        profile = fallbackRepair.data;
+      } else {
+        profile = repairedProfile;
       }
 
       if (userRole === "Mentor" || userRole === "Faculty") {
@@ -107,10 +134,9 @@ export async function POST(request: Request) {
         }
       }
 
-      profile = repairedProfile;
     }
 
-    if (profile.account_status === "disabled") {
+    if ("account_status" in profile && profile.account_status === "disabled") {
       await supabase.auth.signOut();
       return NextResponse.json({ error: "This account is disabled. Please contact support." }, { status: 403 });
     }
