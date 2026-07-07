@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { BookOpenCheck, ChevronDown, Loader2, LogOut, Menu, X } from "lucide-react";
+import { ChevronDown, Loader2, LogOut, Menu, X } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import { useAuth } from "@/components/AuthProvider";
@@ -10,9 +10,9 @@ import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 
 const publicLinks = [
   { href: "/", label: "Home" },
-  { href: "/expert-talks", label: "Expert Talks" },
+  { href: "/mentors", label: "Find Experts" },
   { href: "/services", label: "Services" },
-  { href: "/mentors", label: "Mentors" },
+  { href: "/for-mentors", label: "For Experts" },
 ];
 
 export default function Navbar() {
@@ -25,26 +25,22 @@ export default function Navbar() {
     profile?.role === "Student"
       ? [
           { href: "/student/dashboard", label: "Dashboard" },
-          { href: "/expert-talks", label: "Expert Talks" },
-          { href: "/services", label: "Services" },
-          { href: "/courses", label: "Courses" },
+          { href: "/mentors", label: "Find Experts" },
           { href: "/bookings", label: "My Bookings" },
-          { href: "/recordings", label: "Recordings" },
+          { href: "/roadmap", label: "My Roadmap" },
           { href: "/messages", label: "Messages" },
+          { href: "/payments", label: "Payments" },
           { href: "/profile", label: "Profile" },
         ]
       : profile?.role === "Mentor" || profile?.role === "Faculty" || profile?.role === "Institution"
         ? [
             { href: "/mentor/dashboard", label: "Dashboard" },
             { href: "/mentor/services", label: "My Services" },
-            { href: "/mentor/services/new", label: "Create Service" },
-            { href: "/expert-talks", label: "Expert Talks" },
-            { href: "/courses", label: "Courses" },
             { href: "/mentor/bookings", label: "Bookings" },
-            { href: "/messages", label: "Messages" },
+            { href: "/mentor/availability", label: "Availability" },
+            { href: "/mentor/students", label: "Students" },
             { href: "/mentor/earnings", label: "Earnings" },
-            { href: "/mentor/reviews", label: "Reviews" },
-            { href: "/profile", label: "Profile" },
+            { href: "/mentor/verification", label: "Profile & Verification" },
           ]
         : profile?.role === "Admin"
           ? [
@@ -52,9 +48,6 @@ export default function Navbar() {
               { href: "/admin/users", label: "Users" },
               { href: "/admin/experts", label: "Experts" },
               { href: "/admin/services", label: "Services" },
-              { href: "/courses", label: "Courses" },
-              { href: "/expert-talks", label: "Expert Talks" },
-              { href: "/events", label: "Events" },
               { href: "/admin/bookings", label: "Bookings" },
               { href: "/admin/payments", label: "Payments" },
               { href: "/admin/categories", label: "Categories" },
@@ -92,16 +85,13 @@ export default function Navbar() {
           <Link href="/login" onClick={() => setOpen(false)} className="text-sm font-medium text-slate-700 hover:text-coral">Login</Link>
           <div className="group relative">
             <Link href="/signup" onClick={() => setOpen(false)} className="inline-flex items-center gap-2 rounded-full bg-coral px-4 py-1.5 text-sm font-semibold text-white shadow-[0_12px_22px_-16px_rgba(241,90,59,0.9)] transition hover:-translate-y-0.5 hover:bg-[#dc4429]">
-              Join <ChevronDown size={15} />
+              Join Now <ChevronDown size={15} />
             </Link>
             <div className="pointer-events-none absolute right-0 top-full z-20 mt-3 w-56 rounded-2xl border border-navy/10 bg-white p-2 opacity-0 shadow-soft transition group-hover:pointer-events-auto group-hover:opacity-100">
               <Link href="/signup" className="block rounded-xl px-4 py-3 text-sm font-bold text-slate-700 hover:bg-peach hover:text-coral">Join as Student</Link>
               <Link href="/for-mentors" className="block rounded-xl px-4 py-3 text-sm font-bold text-slate-700 hover:bg-peach hover:text-coral">Join as Expert</Link>
             </div>
           </div>
-          <Link href="/bookings" onClick={() => setOpen(false)} className="inline-flex items-center gap-2 rounded-full border border-navy/10 bg-white px-4 py-2 text-sm font-semibold text-navy transition hover:border-coral/40 hover:text-coral">
-            <BookOpenCheck size={16} /> Bookings
-          </Link>
         </>
       )}
     </>

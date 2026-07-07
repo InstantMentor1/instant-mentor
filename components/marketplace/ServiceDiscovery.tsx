@@ -59,11 +59,11 @@ export default function ServiceDiscovery({ services, initialCategory, initialSea
           <div>
             <p className="inline-flex items-center gap-2 text-sm font-black uppercase tracking-wide text-coral"><SlidersHorizontal size={16} /> {category || "Interview and readiness services"}</p>
             <h2 className="mt-1 text-3xl font-black tracking-[-0.035em] text-navy">Mentor services - browse and book</h2>
-            <p className="mt-1 text-sm text-slate-600">Use services for personal practice and reviews. Use courses for structured learning tracks.</p>
+            <p className="mt-1 text-sm text-slate-600">Choose a focused service, pick a mentor, and book a slot.</p>
           </div>
           <div className="flex flex-wrap gap-3">
-            <Link href="/courses" className="text-sm font-black text-academic">Explore courses -&gt;</Link>
-            <Link href="/for-mentors" className="text-sm font-black text-coral">Create your mentor store -&gt;</Link>
+            <Link href="/mentors" className="text-sm font-black text-academic">Find experts -&gt;</Link>
+            <Link href="/for-mentors" className="text-sm font-black text-coral">Join as expert -&gt;</Link>
           </div>
         </div>
 

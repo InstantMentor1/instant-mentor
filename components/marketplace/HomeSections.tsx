@@ -44,6 +44,17 @@ const mentors = [
   ["Meera Shah", "meera-shah", "Skill Coach", ["Communication", "Growth"]],
 ] as const;
 
+const popularServices = [
+  ["Career Clarity Session", "career-roadmap", "Choose your next step with a practical roadmap."],
+  ["Resume Review", "resume-review", "Get your resume shortlisted-ready before applying."],
+  ["LinkedIn Profile Review", "linkedin-profile-optimisation", "Make recruiters understand your strengths fast."],
+  ["Mock Interview", "software-mock-interview", "Practice before the real interview pressure."],
+  ["Business Analytics Roadmap", "career-roadmap", "Plan tools, projects, and portfolio proof."],
+  ["Digital Marketing Roadmap", "career-roadmap", "Know what to learn and how to show results."],
+  ["Project Review", "project-review", "Improve your project before demos or interviews."],
+  ["Monthly Mentorship", "career-roadmap", "Stay accountable with ongoing expert guidance."],
+] as const;
+
 function addDays(days: number) {
   const date = new Date();
   date.setDate(date.getDate() + days);
@@ -65,8 +76,11 @@ export function MinimalLandingPage({ dashboardHref, role }: { dashboardHref: str
   return (
     <div className="bg-ivory text-ink">
       <PublicHero />
-      <PublicPathSection />
-      <PublicPreviewSection />
+      <PopularServicesSection />
+      <HowItWorksSection />
+      <FeaturedExpertsSection />
+      <TrustSection />
+      <FinalCTASection />
     </div>
   );
 }
@@ -79,16 +93,16 @@ function PublicHero() {
       <div className="container-shell relative grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">
         <Reveal>
           <div className="max-w-3xl">
-            <span className="inline-flex rounded-full border border-coral/20 bg-peach px-3 py-1 text-sm font-bold text-coral">Premium readiness for serious learners</span>
+            <span className="inline-flex rounded-full border border-coral/20 bg-peach px-3 py-1 text-sm font-bold text-coral">Verified expert sessions for serious learners</span>
             <h1 className="mt-6 text-4xl font-black tracking-[-0.05em] text-navy sm:text-6xl">
-              Prepare before the opportunity arrives.
+              Book verified experts before your next big step.
             </h1>
             <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-700">
-              My Expert Talk helps students get interview-ready, exam-clear, and career-confident through expert talks, mentor services, and practical courses.
+              Book verified experts for career clarity, resume review, interview prep, skill learning, and mentorship.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link href="/services" className="btn-primary">Explore Services <ArrowRight size={18} /></Link>
-              <Link href="/courses" className="btn-secondary">View Courses <ArrowRight size={18} /></Link>
+              <Link href="/mentors" className="btn-primary">Find an Expert <ArrowRight size={18} /></Link>
+              <Link href="/for-mentors" className="btn-secondary">Join as Expert <ArrowRight size={18} /></Link>
             </div>
             <div className="mt-6 flex flex-wrap gap-2 text-sm font-semibold text-slate-600">
               {["Student-first", "Verified mentors", "Mentor-set pricing"].map((item) => (
@@ -115,29 +129,23 @@ function PublicHero() {
   );
 }
 
-function PublicPathSection() {
-  const paths = [
-    ["Students", "Prepare for interviews, exams, first jobs, and skill growth.", "/signup"],
-    ["Experts", "Create services, courses, and talks for learners who value your experience.", "/for-mentors"],
-    ["Explore first", "Browse mentor services and courses before creating an account.", "/services"],
-  ] as const;
-
+function PopularServicesSection() {
   return (
     <section className="bg-white py-14">
       <div className="container-shell">
         <Reveal>
           <div className="mb-8 max-w-2xl">
-            <h2 className="text-3xl font-black tracking-[-0.04em] text-navy">Choose your path.</h2>
-            <p className="mt-3 text-slate-600">A lighter first page, with the deeper marketplace kept inside separate pages.</p>
+            <h2 className="text-3xl font-black tracking-[-0.04em] text-navy">Popular services</h2>
+            <p className="mt-3 text-slate-600">Start with one focused session. No course overload, no confusing menus.</p>
           </div>
         </Reveal>
-        <div className="grid gap-5 md:grid-cols-3">
-          {paths.map(([title, text, href]) => (
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {popularServices.map(([title, slug, text]) => (
             <Reveal key={title}>
-              <Link href={href} className="group block h-full rounded-3xl border border-navy/10 bg-ivory p-6 shadow-soft transition hover:-translate-y-1 hover:border-coral/40 hover:bg-white">
-                <h3 className="text-xl font-black text-navy">{title}</h3>
+              <Link href={`/services/${slug}`} className="group block h-full rounded-3xl border border-navy/10 bg-ivory p-5 shadow-soft transition hover:-translate-y-1 hover:border-coral/40 hover:bg-white">
+                <h3 className="text-lg font-black text-navy">{title}</h3>
                 <p className="mt-3 text-sm leading-6 text-slate-600">{text}</p>
-                <span className="mt-6 inline-flex items-center text-sm font-bold text-coral">Continue <ArrowRight className="ml-1 transition group-hover:translate-x-1" size={16} /></span>
+                <span className="mt-5 inline-flex items-center text-sm font-bold text-coral">View service <ArrowRight className="ml-1 transition group-hover:translate-x-1" size={16} /></span>
               </Link>
             </Reveal>
           ))}
@@ -147,31 +155,89 @@ function PublicPathSection() {
   );
 }
 
-function PublicPreviewSection() {
+function HowItWorksSection() {
   return (
     <section className="bg-ivory py-14">
-      <div className="container-shell grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+      <div className="container-shell">
         <Reveal>
-          <div>
-            <span className="eyebrow">Minimal, not empty</span>
-            <h2 className="text-3xl font-black tracking-[-0.04em] text-navy">Everything else lives where it belongs.</h2>
-            <p className="mt-4 leading-7 text-slate-600">
-              Public visitors get a calm overview. Students and experts get their own focused dashboard after login, so mentor tools never crowd the student journey.
-            </p>
+          <div className="mb-8 text-center">
+            <h2 className="text-3xl font-black tracking-[-0.04em] text-navy">How it works</h2>
           </div>
         </Reveal>
+        <div className="grid gap-5 md:grid-cols-3">
+          {["Choose service", "Book slot", "Attend session"].map((step, index) => (
+            <Reveal key={step}>
+              <div className="rounded-3xl border border-navy/10 bg-white p-6 text-center shadow-soft">
+                <span className="mx-auto grid h-12 w-12 place-items-center rounded-full bg-coral text-lg font-black text-white">{index + 1}</span>
+                <h3 className="mt-4 text-xl font-black text-navy">{step}</h3>
+                <p className="mt-2 text-sm text-slate-600">{index === 0 ? "Pick the exact help you need." : index === 1 ? "Choose an available expert time." : "Join the call and get clear next steps."}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function FeaturedExpertsSection() {
+  return (
+    <section className="bg-white py-14">
+      <div className="container-shell">
         <Reveal>
-          <div className="grid gap-4 sm:grid-cols-2">
-            {[
-              ["Expert Talks", "/expert-talks"],
-              ["Mentor Services", "/services"],
-              ["Courses", "/courses"],
-              ["Mentors", "/mentors"],
-            ].map(([title, href]) => (
-              <Link key={title} href={href} className="rounded-3xl border border-navy/10 bg-white p-5 font-black text-navy shadow-soft hover:-translate-y-1 hover:border-coral/40">
-                {title} <ArrowRight className="mt-4 text-coral" size={18} />
+          <div className="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+            <div>
+              <h2 className="text-3xl font-black tracking-[-0.04em] text-navy">Featured experts</h2>
+              <p className="mt-3 text-slate-600">Verified mentors across career, academic, technology, and skill growth.</p>
+            </div>
+            <Link href="/mentors" className="font-bold text-coral">View all experts -&gt;</Link>
+          </div>
+        </Reveal>
+        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+          {mentors.map(([name, slug, title, tags]) => (
+            <Reveal key={slug}>
+              <Link href={`/mentors/${slug}`} className="block h-full rounded-3xl border border-navy/10 bg-ivory p-5 shadow-soft transition hover:-translate-y-1 hover:border-coral/40 hover:bg-white">
+                <div className="grid h-14 w-14 place-items-center rounded-full bg-coral text-lg font-black text-white">{name.split(" ").map((part) => part[0]).join("").slice(0, 2)}</div>
+                <h3 className="mt-4 text-lg font-black text-navy">{name}</h3>
+                <p className="mt-1 text-sm font-bold text-coral">{title}</p>
+                <div className="mt-3 flex flex-wrap gap-2">{tags.map((tag) => <span key={tag} className="rounded-full bg-white px-2 py-1 text-xs font-bold text-slate-600">{tag}</span>)}</div>
+                <p className="mt-4 text-sm font-bold text-coral">Book session -&gt;</p>
               </Link>
-            ))}
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function TrustSection() {
+  const items = ["Verified experts", "Secure booking", "Affordable premium sessions", "Session notes / roadmap after session", "Refund or reschedule policy"];
+  return (
+    <section className="bg-ivory py-14">
+      <div className="container-shell">
+        <Reveal>
+          <div className="rounded-3xl border border-navy/10 bg-white p-8 shadow-soft">
+            <h2 className="text-3xl font-black tracking-[-0.04em] text-navy">Built for trust before payment.</h2>
+            <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+              {items.map((item) => <p key={item} className="rounded-2xl bg-ivory p-4 text-sm font-bold text-slate-700">✓ {item}</p>)}
+            </div>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+function FinalCTASection() {
+  return (
+    <section className="bg-white py-14">
+      <div className="container-shell">
+        <Reveal>
+          <div className="rounded-3xl bg-navy p-8 text-center text-white shadow-soft">
+            <h2 className="text-3xl font-black tracking-[-0.04em]">Start with one expert session today.</h2>
+            <p className="mx-auto mt-3 max-w-2xl text-slate-200">Choose a service, pick a slot, and walk into your next opportunity with a clearer plan.</p>
+            <Link href="/mentors" className="mt-6 inline-flex rounded-xl bg-coral px-5 py-3 text-sm font-bold text-white hover:bg-[#dc4429]">Find an Expert -&gt;</Link>
           </div>
         </Reveal>
       </div>
@@ -191,8 +257,11 @@ function RoleLanding({ role, dashboardHref }: { role: AppRole; dashboardHref: st
     ? [
         ["Dashboard", dashboardHref],
         ["My Services", "/mentor/services"],
-        ["Create Service", "/mentor/services/new"],
         ["Bookings", "/mentor/bookings"],
+        ["Availability", "/mentor/availability"],
+        ["Students", "/mentor/students"],
+        ["Earnings", "/mentor/earnings"],
+        ["Profile & Verification", "/mentor/verification"],
       ]
     : role === "Admin"
       ? [
@@ -203,9 +272,12 @@ function RoleLanding({ role, dashboardHref }: { role: AppRole; dashboardHref: st
         ]
       : [
           ["Dashboard", dashboardHref],
-          ["Explore Services", "/services"],
-          ["Courses", "/courses"],
+          ["Find Experts", "/mentors"],
           ["My Bookings", "/bookings"],
+          ["My Roadmap", "/roadmap"],
+          ["Messages", "/messages"],
+          ["Payments", "/payments"],
+          ["Profile", "/profile"],
         ];
 
   return (

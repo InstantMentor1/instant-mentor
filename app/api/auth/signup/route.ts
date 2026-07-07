@@ -97,9 +97,10 @@ export async function POST(request: Request) {
     const email = normalizeEmail(String(body.email ?? ""));
     const phone = String(body.phone ?? "").trim();
     const role = String(body.role ?? "") as AppRole;
-    const collegeOrCompany = String(body.collegeOrCompany ?? "").trim();
-    const technicalTrack = String(body.technicalTrack ?? "").trim();
-    const userType = String(body.userType ?? "").trim();
+    const collegeOrCompany = String(body.collegeOrCompany ?? "").trim() || "Not provided";
+    const requestedTechnicalTrack = String(body.technicalTrack ?? "").trim();
+    const technicalTrack = isTechnicalTrack(requestedTechnicalTrack) ? requestedTechnicalTrack : "Career Roadmap Guidance";
+    const userType = String(body.userType ?? "").trim() || "Recent Graduate";
     const linkedinOrPortfolio = String(body.linkedinOrPortfolio ?? "").trim();
     const expertiseAreas = Array.isArray(body.expertiseAreas)
       ? body.expertiseAreas.map((value: unknown) => String(value).trim()).filter(Boolean)
@@ -109,18 +110,9 @@ export async function POST(request: Request) {
 
     if (!fullName) return NextResponse.json({ error: "Full name is required." }, { status: 400 });
     if (!email) return NextResponse.json({ error: "Email is required." }, { status: 400 });
-    if (!phone) return NextResponse.json({ error: "Phone is required." }, { status: 400 });
     if (!publicRoles.includes(role)) return NextResponse.json({ error: "Select a valid account role." }, { status: 400 });
-    if (!collegeOrCompany) return NextResponse.json({ error: "College or company is required." }, { status: 400 });
-    if (!isTechnicalTrack(technicalTrack)) return NextResponse.json({ error: "Select a valid technical track." }, { status: 400 });
     if (role === "Student" && !studentUserTypes.includes(userType as (typeof studentUserTypes)[number])) {
       return NextResponse.json({ error: "Select your student type." }, { status: 400 });
-    }
-    if (role === "Mentor" && !linkedinOrPortfolio) {
-      return NextResponse.json({ error: "LinkedIn or portfolio is required for mentors." }, { status: 400 });
-    }
-    if (role === "Mentor" && expertiseAreas.length === 0) {
-      return NextResponse.json({ error: "Select at least one mentor expertise area." }, { status: 400 });
     }
     if (password.length < 8) return NextResponse.json({ error: "Password must be at least 8 characters." }, { status: 400 });
     if (password !== confirmPassword) return NextResponse.json({ error: "Passwords do not match." }, { status: 400 });
@@ -150,7 +142,7 @@ export async function POST(request: Request) {
         technical_track: technicalTrack,
         user_type: role === "Student" ? userType : null,
         linkedin_or_portfolio: linkedinOrPortfolio,
-        expertise_areas: expertiseAreas,
+          expertise_areas: expertiseAreas.length > 0 ? expertiseAreas : [technicalTrack],
       },
     });
 
@@ -170,7 +162,7 @@ export async function POST(request: Request) {
           user_id: data.user.id,
           full_name: fullName,
           email,
-          phone,
+          phone: phone || null,
           role,
           college_or_company: collegeOrCompany,
           technical_track: technicalTrack,
@@ -196,7 +188,7 @@ export async function POST(request: Request) {
             user_id: data.user.id,
             full_name: fullName,
             email,
-            phone,
+            phone: phone || null,
             role,
             college_or_company: collegeOrCompany,
             technical_track: technicalTrack,
@@ -228,8 +220,8 @@ export async function POST(request: Request) {
           {
             user_id: data.user.id,
             profile_id: profile.id,
-            expertise_areas: expertiseAreas,
-            expertise: expertiseAreas,
+            expertise_areas: expertiseAreas.length > 0 ? expertiseAreas : [technicalTrack],
+            expertise: expertiseAreas.length > 0 ? expertiseAreas : [technicalTrack],
             verification_status: "pending",
           },
           { onConflict: "user_id" },
@@ -242,7 +234,7 @@ export async function POST(request: Request) {
           .upsert(
             {
               user_id: data.user.id,
-              expertise_areas: expertiseAreas,
+              expertise_areas: expertiseAreas.length > 0 ? expertiseAreas : [technicalTrack],
               verification_status: "pending",
             },
             { onConflict: "user_id" },

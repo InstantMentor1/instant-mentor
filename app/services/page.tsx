@@ -29,8 +29,8 @@ export default async function ServicesPage({
         eyebrow="1:1 mentor services"
         title="Book focused practice before interviews, drives, and career moves."
         description="Search by need, compare mentor-created listings, check duration and availability, then book the support that helps you speak, prepare, and decide with confidence."
-        ctaLabel="Create Mentor Store"
-        ctaHref="/for-mentors"
+        ctaLabel="Find Experts"
+        ctaHref="/mentors"
       />
       <ServiceDiscovery services={services} initialCategory={category} initialSearch={search} />
     </>

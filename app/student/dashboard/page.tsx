@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Bookmark, CalendarClock, CheckCircle2, MessageCircle, Mic2, MonitorPlay } from "lucide-react";
+import { CalendarClock, CheckCircle2, ListChecks, MessageCircle, UserSearch } from "lucide-react";
 import DashboardHeader from "@/components/DashboardHeader";
 import { requireAuth } from "@/lib/auth";
 
@@ -12,23 +12,22 @@ export default async function StudentDashboard() {
     .limit(6);
   const items = bookings ?? [];
   const upcoming = items.filter((booking) => ["accepted", "scheduled"].includes(booking.status));
-  const completed = items.filter((booking) => booking.status === "completed");
 
   return (
     <section className="bg-ivory py-10">
       <div className="container-shell">
         <DashboardHeader
           profile={profile}
-          title="My Learning Dashboard"
-          description={`Welcome, ${profile.full_name}. Track interview prep, booked mentor services, expert courses, recordings, and messages.`}
+          title="Dashboard"
+          description={`Hi ${profile.full_name}, book expert sessions, track your roadmap, and prepare for your next opportunity.`}
         />
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
           {[
-            { label: "Upcoming expert talks", value: 0, icon: Mic2 },
-            { label: "Booked services", value: upcoming.length, icon: CalendarClock },
-            { label: "Expert courses", value: 0, icon: MonitorPlay },
+            { label: "Upcoming session", value: upcoming.length, icon: CalendarClock },
+            { label: "Recommended expert", value: "1", icon: UserSearch },
+            { label: "Active roadmap", value: "0", icon: ListChecks },
+            { label: "Pending actions", value: items.filter((booking) => booking.status === "pending").length, icon: CheckCircle2 },
             { label: "Messages", value: 0, icon: MessageCircle },
-            { label: "Completed bookings", value: completed.length, icon: Bookmark },
           ].map(({ label, value, icon: Icon }) => (
             <div key={label} className="card p-5">
               <Icon className="text-coral" />
@@ -39,13 +38,13 @@ export default async function StudentDashboard() {
         </div>
         <div className="mt-6 flex flex-wrap gap-3">
           <Link href="/services" className="btn-primary">Explore Store</Link>
-          <Link href="/services" className="btn-secondary">Book Mentor Service</Link>
-          <Link href="/courses" className="btn-secondary">Explore Courses</Link>
+          <Link href="/mentors" className="btn-secondary">Find Experts</Link>
+          <Link href="/roadmap" className="btn-secondary">My Roadmap</Link>
         </div>
         <div className="mt-9 flex items-center justify-between">
           <div>
             <h2 className="text-2xl font-black">Recent bookings</h2>
-            <p className="mt-1 text-sm text-slate-600">Mentor response, scheduling, payment, and delivery status in one place.</p>
+            <p className="mt-1 text-sm text-slate-600">Your recently booked expert services and session status.</p>
           </div>
           <Link href="/bookings" className="text-sm font-bold text-coral">View all -&gt;</Link>
         </div>
@@ -68,8 +67,8 @@ export default async function StudentDashboard() {
           <div className="card mt-6 p-10 text-center">
             <CheckCircle2 className="mx-auto text-coral" />
             <h2 className="mt-3 text-xl font-black">Start your learning journey.</h2>
-            <p className="mt-2 text-slate-600">Join expert talks, explore courses, or book a mentor service before your next opportunity.</p>
-            <Link href="/expert-talks" className="btn-primary mt-6">Explore Expert Talks</Link>
+            <p className="mt-2 text-slate-600">Find an expert, book a slot, and get a clear roadmap after your session.</p>
+            <Link href="/mentors" className="btn-primary mt-6">Find Experts</Link>
           </div>
         )}
       </div>
