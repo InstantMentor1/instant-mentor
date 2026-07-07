@@ -11,7 +11,7 @@ import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 const publicLinks = [
   { href: "/", label: "Home" },
   { href: "/services", label: "Find Support" },
-  { href: "/mentors", label: "Experts" },
+  { href: "/mentors", label: "Expert Menus" },
   { href: "/rooms", label: "Rooms" },
   { href: "/for-mentors", label: "For Experts" },
 ];
@@ -38,7 +38,6 @@ export default function Navbar() {
               { href: "/mentor/dashboard", label: "Dashboard" },
               { href: "/mentor/services", label: "My Services" },
               { href: "/mentor/rooms", label: "My Rooms" },
-              { href: "/mentor/quotes", label: "Quotes" },
               { href: "/mentor/bookings", label: "Bookings" },
               { href: "/mentor/promo-codes", label: "Promo Codes" },
               { href: "/mentor/earnings", label: "Earnings" },

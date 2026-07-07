@@ -12,7 +12,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   const service = await getPublicService(id);
   const title = service ? `${service.title} | My Expert Talk` : "Find Expert Help | My Expert Talk";
   const description = service
-    ? `${service.title} with expert-set pricing on My Expert Talk.`
+    ? `${service.title} with fixed expert menu pricing on My Expert Talk.`
     : "Browse expert-created services for interview prep, exam guidance, resume review, career clarity, skill learning, rooms, micro-courses, and mentorship plans.";
   return {
     title,
@@ -32,11 +32,11 @@ export default async function ServiceDetailsPage({ params }: { params: Promise<{
   if (!service) notFound();
   const mentorsForService = serviceMentorMap[id] ?? [];
   return (
-    <section className="bg-ivory py-10 sm:py-14">
+    <section className="bg-[#F8FAFC] py-10 sm:py-14">
       <div className="container-shell grid gap-7 lg:grid-cols-[1fr_360px]">
         <article className="card p-6 sm:p-9">
           <Link href="/services" className="mb-6 inline-flex text-sm font-black text-academic">&larr; All services</Link>
-          <span className="rounded-full bg-skysoft px-3 py-1 text-xs font-bold text-navy">{service.category}</span>
+          <span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-bold text-blue-600">{service.category}</span>
           <h1 className="mt-5 text-4xl font-black tracking-tight">{service.title}</h1>
           <p className="mt-5 text-lg leading-8 text-slate-600">{service.description}</p>
           <div className="mt-8 grid gap-5 sm:grid-cols-2">
@@ -51,7 +51,7 @@ export default async function ServiceDetailsPage({ params }: { params: Promise<{
           </div>
           <div id="book-session" className="mt-8 rounded-2xl border border-navy/10 bg-white p-5 shadow-soft">
             <h2 className="text-2xl font-black text-navy">Book a session</h2>
-            <p className="mt-2 text-sm leading-6 text-slate-600">Pick an expert and choose your slot. Payment link sent after you confirm.</p>
+            <p className="mt-2 text-sm leading-6 text-slate-600">Add this menu item, choose a Google Meet slot, apply an expert promo code if available, and complete payment.</p>
             <div className="mt-5 space-y-3">
               {mentorsForService.map((item) => {
                 const mentor = mentorCalendlyProfiles[item.mentorSlug];
@@ -63,7 +63,7 @@ export default async function ServiceDetailsPage({ params }: { params: Promise<{
                           <p className="text-sm font-black text-navy">Book with {mentor.name}</p>
                           <p className="mt-0.5 text-xs text-slate-500">{mentor.title} · {item.duration}</p>
                         </div>
-                        <span className="text-sm font-bold text-coral group-open:hidden">Book -&gt;</span>
+                        <span className="text-sm font-bold text-blue-600 group-open:hidden">Add to Booking -&gt;</span>
                         <span className="hidden text-sm font-bold text-slate-500 group-open:block">Close ↑</span>
                       </div>
                     </summary>
@@ -94,25 +94,25 @@ export default async function ServiceDetailsPage({ params }: { params: Promise<{
         </article>
         <aside className="h-fit lg:sticky lg:top-28">
           <div className="card p-6">
-            <p className="text-sm font-bold uppercase tracking-wide text-slate-400">Expert-set price</p>
-            <p className="mt-2 text-3xl font-black text-navy">Price set by expert</p>
-            <p className="mt-2 text-sm leading-6 text-slate-600">Experts decide their own pricing, format, deliverables, and availability.</p>
+            <p className="text-sm font-bold uppercase tracking-wide text-slate-400">Fixed menu price</p>
+            <p className="mt-2 text-3xl font-black text-navy">{Number(service.price) > 0 ? `₹${Number(service.price).toLocaleString("en-IN")}` : "Starting price"}</p>
+            <p className="mt-2 text-sm leading-6 text-slate-600">Experts decide their own menu pricing, promo eligibility, format, deliverables, and availability.</p>
             <div className="mt-5 space-y-3 border-y border-slate-100 py-5 text-sm font-semibold">
-              <p className="flex items-center gap-2"><Clock3 size={17} className="text-coral" /> {service.duration_minutes} minutes</p>
-              <p className="flex items-center gap-2"><Check size={17} className="text-coral" /> {formatDeliveryMode(service.delivery_mode)}</p>
+              <p className="flex items-center gap-2"><Clock3 size={17} className="text-blue-600" /> {service.duration_minutes} minutes</p>
+              <p className="flex items-center gap-2"><Check size={17} className="text-blue-600" /> {formatDeliveryMode(service.delivery_mode)}</p>
               <p className="flex items-center gap-2"><Star size={17} className="text-amber-500" /> {service.rating ? `${service.rating.toFixed(1)} rating` : "New expert service"}</p>
             </div>
             <div className="mt-5 flex items-center gap-3">
-              <span className="flex h-11 w-11 items-center justify-center rounded-full bg-coral font-black text-white">{(service.expert?.full_name ?? "M")[0]}</span>
+              <span className="flex h-11 w-11 items-center justify-center rounded-full bg-blue-600 font-black text-white">{(service.expert?.full_name ?? "M")[0]}</span>
               <div>
                 <p className="flex items-center gap-1 font-black">{service.expert?.full_name ?? "Verified Expert"} <BadgeCheck size={16} className="text-academic" /></p>
                 <p className="text-xs text-slate-500">{service.expert?.college_or_company ?? "Expert on My Expert Talk"}</p>
               </div>
             </div>
             <Link href="#book-session" className="btn-primary mt-6 w-full">
-              Choose a slot -&gt;
+              Add to Booking -&gt;
             </Link>
-            <p className="mt-3 text-center text-xs leading-5 text-slate-500">Your booking intent is shared privately with the expert after you request the service.</p>
+            <p className="mt-3 text-center text-xs leading-5 text-slate-500">Need something complex? Request a custom quote from the expert profile.</p>
           </div>
         </aside>
       </div>

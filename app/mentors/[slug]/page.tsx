@@ -1,28 +1,20 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { BadgeCheck, Clock3, Crown, Languages, Plus, Star, Users, Video } from "lucide-react";
 import { BookingWidget } from "@/components/BookingWidget";
 import { mentorCalendlyProfiles } from "@/lib/calendly-data";
 
-const courseData = {
-  "hr-round-decoded": { title: "HR Round Decoded", lessons: 5, duration: "2.5 hrs", price: 799 },
-  "ats-proof-resume": { title: "ATS-Proof Resume in One Day", lessons: 4, duration: "2 hrs", price: 499 },
-  "gate-os-dbms": { title: "GATE CS — OS & DBMS Crash Course", lessons: 12, duration: "6 hrs", price: 1299 },
-  "sql-for-data-jobs": { title: "SQL for Data Jobs — Zero to Job-Ready", lessons: 10, duration: "5 hrs", price: 999 },
-  "amazon-sde-playbook": { title: "Amazon & Flipkart SDE Interview Playbook", lessons: 8, duration: "4 hrs", price: 1499 },
-  "first-job-survival": { title: "First Job Survival Guide", lessons: 5, duration: "2.5 hrs", price: 699 },
-} as const;
-
-const situationLabels: Record<string, string> = {
-  "interview-prep": "Interview Prep",
-  "resume-help": "Resume Help",
-  "career-clarity": "Career Clarity",
-  "exam-doubt": "Exam Doubt",
-  "first-job": "First Job",
-  "skill-building": "Build Skills",
-  "competitive-exams": "Competitive Exams",
+type MenuService = {
+  name: string;
+  duration: string;
+  deliverable: string;
+  slug: string;
+  price: number;
+  section: "Quick Support" | "Deep Support" | "Packages";
 };
 
-const mentorData: Record<string, {
+type MentorMenu = {
   name: string;
   title: string;
   credential: string;
@@ -32,28 +24,29 @@ const mentorData: Record<string, {
   sessions: number;
   isOnline: boolean;
   nextSlot?: string;
+  languages: string[];
   calendlyUrls: Record<string, string>;
-  situations: string[];
-  services: Array<{ name: string; duration: string; deliverable: string; slug: string }>;
-  courses: Array<keyof typeof courseData>;
+  services: MenuService[];
   reviews: Array<{ initials: string; text: string; rating: number; date: string }>;
-}> = {
+};
+
+const mentorData: Record<string, MentorMenu> = {
   "priya-nair": {
     name: "Priya Nair",
     title: "HR Manager",
     credential: "HR Manager · TCS · 9 years campus hiring experience",
-    bio: "Priya has screened thousands of freshers during walk-in drives and campus hiring rounds. She helps students understand what HR notices quickly, how to structure answers, and how to avoid the mistakes that silently reduce interview scores.",
+    bio: "Priya helps students prepare for HR rounds, walk-in drives, self-introduction, and confidence gaps with practical hiring-side feedback.",
     tags: ["HR Round", "Walk-in Drives", "Campus Hiring"],
     rating: 4.9,
     sessions: 286,
     isOnline: true,
+    languages: ["English", "Hindi"],
     calendlyUrls: mentorCalendlyProfiles["priya-nair"].calendlyUrls,
-    situations: ["interview-prep", "career-clarity"],
     services: [
-      { name: "HR Round Practice", duration: "45 min", deliverable: "Question-by-question feedback + confidence checklist", slug: "software-mock-interview" },
-      { name: "Self Introduction Clinic", duration: "30 min", deliverable: "Personal intro script + correction notes", slug: "career-roadmap" },
+      { name: "Self Introduction Clinic", duration: "30 min", deliverable: "Personal intro script + correction notes", slug: "career-roadmap", price: 699, section: "Quick Support" },
+      { name: "HR Round Practice", duration: "45 min", deliverable: "Question-by-question feedback + confidence checklist", slug: "software-mock-interview", price: 1299, section: "Deep Support" },
+      { name: "Walk-in Drive Prep Pack", duration: "75 min", deliverable: "HR practice + resume talking points + do/don't checklist", slug: "software-mock-interview", price: 1999, section: "Packages" },
     ],
-    courses: ["hr-round-decoded"],
     reviews: [
       { initials: "SN", text: "Priya showed me why my HR answers sounded memorised. The next interview felt much more natural.", rating: 5, date: "Jun 2026" },
       { initials: "JB", text: "Very practical for walk-in drives. She explained what HR actually scores.", rating: 5, date: "May 2026" },
@@ -63,239 +56,263 @@ const mentorData: Record<string, {
     name: "Aarav Mehta",
     title: "Career Mentor",
     credential: "Ex-campus recruiter · 6 years hiring at top firms",
-    bio: "Aarav has helped 200+ students land their first jobs at TCS, Infosys, Wipro, and mid-sized startups. His sessions focus on what actually gets you shortlisted — not generic advice, but the specific things recruiters flag in the first 30 seconds of a resume or interview.",
+    bio: "Aarav helps students build shortlisted-ready resumes, LinkedIn profiles, and placement preparation plans.",
     tags: ["Resume", "Interviews", "Placements"],
     rating: 4.8,
     sessions: 234,
     isOnline: true,
+    languages: ["English", "Hindi"],
     calendlyUrls: mentorCalendlyProfiles["aarav-mehta"].calendlyUrls,
-    situations: ["interview-prep", "resume-help"],
     services: [
-      { name: "Resume Review for Freshers", duration: "30 min", deliverable: "Annotated PDF + 3 priority fixes", slug: "resume-review" },
-      { name: "Mock HR Interview", duration: "45 min", deliverable: "Recorded feedback + score sheet", slug: "software-mock-interview" },
-      { name: "LinkedIn Optimisation", duration: "30 min", deliverable: "Rewritten headline + summary", slug: "resume-review" },
+      { name: "Resume Review for Freshers", duration: "30 min", deliverable: "Annotated PDF + 3 priority fixes", slug: "resume-review", price: 499, section: "Quick Support" },
+      { name: "LinkedIn Optimisation", duration: "30 min", deliverable: "Headline + summary suggestions + recruiter positioning", slug: "resume-review", price: 499, section: "Quick Support" },
+      { name: "Mock HR Interview", duration: "45 min", deliverable: "Recorded feedback + score sheet", slug: "software-mock-interview", price: 1299, section: "Deep Support" },
+      { name: "Placement Readiness Pack", duration: "90 min", deliverable: "Resume + mock interview + improvement roadmap", slug: "software-mock-interview", price: 2499, section: "Packages" },
     ],
-    courses: ["ats-proof-resume"],
     reviews: [
-      { initials: "RK", text: "Got shortlisted at TCS 3 days after implementing Aarav's resume suggestions. Worth every rupee.", rating: 5, date: "Jun 2026" },
-      { initials: "SP", text: "The mock interview felt more real than the actual campus drive. I knew what was coming.", rating: 5, date: "May 2026" },
-      { initials: "AM", text: "Very specific feedback — not just be confident but exactly what to change.", rating: 4, date: "May 2026" },
+      { initials: "RK", text: "Got shortlisted after implementing Aarav's resume suggestions.", rating: 5, date: "Jun 2026" },
+      { initials: "SP", text: "The mock interview felt more real than my campus drive.", rating: 5, date: "May 2026" },
     ],
   },
   "kavya-rao": {
     name: "Kavya Rao",
     title: "Academic Educator",
-    credential: "M.Ed, 8 years study planning and career guidance",
-    bio: "Kavya specialises in helping students who feel lost between their degree and their career. She maps out realistic paths based on what students actually have — not what they wish they had — and builds plans around real deadlines.",
+    credential: "M.Ed · 8 years study planning and career guidance",
+    bio: "Kavya maps realistic study, career, MBA, and skill plans for students who feel stuck between options.",
     tags: ["Career", "Study Planning", "MBA Prep"],
     rating: 4.7,
     sessions: 187,
     isOnline: false,
     nextSlot: "Tomorrow 10:00 AM",
+    languages: ["English", "Kannada"],
     calendlyUrls: mentorCalendlyProfiles["kavya-rao"].calendlyUrls,
-    situations: ["career-clarity", "first-job"],
     services: [
-      { name: "Career Roadmap Session", duration: "60 min", deliverable: "90-day action plan PDF", slug: "career-roadmap" },
-      { name: "MBA Decision Session", duration: "45 min", deliverable: "College shortlist + timeline", slug: "career-roadmap" },
+      { name: "Career Roadmap Session", duration: "60 min", deliverable: "90-day action plan PDF", slug: "career-roadmap", price: 1999, section: "Deep Support" },
+      { name: "MBA Decision Session", duration: "45 min", deliverable: "College shortlist + timeline", slug: "career-roadmap", price: 1499, section: "Deep Support" },
+      { name: "30-Day Accountability Plan", duration: "4 weeks", deliverable: "Weekly check-ins + learning plan + progress notes", slug: "career-roadmap", price: 3999, section: "Packages" },
     ],
-    courses: ["sql-for-data-jobs"],
     reviews: [
-      { initials: "VT", text: "I had no idea what I wanted to do after graduation. 60 minutes with Kavya gave me a clear 3-month plan.", rating: 5, date: "Jun 2026" },
-      { initials: "LP", text: "She didn't just suggest options — she helped me rule out the ones that weren't right for me.", rating: 5, date: "Apr 2026" },
+      { initials: "VT", text: "60 minutes with Kavya gave me a clear 3-month plan.", rating: 5, date: "Jun 2026" },
     ],
   },
   "sneha-patel": {
     name: "Sneha Patel",
     title: "GATE Mentor",
     credential: "GATE AIR 47 · DRDO Engineer",
-    bio: "Sneha helps aspirants turn scattered preparation into a sharp exam plan. Her sessions focus on concept clarity, mock analysis, revision discipline, and the exact topics that create score jumps in the final months.",
+    bio: "Sneha helps aspirants turn scattered exam prep into a sharp revision and doubt-solving plan.",
     tags: ["GATE", "OS", "DBMS", "Exam Strategy"],
     rating: 4.9,
     sessions: 221,
     isOnline: false,
     nextSlot: "Friday 7:00 PM",
+    languages: ["English", "Hindi"],
     calendlyUrls: {},
-    situations: ["competitive-exams", "exam-doubt"],
     services: [
-      { name: "GATE Mock Test Analysis", duration: "60 min", deliverable: "Weak-area map + 14-day revision plan", slug: "career-roadmap" },
-      { name: "OS & DBMS Doubt Clinic", duration: "45 min", deliverable: "Solved doubts + topic notes", slug: "project-review" },
+      { name: "OS & DBMS Doubt Clinic", duration: "45 min", deliverable: "Solved doubts + topic notes", slug: "project-review", price: 699, section: "Quick Support" },
+      { name: "GATE Mock Test Analysis", duration: "60 min", deliverable: "Weak-area map + 14-day revision plan", slug: "career-roadmap", price: 1499, section: "Deep Support" },
+      { name: "Last 30-Day Exam Sprint", duration: "4 weeks", deliverable: "Weekly strategy + doubt review + revision tracker", slug: "career-roadmap", price: 4999, section: "Packages" },
     ],
-    courses: ["gate-os-dbms"],
     reviews: [
-      { initials: "MR", text: "Her mock analysis made my mistakes obvious. I stopped wasting time on low-impact chapters.", rating: 5, date: "Jun 2026" },
-      { initials: "TA", text: "OS finally clicked for me after Sneha explained scheduling with examples.", rating: 5, date: "May 2026" },
+      { initials: "MR", text: "Her mock analysis made my mistakes obvious.", rating: 5, date: "Jun 2026" },
     ],
   },
   "rohan-iyer": {
     name: "Rohan Iyer",
     title: "Technology Mentor",
     credential: "Software Engineer · 7 years in product companies",
-    bio: "Rohan has interviewed candidates at multiple product companies and now helps students understand what the hiring bar actually looks like. He focuses on DSA patterns, system design basics, and the communication skills that separate shortlisted from rejected candidates.",
+    bio: "Rohan helps students improve projects, prepare for technical interviews, and explain their work clearly.",
     tags: ["AI", "Projects", "Software Interviews"],
     rating: 4.9,
     sessions: 312,
     isOnline: true,
+    languages: ["English", "Hindi"],
     calendlyUrls: mentorCalendlyProfiles["rohan-iyer"].calendlyUrls,
-    situations: ["interview-prep", "skill-building"],
     services: [
-      { name: "Mock Interview for Software Roles", duration: "45 min", deliverable: "Performance breakdown + weak areas", slug: "software-mock-interview" },
-      { name: "Project Review Session", duration: "45 min", deliverable: "Improvement notes + presentation tips", slug: "project-review" },
-      { name: "System Design Intro", duration: "60 min", deliverable: "Concept map + resource list", slug: "software-mock-interview" },
+      { name: "Project Review Session", duration: "45 min", deliverable: "Improvement notes + presentation tips", slug: "project-review", price: 999, section: "Quick Support" },
+      { name: "Mock Interview for Software Roles", duration: "45 min", deliverable: "Performance breakdown + weak areas", slug: "software-mock-interview", price: 1499, section: "Deep Support" },
+      { name: "System Design Starter Pack", duration: "90 min", deliverable: "Concept map + practice plan + resources", slug: "software-mock-interview", price: 2499, section: "Packages" },
     ],
-    courses: ["amazon-sde-playbook"],
     reviews: [
-      { initials: "DK", text: "Rohan asked the exact questions I got asked in my actual Flipkart interview. Uncanny.", rating: 5, date: "Jun 2026" },
-      { initials: "NS", text: "He explained system design in a way that finally made sense — not just theory.", rating: 5, date: "May 2026" },
-      { initials: "PG", text: "Best mock interview I've had. Very honest feedback.", rating: 4, date: "Apr 2026" },
+      { initials: "DK", text: "Rohan asked the exact questions I got asked in my actual interview.", rating: 5, date: "Jun 2026" },
+      { initials: "NS", text: "He explained system design in a way that finally made sense.", rating: 5, date: "May 2026" },
     ],
   },
   "meera-shah": {
     name: "Meera Shah",
     title: "Skill Coach",
     credential: "Communication & soft skills trainer · 5 years corporate L&D",
-    bio: "Meera helps students who have the knowledge but struggle to present it — in interviews, in their first job, or in front of clients. Her sessions are practical: she drills the specific situations students face and helps them respond with clarity and confidence.",
+    bio: "Meera helps students present better in interviews, first jobs, client calls, and workplace situations.",
     tags: ["Communication", "Growth", "Workplace"],
     rating: 4.6,
     sessions: 143,
     isOnline: false,
     nextSlot: "Saturday 3:00 PM",
+    languages: ["English", "Hindi"],
     calendlyUrls: mentorCalendlyProfiles["meera-shah"].calendlyUrls,
-    situations: ["first-job", "career-clarity"],
     services: [
-      { name: "Communication for Interviews", duration: "45 min", deliverable: "Personalised word bank + phrase guide", slug: "career-roadmap" },
-      { name: "Workplace Confidence Session", duration: "45 min", deliverable: "Scenario scripts + confidence checklist", slug: "career-roadmap" },
+      { name: "Communication for Interviews", duration: "45 min", deliverable: "Personalised phrase guide + practice feedback", slug: "career-roadmap", price: 999, section: "Quick Support" },
+      { name: "Workplace Confidence Session", duration: "45 min", deliverable: "Scenario scripts + confidence checklist", slug: "career-roadmap", price: 1199, section: "Deep Support" },
+      { name: "First Job Confidence Pack", duration: "3 sessions", deliverable: "Roleplay + feedback + workplace scripts", slug: "career-roadmap", price: 2999, section: "Packages" },
     ],
-    courses: ["first-job-survival"],
     reviews: [
-      { initials: "AK", text: "I used to go blank in interviews. After Meera's session I had a structure I could actually use under pressure.", rating: 5, date: "May 2026" },
-      { initials: "SC", text: "She role-played 4 different scenarios with me. Real practice, not theory.", rating: 4, date: "Apr 2026" },
+      { initials: "AK", text: "I had a structure I could actually use under pressure.", rating: 5, date: "May 2026" },
     ],
   },
-} as const;
+};
 
 export function generateStaticParams() {
   return Object.keys(mentorData).map((slug) => ({ slug }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const mentor = mentorData[slug as keyof typeof mentorData];
+  const mentor = mentorData[slug];
   return {
-    title: mentor ? `${mentor.name} | My Expert Talk` : "Mentor Profile | My Expert Talk",
-    description: mentor?.bio ?? "View verified mentor profiles on My Expert Talk.",
-    openGraph: {
-      title: mentor ? `${mentor.name} | My Expert Talk` : "Mentor Profile | My Expert Talk",
-      description: mentor?.bio ?? "View verified mentor profiles on My Expert Talk.",
-      siteName: "My Expert Talk",
-      images: [{ url: "/my-expert-talk-logo.png", alt: "My Expert Talk" }],
-    },
+    title: mentor ? `${mentor.name} Menu | My Expert Talk` : "Expert Menu | My Expert Talk",
+    description: mentor?.bio ?? "View verified expert menu profiles on My Expert Talk.",
   };
 }
 
 export default async function MentorProfilePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const mentor = mentorData[slug as keyof typeof mentorData];
+  const mentor = mentorData[slug];
   if (!mentor) notFound();
 
   const initials = mentor.name.split(" ").map((part) => part[0]).join("").slice(0, 2);
+  const isPremium = mentor.rating >= 4.9 && mentor.sessions >= 250;
+  const startingPrice = Math.min(...mentor.services.map((service) => service.price));
+  const menuSections = ["Quick Support", "Deep Support", "Packages"] as const;
 
   return (
-    <main className="bg-ivory py-12 text-ink">
+    <main className="bg-[#F8FAFC] py-12 text-[#0F172A]">
       <div className="container-shell">
-        <Link href="/mentors" className="text-sm font-semibold text-coral hover:text-[#dc4429]">&larr; All mentors</Link>
-        <div className="mt-6 grid gap-6 lg:grid-cols-[0.4fr_0.6fr]">
-          <aside className="rounded-3xl border border-navy/10 bg-white p-6 shadow-soft">
+        <Link href="/mentors" className="text-sm font-semibold text-blue-600 hover:text-blue-700">&larr; All expert menus</Link>
+        <div className="mt-6 grid gap-6 lg:grid-cols-[0.38fr_0.62fr]">
+          <aside className="h-fit rounded-3xl border border-slate-200 bg-white p-6 lg:sticky lg:top-28">
             <div className="flex items-center gap-4">
-              <div className="relative grid h-[72px] w-[72px] place-items-center rounded-full bg-gradient-to-br from-[#1d4ed8] to-[#7c3aed] text-[28px] font-bold text-white">
+              <div className="relative grid h-[72px] w-[72px] place-items-center rounded-full bg-blue-600 text-[28px] font-bold text-white">
                 {initials}
                 <span className={`absolute bottom-1 right-1 h-4 w-4 rounded-full border-2 border-white ${mentor.isOnline ? "animate-pulse bg-green-400" : "bg-slate-500"}`} />
               </div>
               <div>
-                <p className={mentor.isOnline ? "text-sm font-semibold text-green-300" : "text-sm font-semibold text-slate-400"}>
-                  {mentor.isOnline ? "Online now" : `Next slot: ${"nextSlot" in mentor ? mentor.nextSlot : "Soon"}`}
+                <p className={mentor.isOnline ? "text-sm font-semibold text-green-600" : "text-sm font-semibold text-slate-500"}>
+                  {mentor.isOnline ? "Online now" : `Next slot: ${mentor.nextSlot ?? "Soon"}`}
                 </p>
+                <p className="mt-1 text-sm font-black text-slate-900">Starting from ₹{startingPrice.toLocaleString("en-IN")}</p>
               </div>
             </div>
-            <h1 className="mt-4 text-2xl font-black text-navy">{mentor.name}</h1>
-            <p className="mt-1 text-base font-bold text-coral">{mentor.title}</p>
-            <p className="mt-1 text-sm italic text-slate-400">{mentor.credential}</p>
-            <div className="mt-4 flex gap-6 text-sm font-semibold text-slate-700">
-              <span>⭐ {mentor.rating}</span>
-              <span>· {mentor.sessions} sessions</span>
+            <h1 className="mt-4 text-2xl font-black">{mentor.name}</h1>
+            <p className="mt-1 text-base font-bold text-blue-600">{mentor.title}</p>
+            <p className="mt-1 text-sm italic text-slate-500">{mentor.credential}</p>
+            <div className="mt-4 flex flex-wrap gap-2">
+              <span className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-3 py-1 text-xs font-black text-blue-600"><BadgeCheck size={14} /> Blue Star Verified</span>
+              {isPremium && <span className="inline-flex items-center gap-1 rounded-full bg-amber-50 px-3 py-1 text-xs font-black text-amber-700"><Crown size={14} /> Golden Star Premium</span>}
             </div>
-            <div className="mt-3 flex flex-wrap gap-2">
-              {mentor.tags.map((tag) => (
-                <span key={tag} className="rounded-full bg-peach px-3 py-1 text-xs font-bold text-coral">{tag}</span>
-              ))}
+            <div className="mt-4 grid grid-cols-2 gap-3 text-sm font-semibold text-slate-700">
+              <span className="rounded-2xl border border-slate-200 bg-slate-50 p-3"><Star size={15} className="mb-1 text-amber-500" /> {mentor.rating} rating</span>
+              <span className="rounded-2xl border border-slate-200 bg-slate-50 p-3">{mentor.sessions} sessions</span>
+              <span className="rounded-2xl border border-slate-200 bg-slate-50 p-3"><Languages size={15} className="mb-1 text-blue-600" /> {mentor.languages.join(", ")}</span>
+              <span className="rounded-2xl border border-slate-200 bg-slate-50 p-3">Low cancellation</span>
             </div>
-            <p className="mt-4 text-sm leading-relaxed text-slate-400">{mentor.bio}</p>
-            <p className="mb-2 mt-4 text-xs text-slate-500">Helps with:</p>
-            <div className="flex flex-wrap gap-2">
-              {mentor.situations.map((situation) => (
-                <span key={situation} className="rounded-full border border-navy/10 bg-ivory px-3 py-1 text-xs text-slate-700">
-                  {situationLabels[situation] ?? situation}
-                </span>
-              ))}
+            <div className="mt-4 flex flex-wrap gap-2">
+              {mentor.tags.map((tag) => <span key={tag} className="rounded-full bg-blue-50 px-3 py-1 text-xs font-bold text-blue-600">{tag}</span>)}
             </div>
+            <p className="mt-4 text-sm leading-relaxed text-slate-600">{mentor.bio}</p>
+            <Link href="/requirements/new" className="mt-5 inline-flex w-full justify-center rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-bold text-slate-700 hover:border-blue-600 hover:text-blue-600">
+              Request custom quote
+            </Link>
           </aside>
 
           <section>
-            <div>
-              <h2 className="text-2xl font-black text-navy">Services by {mentor.name}</h2>
-              <div className="mt-4 space-y-3">
-                {mentor.services.map((service) => (
-                  <details key={service.name} className="group rounded-xl border border-navy/10 bg-white p-4 shadow-soft">
-                    <summary className="list-none cursor-pointer">
-                      <div className="flex items-center justify-between gap-4">
-                        <div>
-                          <p className="text-sm font-black text-navy">{service.name}</p>
-                          <p className="mt-0.5 text-xs text-slate-500">{service.duration} · -&gt; {service.deliverable}</p>
-                        </div>
-                        <span className="text-sm font-bold text-coral group-open:hidden">Book -&gt;</span>
-                        <span className="hidden text-sm font-bold text-slate-500 group-open:block">Close ↑</span>
-                      </div>
-                    </summary>
-                    <div className="pt-4">
-                      <BookingWidget
-                        mentorName={mentor.name}
-                        serviceName={service.name}
-                        duration={service.duration}
-                        deliverable={service.deliverable}
-                        calendlyUrl={mentor.calendlyUrls?.[service.slug]}
-                        mode="popup"
-                      />
+            <div className="rounded-3xl border border-slate-200 bg-white p-6">
+              <p className="text-xs font-bold uppercase tracking-[0.16em] text-blue-600">Expert menu</p>
+              <h2 className="mt-2 text-3xl font-black">{mentor.name}&apos;s learning menu</h2>
+              <p className="mt-2 text-sm text-slate-600">Need → Expert Menu → Service/Add-ons → Slot → Promo Code → Pay → Google Meet.</p>
+            </div>
+            <div className="mt-5 space-y-6">
+              {menuSections.map((section) => {
+                const sectionServices = mentor.services.filter((service) => service.section === section);
+                if (!sectionServices.length) return null;
+                return (
+                  <div key={section}>
+                    <h3 className="mb-3 text-xl font-black">{section}</h3>
+                    <div className="space-y-3">
+                      {sectionServices.map((service) => (
+                        <details key={service.name} className="group rounded-2xl border border-slate-200 bg-white p-4">
+                          <summary className="list-none cursor-pointer">
+                            <div className="flex items-start justify-between gap-4">
+                              <div>
+                                <p className="text-base font-black">{service.name}</p>
+                                <p className="mt-1 text-sm text-slate-500">{service.deliverable}</p>
+                                <div className="mt-3 flex flex-wrap gap-2 text-xs font-bold text-slate-600">
+                                  <span className="inline-flex items-center gap-1 rounded-full bg-slate-50 px-3 py-1"><Clock3 size={13} /> {service.duration}</span>
+                                  <span className="inline-flex items-center gap-1 rounded-full bg-slate-50 px-3 py-1"><Video size={13} /> Google Meet</span>
+                                  <span className="rounded-full bg-blue-50 px-3 py-1 text-blue-600">Promo eligible</span>
+                                  <span className="rounded-full bg-slate-50 px-3 py-1">Recording optional</span>
+                                </div>
+                              </div>
+                              <div className="text-right">
+                                <p className="text-lg font-black">₹{service.price.toLocaleString("en-IN")}</p>
+                                <span className="mt-2 inline-flex items-center gap-1 rounded-xl bg-blue-600 px-3 py-2 text-xs font-bold text-white group-open:hidden"><Plus size={13} /> Add</span>
+                                <span className="mt-2 hidden text-xs font-bold text-slate-500 group-open:block">Choose slot</span>
+                              </div>
+                            </div>
+                          </summary>
+                          <div className="pt-4">
+                            <BookingWidget
+                              mentorName={mentor.name}
+                              serviceName={service.name}
+                              duration={service.duration}
+                              deliverable={service.deliverable}
+                              calendlyUrl={mentor.calendlyUrls?.[service.slug]}
+                              mode="popup"
+                            />
+                          </div>
+                        </details>
+                      ))}
                     </div>
-                  </details>
-                ))}
-              </div>
-            </div>
+                  </div>
+                );
+              })}
 
-            <div className="mt-8">
-              <h2 className="text-2xl font-black text-navy">Courses by {mentor.name}</h2>
-              <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                {mentor.courses.map((courseSlug) => {
-                  const course = courseData[courseSlug as keyof typeof courseData];
-                  return (
-                    <article key={courseSlug} className="rounded-xl border border-navy/10 bg-white p-4 shadow-soft">
-                      <h3 className="text-sm font-black text-navy">{course.title}</h3>
-                      <p className="mt-2 text-xs text-slate-400">{course.lessons} lessons · {course.duration} · ₹{course.price.toLocaleString("en-IN")}</p>
-                      <Link href={`/courses/${courseSlug}`} className="mt-3 inline-flex text-xs font-bold text-coral hover:text-[#dc4429]">Buy course -&gt;</Link>
+              <div>
+                <h3 className="mb-3 text-xl font-black">Rooms</h3>
+                <div className="rounded-2xl border border-slate-200 bg-white p-4">
+                  <p className="font-black">{mentor.tags[0]} Practice Room</p>
+                  <p className="mt-1 text-sm text-slate-600">Small-group Google Meet room with resources, chat, and follow-up notes.</p>
+                  <div className="mt-3 flex flex-wrap gap-2 text-xs font-bold text-slate-600">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-slate-50 px-3 py-1"><Users size={13} /> 8 seats</span>
+                    <span className="rounded-full bg-slate-50 px-3 py-1">Weekly</span>
+                    <span className="rounded-full bg-blue-50 px-3 py-1 text-blue-600">₹499</span>
+                  </div>
+                  <Link href="/rooms" className="mt-4 inline-flex rounded-xl border border-blue-600 px-4 py-2 text-sm font-bold text-blue-600">Join Room</Link>
+                </div>
+              </div>
+
+              <div>
+                <h3 className="mb-3 text-xl font-black">Add-ons</h3>
+                <div className="grid gap-3 sm:grid-cols-2">
+                  {["Session recording", "Detailed action-plan PDF"].map((addon, index) => (
+                    <div key={addon} className="rounded-2xl border border-slate-200 bg-white p-4">
+                      <p className="font-black">{addon}</p>
+                      <p className="mt-1 text-sm text-slate-600">Add after choosing a service.</p>
+                      <p className="mt-3 font-black">₹{index === 0 ? "199" : "299"}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <h3 className="mb-3 text-xl font-black">Reviews</h3>
+                <div className="grid gap-3">
+                  {mentor.reviews.map((review) => (
+                    <article key={`${review.initials}-${review.date}`} className="rounded-2xl border border-slate-200 bg-white p-4">
+                      <p className="text-sm text-amber-500">{"★".repeat(review.rating)}</p>
+                      <p className="mt-2 text-sm italic text-slate-700">"{review.text}"</p>
+                      <p className="mt-2 text-xs text-slate-500">{review.initials} · {review.date}</p>
                     </article>
-                  );
-                })}
-              </div>
-            </div>
-
-            <div className="mt-8">
-              <h2 className="text-2xl font-black text-navy">What students say</h2>
-              <div className="mt-4 grid gap-3">
-                {mentor.reviews.map((review) => (
-                  <article key={`${review.initials}-${review.date}`} className="rounded-xl border border-navy/10 bg-white p-4 shadow-soft">
-                    <p className="text-sm text-amber-400">{"⭐".repeat(review.rating)}</p>
-                    <p className="mt-2 text-sm italic text-slate-700">"{review.text}"</p>
-                    <p className="mt-2 text-xs text-slate-500">{review.initials} · {review.date}</p>
-                  </article>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
           </section>

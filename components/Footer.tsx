@@ -4,10 +4,10 @@ import { Mail, MapPin } from "lucide-react";
 
 const quickLinks = [
   ["Home", "/"],
-  ["Find Experts", "/mentors"],
-  ["Expert Services", "/services"],
+  ["Expert Menus", "/mentors"],
+  ["Find Support", "/services"],
   ["For Experts", "/for-mentors"],
-  ["Rooms / Courses", "/rooms-courses"],
+  ["Rooms", "/rooms"],
   ["Contact", "/contact"],
 ] as const;
 
@@ -29,7 +29,7 @@ export default function Footer() {
             className="mb-2 h-12 w-auto rounded-xl bg-white object-contain"
           />
           <p className="max-w-xs text-sm leading-6 text-slate-400">
-            My Expert Talk is an expert-led learning support marketplace where students discover and book independent experts for services, rooms, micro-courses, and mentorship plans.
+            My Expert Talk is an expert learning menu marketplace where students browse verified expert menus, add services, choose slots, apply promo codes, pay, and attend on Google Meet.
           </p>
         </div>
         <div>

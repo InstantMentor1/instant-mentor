@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Banknote, CalendarClock, CheckCircle2, MessageSquareQuote, ShieldCheck, Store, Users } from "lucide-react";
+import { Banknote, CalendarClock, CheckCircle2, PackagePlus, ShieldCheck, Store, Users } from "lucide-react";
 import DashboardHeader from "@/components/DashboardHeader";
 import { requireAuth } from "@/lib/auth";
 import { calculatePlatformFee } from "@/lib/marketplace";
@@ -22,13 +22,13 @@ export default async function MentorDashboard() {
         <DashboardHeader
           profile={profile}
           title="Expert Dashboard"
-          description="Create services and rooms, respond to quotes, manage bookings, promo codes, earnings, and profile verification."
+          description="Create menu services, packages, rooms, add-ons, promo codes, availability, and receive direct bookings through Google Meet."
         />
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
           {[
             { label: "Approval", value: profile.role === "Mentor" ? "Pending" : "Review", icon: ShieldCheck },
             { label: "My services", value: menu.filter((service) => service.status === "active").length, icon: Store },
-            { label: "Quotes", value: 0, icon: MessageSquareQuote },
+            { label: "Add-ons", value: 0, icon: PackagePlus },
             { label: "Rooms", value: 0, icon: Users },
             { label: "Pending bookings", value: requests.filter((booking) => booking.status === "pending").length, icon: CalendarClock },
             { label: "Earnings", value: `Rs. ${paidPayout.toLocaleString("en-IN")}`, icon: Banknote },
@@ -44,7 +44,6 @@ export default async function MentorDashboard() {
           <Link href="/mentor/services/new" className="btn-primary">Create Service</Link>
           <Link href="/mentor/services" className="btn-secondary">My Services</Link>
           <Link href="/mentor/rooms" className="btn-secondary">My Rooms</Link>
-          <Link href="/mentor/quotes" className="btn-secondary">Quotes</Link>
           <Link href="/mentor/bookings" className="btn-secondary">Bookings</Link>
           <Link href="/mentor/promo-codes" className="btn-secondary">Promo Codes</Link>
           <Link href="/mentor/earnings" className="btn-secondary">Earnings</Link>

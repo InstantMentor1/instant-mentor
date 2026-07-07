@@ -1,11 +1,11 @@
 ﻿import Link from "next/link";
-import { BadgeCheck, Clock3, Star } from "lucide-react";
+import { BadgeCheck, Clock3, Plus, Star, Video } from "lucide-react";
 import { formatDeliveryMode, type ExpertService } from "@/lib/marketplace";
 
 export default function ServiceCard({ service }: { service: ExpertService }) {
   return (
     <article className="card flex h-full flex-col overflow-hidden">
-      <div className="border-b border-navy/10 bg-gradient-to-br from-skysoft to-peach p-6">
+      <div className="border-b border-slate-200 bg-white p-6">
         <div className="flex items-center justify-between gap-3">
           <span className="rounded-full bg-white px-3 py-1 text-xs font-bold text-navy">
             {service.category}
@@ -15,7 +15,7 @@ export default function ServiceCard({ service }: { service: ExpertService }) {
             {service.rating ? service.rating.toFixed(1) : "New"}
           </span>
         </div>
-        <h2 className="mt-5 text-xl font-black leading-7 text-navy">{service.title}</h2>
+        <h2 className="mt-5 text-xl font-black leading-7 text-slate-900">{service.title}</h2>
         <p className="mt-3 line-clamp-3 text-sm leading-6 text-slate-600">{service.description}</p>
       </div>
       <div className="flex flex-1 flex-col p-6">
@@ -24,33 +24,34 @@ export default function ServiceCard({ service }: { service: ExpertService }) {
             {(service.expert?.full_name ?? "M").slice(0, 1)}
           </span>
           <div>
-            <p className="flex items-center gap-1 font-bold text-navy">
-              {service.expert?.full_name ?? "Verified Expert"} <BadgeCheck size={16} className="text-academic" />
+            <p className="flex items-center gap-1 font-bold text-slate-900">
+              {service.expert?.full_name ?? "Verified Expert"} <BadgeCheck size={16} className="text-blue-600" />
             </p>
             <p className="text-xs text-slate-500">{service.expert?.college_or_company ?? "Educator / Subject expert"}</p>
           </div>
         </div>
-        <div className="mt-5 grid grid-cols-2 gap-3 rounded-2xl bg-ivory p-4 text-sm">
+        <div className="mt-5 grid grid-cols-2 gap-3 rounded-2xl bg-slate-50 p-4 text-sm">
           <div>
-            <p className="text-xs font-bold uppercase tracking-wide text-slate-400">Expert-set price</p>
-            <p className="mt-1 text-lg font-black text-navy">Set by expert</p>
+            <p className="text-xs font-bold uppercase tracking-wide text-slate-400">Fixed menu price</p>
+            <p className="mt-1 text-lg font-black text-slate-900">{Number(service.price) > 0 ? `₹${Number(service.price).toLocaleString("en-IN")}` : "Starting price"}</p>
           </div>
           <div>
             <p className="text-xs font-bold uppercase tracking-wide text-slate-400">Format</p>
-            <p className="mt-1 flex items-center gap-1 font-bold text-navy">
+            <p className="mt-1 flex items-center gap-1 font-bold text-slate-900">
               <Clock3 size={15} /> {service.duration_minutes} min
             </p>
             <p className="mt-1 text-xs text-slate-500">{formatDeliveryMode(service.delivery_mode)}</p>
           </div>
         </div>
+        <p className="mt-4 flex items-center gap-2 text-sm font-semibold text-slate-600"><Video size={16} className="text-blue-600" /> Google Meet slot after payment</p>
         <p className="mt-5 line-clamp-3 text-sm leading-6 text-slate-600">
-          <strong className="text-navy">What students get:</strong> {service.deliverables}
+          <strong className="text-slate-900">What students get:</strong> {service.deliverables}
         </p>
         <p className="mt-3 text-xs font-semibold text-slate-500">
-          Availability: {service.availability_notes ?? "Confirmed with the expert after booking request"}
+          Availability: {service.availability_notes ?? "Available slots shown in menu"}
         </p>
         <Link href={`/services/${service.id}`} className="btn-primary mt-6 w-full">
-          Book Now -&gt;
+          <Plus size={16} /> Add to Booking
         </Link>
       </div>
     </article>

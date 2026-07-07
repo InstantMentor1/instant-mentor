@@ -2,9 +2,9 @@ import Link from "next/link";
 import { BadgeCheck, CalendarDays, Users, Video } from "lucide-react";
 
 const rooms = [
-  ["Placement Prep Room", "Priya Nair", "12 seats", "Saturday, 6:00 PM", "Price set by expert"],
-  ["SQL Practice Room", "Rohan Iyer", "10 seats", "Sunday, 11:00 AM", "Price set by expert"],
-  ["Resume Clinic Room", "Aarav Mehta", "8 seats", "Wednesday, 7:00 PM", "Price set by expert"],
+  ["Placement Prep Room", "Priya Nair", "12 seats", "Saturday, 6:00 PM", "Fixed room price · ₹499"],
+  ["SQL Practice Room", "Rohan Iyer", "10 seats", "Sunday, 11:00 AM", "Fixed room price · ₹699"],
+  ["Resume Clinic Room", "Aarav Mehta", "8 seats", "Wednesday, 7:00 PM", "Fixed room price · ₹499"],
 ];
 
 export default function RoomsPage() {

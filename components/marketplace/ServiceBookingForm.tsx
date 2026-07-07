@@ -133,7 +133,7 @@ export default function ServiceBookingForm({
           <p className="text-sm font-bold text-navy">{title}</p>
           <p className="mt-1 text-3xl font-black text-navy">₹{price.toLocaleString("en-IN")}</p>
           <p className="mt-1 text-xs text-navy">
-            Expert-set price · My Expert Talk fee {fee.commissionPercent}% · Estimated expert payout ₹{fee.smePayout.toLocaleString("en-IN")}
+            Fixed menu price · My Expert Talk fee {fee.commissionPercent}% · Estimated expert payout ₹{fee.smePayout.toLocaleString("en-IN")}
           </p>
         </div>
         {error && <p role="alert" className="rounded-xl bg-red-50 p-4 text-sm font-semibold text-red-700">{error}</p>}

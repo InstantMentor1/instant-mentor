@@ -59,10 +59,10 @@ export default function ServiceDiscovery({ services, initialCategory, initialSea
           <div>
             <p className="inline-flex items-center gap-2 text-sm font-black uppercase tracking-wide text-coral"><SlidersHorizontal size={16} /> {category || "Expert-led learning support"}</p>
             <h2 className="mt-1 text-3xl font-black tracking-[-0.035em] text-navy">Expert-created services - browse and book</h2>
-            <p className="mt-1 text-sm text-slate-600">Experts set the price, duration, promo offers, delivery method, and deliverables. You choose based on need and availability.</p>
+            <p className="mt-1 text-sm text-slate-600">Experts publish menu prices, add-ons, promo offers, delivery method, deliverables, and availability. You choose, add to booking, pick a slot, and pay.</p>
           </div>
           <div className="flex flex-wrap gap-3">
-            <Link href="/mentors" className="text-sm font-black text-academic">Find experts -&gt;</Link>
+            <Link href="/mentors" className="text-sm font-black text-academic">Browse expert menus -&gt;</Link>
             <Link href="/for-mentors" className="text-sm font-black text-coral">Join as expert -&gt;</Link>
           </div>
         </div>
