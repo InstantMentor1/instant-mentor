@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { BadgeCheck, Check, Clock3, Star } from "lucide-react";
 import { BookingWidget } from "@/components/BookingWidget";
+import BookingCartButton from "@/components/marketplace/BookingCartButton";
 import { formatDeliveryMode } from "@/lib/marketplace";
 import { mentorCalendlyProfiles, serviceMentorMap } from "@/lib/calendly-data";
 import { getPublicService } from "@/lib/marketplace-data";
@@ -109,9 +110,9 @@ export default async function ServiceDetailsPage({ params }: { params: Promise<{
                 <p className="text-xs text-slate-500">{service.expert?.college_or_company ?? "Expert on My Expert Talk"}</p>
               </div>
             </div>
-            <Link href="#book-session" className="btn-primary mt-6 w-full">
-              Add to Booking -&gt;
-            </Link>
+            <div className="mt-6">
+              <BookingCartButton price={Number(service.price)} href={`/services/${service.id}/book`} label="Add to Booking" />
+            </div>
             <p className="mt-3 text-center text-xs leading-5 text-slate-500">Need something complex? Request a custom quote from the expert profile.</p>
           </div>
         </aside>

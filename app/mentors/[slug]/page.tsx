@@ -1,8 +1,9 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { BadgeCheck, Clock3, Crown, Languages, Plus, Star, Users, Video } from "lucide-react";
+import { BadgeCheck, Clock3, Crown, Languages, Star, Users, Video } from "lucide-react";
 import { BookingWidget } from "@/components/BookingWidget";
+import BookingCartButton from "@/components/marketplace/BookingCartButton";
 import { mentorCalendlyProfiles } from "@/lib/calendly-data";
 
 type MenuService = {
@@ -252,8 +253,10 @@ export default async function MentorProfilePage({ params }: { params: Promise<{ 
                                 </div>
                               </div>
                               <div className="text-right">
-                                <p className="text-lg font-black">₹{service.price.toLocaleString("en-IN")}</p>
-                                <span className="mt-2 inline-flex items-center gap-1 rounded-xl bg-blue-600 px-3 py-2 text-xs font-bold text-white group-open:hidden"><Plus size={13} /> Add</span>
+                                  <p className="mb-2 text-lg font-black">₹{service.price.toLocaleString("en-IN")}</p>
+                                  <div className="group-open:hidden">
+                                    <BookingCartButton price={service.price} href={`/services/${service.slug}/book`} />
+                                  </div>
                                 <span className="mt-2 hidden text-xs font-bold text-slate-500 group-open:block">Choose slot</span>
                               </div>
                             </div>

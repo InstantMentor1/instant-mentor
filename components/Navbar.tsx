@@ -10,7 +10,6 @@ import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 
 const publicLinks = [
   { href: "/", label: "Home" },
-  { href: "/services", label: "Find Support" },
   { href: "/mentors", label: "Expert Menus" },
   { href: "/rooms", label: "Rooms" },
   { href: "/for-mentors", label: "For Experts" },

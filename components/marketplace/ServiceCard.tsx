@@ -1,6 +1,7 @@
 ﻿import Link from "next/link";
-import { BadgeCheck, Clock3, Plus, Star, Video } from "lucide-react";
+import { BadgeCheck, Clock3, Star, Video } from "lucide-react";
 import { formatDeliveryMode, type ExpertService } from "@/lib/marketplace";
+import BookingCartButton from "@/components/marketplace/BookingCartButton";
 
 export default function ServiceCard({ service }: { service: ExpertService }) {
   return (
@@ -50,9 +51,10 @@ export default function ServiceCard({ service }: { service: ExpertService }) {
         <p className="mt-3 text-xs font-semibold text-slate-500">
           Availability: {service.availability_notes ?? "Available slots shown in menu"}
         </p>
-        <Link href={`/services/${service.id}`} className="btn-primary mt-6 w-full">
-          <Plus size={16} /> Add to Booking
-        </Link>
+        <div className="mt-6 grid grid-cols-[1fr_auto] gap-2">
+          <Link href={`/services/${service.id}`} className="btn-secondary !px-4 !py-3">View Menu</Link>
+          <BookingCartButton price={Number(service.price)} href={`/services/${service.id}/book`} label="Add" />
+        </div>
       </div>
     </article>
   );

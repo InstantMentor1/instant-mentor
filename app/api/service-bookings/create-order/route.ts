@@ -14,6 +14,9 @@ export async function POST(request: Request) {
   const preferredDate = String(body.preferred_date ?? "");
   const preferredTime = String(body.preferred_time ?? "").trim();
   const attachmentLink = String(body.attachment_link ?? "").trim();
+  const promoCode = String(body.promo_code ?? "").trim().toUpperCase();
+  const addOnRecording = body.add_on_recording === true;
+  const addOnNotes = body.add_on_notes === true;
   const depositAcknowledged = body.deposit_acknowledged === true;
 
   if (!serviceId) return NextResponse.json({ error: "Service is required." }, { status: 400 });
@@ -44,10 +47,15 @@ export async function POST(request: Request) {
   }
   const { data: service } = await admin.from("expert_services").select("*").eq("id", serviceId).eq("status", "active").maybeSingle();
   if (!service) return NextResponse.json({ error: "This service is unavailable." }, { status: 404 });
-  if (Number(service.price) < 500) {
-    return NextResponse.json({ error: "This service is below the My Expert Talk minimum price and cannot be booked." }, { status: 409 });
+  if (Number(service.price) < 99) {
+    return NextResponse.json({ error: "This service is below the My Expert Talk minimum menu price and cannot be booked." }, { status: 409 });
   }
-  const fee = calculatePlatformFee(Number(service.price));
+  const basePrice = Number(service.price);
+  const addOnTotal = (addOnRecording ? 199 : 0) + (addOnNotes ? 299 : 0);
+  const subtotal = basePrice + addOnTotal;
+  const discount = promoCode === "MET10" ? Math.round(subtotal * 0.1) : 0;
+  const finalPrice = Math.max(99, subtotal - discount);
+  const fee = calculatePlatformFee(finalPrice);
 
   const { data: booking, error: bookingError } = await admin.from("service_bookings").insert({
     service_id: service.id,
@@ -59,12 +67,19 @@ export async function POST(request: Request) {
       specific_goal: specificGoal,
       already_tried: alreadyTried,
       institution_program: institutionProgram,
+      promo_code: promoCode || null,
+      add_ons: {
+        recording: addOnRecording,
+        action_plan_pdf: addOnNotes,
+      },
+      subtotal,
+      discount,
     },
     deposit_acknowledged: true,
     preferred_date: preferredDate,
     preferred_time: preferredTime,
     attachment_link: attachmentLink || null,
-    price: service.price,
+    price: finalPrice,
     platform_commission_percent: fee.commissionPercent,
     expert_payout_percent: 100 - fee.commissionPercent,
     status: "pending",
@@ -79,7 +94,7 @@ export async function POST(request: Request) {
     user_id: auth.user.id,
     service_booking_id: booking.id,
     product_type: "expert_service",
-    amount: service.price,
+    amount: finalPrice,
     currency: "INR",
     status: "created",
     payment_method: "razorpay",
@@ -97,7 +112,7 @@ export async function POST(request: Request) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      amount: Math.round(Number(service.price) * 100),
+      amount: Math.round(finalPrice * 100),
       currency: "INR",
       receipt: `svc_${booking.id.replaceAll("-", "").slice(0, 30)}`,
       notes: { booking_id: booking.id, service_id: service.id, user_id: auth.user.id },
