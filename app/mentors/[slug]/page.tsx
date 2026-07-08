@@ -12,7 +12,7 @@ type MenuService = {
   deliverable: string;
   slug: string;
   price: number;
-  section: "Quick Support" | "Deep Support" | "Packages";
+  section: "Quick Support" | "Deep Support" | "Packages" | "Rooms" | "Add-ons";
 };
 
 type MentorMenu = {
@@ -47,6 +47,8 @@ const mentorData: Record<string, MentorMenu> = {
       { name: "Self Introduction Clinic", duration: "30 min", deliverable: "Personal intro script + correction notes", slug: "career-roadmap", price: 699, section: "Quick Support" },
       { name: "HR Round Practice", duration: "45 min", deliverable: "Question-by-question feedback + confidence checklist", slug: "software-mock-interview", price: 1299, section: "Deep Support" },
       { name: "Walk-in Drive Prep Pack", duration: "75 min", deliverable: "HR practice + resume talking points + do/don't checklist", slug: "software-mock-interview", price: 1999, section: "Packages" },
+      { name: "HR Interview Practice Room", duration: "Weekly room", deliverable: "Small-group HR practice with live corrections", slug: "career-roadmap", price: 499, section: "Rooms" },
+      { name: "Post-session answer notes", duration: "Add-on", deliverable: "Written do's and don'ts after your session", slug: "career-roadmap", price: 199, section: "Add-ons" },
     ],
     reviews: [
       { initials: "SN", text: "Priya showed me why my HR answers sounded memorised. The next interview felt much more natural.", rating: 5, date: "Jun 2026" },
@@ -69,6 +71,8 @@ const mentorData: Record<string, MentorMenu> = {
       { name: "LinkedIn Optimisation", duration: "30 min", deliverable: "Headline + summary suggestions + recruiter positioning", slug: "resume-review", price: 499, section: "Quick Support" },
       { name: "Mock HR Interview", duration: "45 min", deliverable: "Recorded feedback + score sheet", slug: "software-mock-interview", price: 1299, section: "Deep Support" },
       { name: "Placement Readiness Pack", duration: "90 min", deliverable: "Resume + mock interview + improvement roadmap", slug: "software-mock-interview", price: 2499, section: "Packages" },
+      { name: "Resume Clinic Room", duration: "Weekly room", deliverable: "Group review with shortlisted resume examples", slug: "resume-review", price: 499, section: "Rooms" },
+      { name: "ATS checklist add-on", duration: "Add-on", deliverable: "ATS checklist and priority fix list", slug: "resume-review", price: 199, section: "Add-ons" },
     ],
     reviews: [
       { initials: "RK", text: "Got shortlisted after implementing Aarav's resume suggestions.", rating: 5, date: "Jun 2026" },
@@ -91,6 +95,8 @@ const mentorData: Record<string, MentorMenu> = {
       { name: "Career Roadmap Session", duration: "60 min", deliverable: "90-day action plan PDF", slug: "career-roadmap", price: 1999, section: "Deep Support" },
       { name: "MBA Decision Session", duration: "45 min", deliverable: "College shortlist + timeline", slug: "career-roadmap", price: 1499, section: "Deep Support" },
       { name: "30-Day Accountability Plan", duration: "4 weeks", deliverable: "Weekly check-ins + learning plan + progress notes", slug: "career-roadmap", price: 3999, section: "Packages" },
+      { name: "Career Clarity Room", duration: "Weekend room", deliverable: "Small-group clarity discussion and action plan", slug: "career-roadmap", price: 499, section: "Rooms" },
+      { name: "Roadmap PDF add-on", duration: "Add-on", deliverable: "Clean roadmap PDF after the session", slug: "career-roadmap", price: 299, section: "Add-ons" },
     ],
     reviews: [
       { initials: "VT", text: "60 minutes with Kavya gave me a clear 3-month plan.", rating: 5, date: "Jun 2026" },
@@ -112,6 +118,8 @@ const mentorData: Record<string, MentorMenu> = {
       { name: "OS & DBMS Doubt Clinic", duration: "45 min", deliverable: "Solved doubts + topic notes", slug: "project-review", price: 699, section: "Quick Support" },
       { name: "GATE Mock Test Analysis", duration: "60 min", deliverable: "Weak-area map + 14-day revision plan", slug: "career-roadmap", price: 1499, section: "Deep Support" },
       { name: "Last 30-Day Exam Sprint", duration: "4 weeks", deliverable: "Weekly strategy + doubt review + revision tracker", slug: "career-roadmap", price: 4999, section: "Packages" },
+      { name: "Daily Doubt Room", duration: "Weekday room", deliverable: "Topic-wise doubt support with peer questions", slug: "project-review", price: 399, section: "Rooms" },
+      { name: "Formula notes add-on", duration: "Add-on", deliverable: "Revision notes for the discussed topic", slug: "project-review", price: 199, section: "Add-ons" },
     ],
     reviews: [
       { initials: "MR", text: "Her mock analysis made my mistakes obvious.", rating: 5, date: "Jun 2026" },
@@ -132,6 +140,8 @@ const mentorData: Record<string, MentorMenu> = {
       { name: "Project Review Session", duration: "45 min", deliverable: "Improvement notes + presentation tips", slug: "project-review", price: 999, section: "Quick Support" },
       { name: "Mock Interview for Software Roles", duration: "45 min", deliverable: "Performance breakdown + weak areas", slug: "software-mock-interview", price: 1499, section: "Deep Support" },
       { name: "System Design Starter Pack", duration: "90 min", deliverable: "Concept map + practice plan + resources", slug: "software-mock-interview", price: 2499, section: "Packages" },
+      { name: "Project Review Room", duration: "Sunday room", deliverable: "Group project critique and portfolio improvement tips", slug: "project-review", price: 699, section: "Rooms" },
+      { name: "GitHub README add-on", duration: "Add-on", deliverable: "README outline and project presentation checklist", slug: "project-review", price: 299, section: "Add-ons" },
     ],
     reviews: [
       { initials: "DK", text: "Rohan asked the exact questions I got asked in my actual interview.", rating: 5, date: "Jun 2026" },
@@ -154,6 +164,8 @@ const mentorData: Record<string, MentorMenu> = {
       { name: "Communication for Interviews", duration: "45 min", deliverable: "Personalised phrase guide + practice feedback", slug: "career-roadmap", price: 999, section: "Quick Support" },
       { name: "Workplace Confidence Session", duration: "45 min", deliverable: "Scenario scripts + confidence checklist", slug: "career-roadmap", price: 1199, section: "Deep Support" },
       { name: "First Job Confidence Pack", duration: "3 sessions", deliverable: "Roleplay + feedback + workplace scripts", slug: "career-roadmap", price: 2999, section: "Packages" },
+      { name: "Communication Practice Room", duration: "Weekly room", deliverable: "Small-group speaking practice and feedback", slug: "career-roadmap", price: 499, section: "Rooms" },
+      { name: "Practice script add-on", duration: "Add-on", deliverable: "Personalised answer scripts for repeated practice", slug: "career-roadmap", price: 199, section: "Add-ons" },
     ],
     reviews: [
       { initials: "AK", text: "I had a structure I could actually use under pressure.", rating: 5, date: "May 2026" },
@@ -182,7 +194,7 @@ export default async function MentorProfilePage({ params }: { params: Promise<{ 
   const initials = mentor.name.split(" ").map((part) => part[0]).join("").slice(0, 2);
   const isPremium = mentor.rating >= 4.9 && mentor.sessions >= 250;
   const startingPrice = Math.min(...mentor.services.map((service) => service.price));
-  const menuSections = ["Quick Support", "Deep Support", "Packages"] as const;
+  const menuSections = ["Quick Support", "Deep Support", "Packages", "Rooms", "Add-ons"] as const;
 
   return (
     <main className="bg-[#F8FAFC] py-12 text-[#0F172A]">
@@ -219,9 +231,9 @@ export default async function MentorProfilePage({ params }: { params: Promise<{ 
               {mentor.tags.map((tag) => <span key={tag} className="rounded-full bg-blue-50 px-3 py-1 text-xs font-bold text-blue-600">{tag}</span>)}
             </div>
             <p className="mt-4 text-sm leading-relaxed text-slate-600">{mentor.bio}</p>
-            <Link href="/requirements/new" className="mt-5 inline-flex w-full justify-center rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-bold text-slate-700 hover:border-blue-600 hover:text-blue-600">
-              Request custom quote
-            </Link>
+            <p className="mt-5 rounded-2xl bg-slate-50 p-4 text-xs font-semibold leading-5 text-slate-500">
+              For complex requirements, you can request a custom quote after checking the expert menu.
+            </p>
           </aside>
 
           <section>

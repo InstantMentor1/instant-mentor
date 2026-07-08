@@ -79,6 +79,14 @@ function HeroSearch() {
           <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-slate-600">
             Search your need, compare verified expert menus, add services or add-ons, choose a Google Meet slot, apply promo code, pay, and attend.
           </p>
+          <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
+            <Link href="/mentors" className="rounded-2xl bg-blue-600 px-6 py-3 text-sm font-black text-white hover:bg-blue-700">
+              Browse Expert Menus
+            </Link>
+            <Link href="/rooms" className="rounded-2xl border border-slate-200 bg-white px-6 py-3 text-sm font-black text-slate-900 hover:border-blue-600 hover:text-blue-600">
+              Explore Rooms
+            </Link>
+          </div>
           <div className="mx-auto mt-7 max-w-2xl rounded-3xl border border-slate-200 bg-[#F8FAFC] p-2 shadow-sm">
             <label className="flex items-center gap-3 rounded-2xl bg-white px-4 py-4 text-left">
               <Search size={20} className="shrink-0 text-blue-600" />

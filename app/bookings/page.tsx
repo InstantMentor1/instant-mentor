@@ -58,8 +58,8 @@ export default async function UserBookingsPage({ searchParams }: { searchParams:
           <>
             <div className="card p-10 text-center">
               <h2 className="text-xl font-black">No database bookings yet.</h2>
-              <p className="mt-2 text-slate-600">Browse expert-created services to choose a slot. Calendly bridge bookings saved on this device appear below.</p>
-              <Link href="/services" className="btn-primary mt-6">Explore Services</Link>
+              <p className="mt-2 text-slate-600">Browse expert menus, add a service, choose a Google Meet slot, apply a promo code, and pay. Calendly bridge bookings saved on this device appear below.</p>
+              <Link href="/mentors" className="btn-primary mt-6">Browse Expert Menus</Link>
             </div>
             <LocalBookings />
           </>

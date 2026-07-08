@@ -36,7 +36,7 @@ export default async function ServiceDetailsPage({ params }: { params: Promise<{
     <section className="bg-[#F8FAFC] py-10 sm:py-14">
       <div className="container-shell grid gap-7 lg:grid-cols-[1fr_360px]">
         <article className="card p-6 sm:p-9">
-          <Link href="/services" className="mb-6 inline-flex text-sm font-black text-academic">&larr; All services</Link>
+          <Link href="/mentors" className="mb-6 inline-flex text-sm font-black text-academic">&larr; All expert menus</Link>
           <span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-bold text-blue-600">{service.category}</span>
           <h1 className="mt-5 text-4xl font-black tracking-tight">{service.title}</h1>
           <p className="mt-5 text-lg leading-8 text-slate-600">{service.description}</p>
@@ -113,7 +113,7 @@ export default async function ServiceDetailsPage({ params }: { params: Promise<{
             <div className="mt-6">
               <BookingCartButton price={Number(service.price)} href={`/services/${service.id}/book`} label="Add to Booking" />
             </div>
-            <p className="mt-3 text-center text-xs leading-5 text-slate-500">Need something complex? Request a custom quote from the expert profile.</p>
+            <p className="mt-3 text-center text-xs leading-5 text-slate-500">Menu-based booking is the main flow. Add this service, choose a slot, apply a promo code, and pay.</p>
           </div>
         </aside>
       </div>

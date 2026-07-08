@@ -34,7 +34,7 @@ export default function ServiceDiscovery({ services, initialCategory, initialSea
         <div className="rounded-[2rem] border border-navy/10 bg-white p-4 shadow-soft lg:p-5">
           <div className="grid gap-3 lg:grid-cols-[1fr_220px_220px]">
             <label className="relative block">
-              <span className="sr-only">Search expert-created services</span>
+              <span className="sr-only">Search expert menu items</span>
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-coral" size={19} />
               <input value={search} onChange={(event) => setSearch(event.target.value)} className="form-input bg-ivory pl-11" placeholder="Search resume review, exam help, project support..." />
             </label>
@@ -45,7 +45,7 @@ export default function ServiceDiscovery({ services, initialCategory, initialSea
             <select value={sort} onChange={(event) => setSort(event.target.value)} className="form-input bg-ivory" aria-label="Sort services">
               <option value="availability">Sort: Availability</option>
               <option value="duration">Sort: Duration</option>
-              <option value="rating">Sort: Mentor rating</option>
+              <option value="rating">Sort: Expert rating</option>
               <option value="price">Sort: Price range</option>
             </select>
           </div>
@@ -57,8 +57,8 @@ export default function ServiceDiscovery({ services, initialCategory, initialSea
 
         <div className="mb-6 mt-8 flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
           <div>
-            <p className="inline-flex items-center gap-2 text-sm font-black uppercase tracking-wide text-coral"><SlidersHorizontal size={16} /> {category || "Expert-led learning support"}</p>
-            <h2 className="mt-1 text-3xl font-black tracking-[-0.035em] text-navy">Expert-created services - browse and book</h2>
+            <p className="inline-flex items-center gap-2 text-sm font-black uppercase tracking-wide text-coral"><SlidersHorizontal size={16} /> {category || "Expert Learning Menu"}</p>
+            <h2 className="mt-1 text-3xl font-black tracking-[-0.035em] text-navy">Menu items you can add and book</h2>
             <p className="mt-1 text-sm text-slate-600">Experts publish menu prices, add-ons, promo offers, delivery method, deliverables, and availability. You choose, add to booking, pick a slot, and pay.</p>
           </div>
           <div className="flex flex-wrap gap-3">
