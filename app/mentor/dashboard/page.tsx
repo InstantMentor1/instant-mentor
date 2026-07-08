@@ -27,7 +27,7 @@ export default async function MentorDashboard() {
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
           {[
             { label: "Approval", value: profile.role === "Mentor" ? "Pending" : "Review", icon: ShieldCheck },
-            { label: "My services", value: menu.filter((service) => service.status === "active").length, icon: Store },
+            { label: "My menu", value: menu.filter((service) => service.status === "active").length, icon: Store },
             { label: "Add-ons", value: 0, icon: PackagePlus },
             { label: "Rooms", value: 0, icon: Users },
             { label: "Pending bookings", value: requests.filter((booking) => booking.status === "pending").length, icon: CalendarClock },
@@ -41,8 +41,8 @@ export default async function MentorDashboard() {
           ))}
         </div>
         <div className="mt-6 flex flex-wrap gap-3">
-          <Link href="/mentor/services/new" className="btn-primary">Create Service</Link>
-          <Link href="/mentor/services" className="btn-secondary">My Services</Link>
+          <Link href="/mentor/services/new" className="btn-primary">Create Menu Item</Link>
+          <Link href="/mentor/services" className="btn-secondary">My Menu</Link>
           <Link href="/mentor/rooms" className="btn-secondary">My Rooms</Link>
           <Link href="/mentor/bookings" className="btn-secondary">Bookings</Link>
           <Link href="/mentor/promo-codes" className="btn-secondary">Promo Codes</Link>
@@ -51,7 +51,7 @@ export default async function MentorDashboard() {
         </div>
         <div className="mt-9 grid gap-6 lg:grid-cols-2">
           <div>
-            <h2 className="text-2xl font-black">Recent services</h2>
+            <h2 className="text-2xl font-black">Recent menu items</h2>
             <div className="mt-5 space-y-3">
               {menu.slice(0, 4).map((service) => (
                 <article key={service.id} className="card flex items-center justify-between gap-4 p-5">

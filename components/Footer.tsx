@@ -5,7 +5,7 @@ import { Mail, MapPin } from "lucide-react";
 const quickLinks = [
   ["Home", "/"],
   ["Expert Menus", "/mentors"],
-  ["Find Support", "/services"],
+  ["Learning Menu", "/services"],
   ["For Experts", "/for-mentors"],
   ["Rooms", "/rooms"],
   ["Contact", "/contact"],

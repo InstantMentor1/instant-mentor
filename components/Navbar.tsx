@@ -25,7 +25,7 @@ export default function Navbar() {
     profile?.role === "Student"
       ? [
           { href: "/student/dashboard", label: "Dashboard" },
-          { href: "/services", label: "Find Support" },
+          { href: "/mentors", label: "Expert Menus" },
           { href: "/bookings", label: "My Bookings" },
           { href: "/rooms", label: "My Rooms" },
           { href: "/messages", label: "Messages" },
@@ -35,7 +35,7 @@ export default function Navbar() {
       : profile?.role === "Mentor" || profile?.role === "Faculty" || profile?.role === "Institution"
           ? [
               { href: "/mentor/dashboard", label: "Dashboard" },
-              { href: "/mentor/services", label: "My Services" },
+              { href: "/mentor/services", label: "My Menu" },
               { href: "/mentor/rooms", label: "My Rooms" },
               { href: "/mentor/bookings", label: "Bookings" },
               { href: "/mentor/promo-codes", label: "Promo Codes" },

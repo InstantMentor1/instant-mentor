@@ -23,6 +23,8 @@ const needs = [
   ["Skill Learning", "Learn Excel, AI, SQL, analytics", "skills"],
   ["Subject Doubt", "Clear concepts with expert support", "doubt"],
   ["Career Guidance", "Choose a practical next step", "career"],
+  ["Exam Support", "Plan prep and clear exam blockers", "exam"],
+  ["Expert Rooms", "Join small-group learning rooms", "rooms"],
 ] as const;
 
 const under499 = [
@@ -62,6 +64,7 @@ export function MinimalLandingPage({ dashboardHref, role }: { dashboardHref: str
       <ExpertShelf title="Golden Star Premium Experts" experts={premiumExperts} badge="gold" />
       <RoomsShelf />
       <HowItWorks />
+      <TrustSection />
       <ForExpertsCTA />
     </main>
   );
@@ -83,7 +86,7 @@ function HeroSearch() {
             </label>
           </div>
           <div className="mt-5 flex flex-wrap justify-center gap-2">
-            {["Resume", "Interview", "Project", "Excel", "Career", "Subject Doubt"].map((chip) => (
+            {["Blue Star Verified", "Golden Star Premium", "Available Today", "Under ₹499", "4.5+ Rated", "Language", "Weekend Experts"].map((chip) => (
               <Link key={chip} href={`/services?search=${chip}`} className="rounded-full border border-slate-200 bg-white px-4 py-2 text-xs font-black text-slate-700 hover:border-blue-600 hover:text-blue-600">
                 {chip}
               </Link>
@@ -102,6 +105,13 @@ function Banner() {
         <div className="rounded-3xl border border-blue-100 bg-blue-600 px-5 py-5 text-white sm:px-8">
           <p className="text-2xl font-black tracking-[-0.035em]">No full course fees. No confusion. Just expert support.</p>
           <p className="mt-2 text-sm text-blue-50">Menu-priced learning help for the exact thing you need right now.</p>
+          <div className="mt-5 grid gap-3 sm:grid-cols-3">
+            {["Expert Menus", "Google Meet Sessions", "Student-Friendly Prices"].map((item) => (
+              <div key={item} className="rounded-2xl bg-white/15 px-4 py-3 text-sm font-black text-white ring-1 ring-white/20">
+                {item}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
@@ -122,7 +132,7 @@ function PickNeed() {
     <section className="py-5">
       <div className="container-shell">
         <SectionTitle title="Pick your need" />
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-6">
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {needs.map(([title, text, slug]) => (
             <Link key={slug} href={`/services?need=${slug}`} className="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm transition hover:-translate-y-1 hover:border-blue-600">
               <div className="grid h-11 w-11 place-items-center rounded-2xl bg-blue-50 text-lg font-black text-blue-600">{title[0]}</div>
@@ -221,7 +231,12 @@ function RoomsShelf() {
 }
 
 function HowItWorks() {
-  const steps = ["Search need", "Choose category", "View expert menu", "Add service", "Choose slot", "Apply promo", "Pay", "Google Meet"];
+  const steps = [
+    "Pick your learning need",
+    "Open a verified expert menu",
+    "Add service, add-ons, slot, and promo",
+    "Pay and attend through Google Meet",
+  ];
   return (
     <section className="py-5">
       <div className="container-shell">
@@ -232,6 +247,35 @@ function HowItWorks() {
               <p key={step} className="rounded-2xl bg-slate-50 p-4 text-sm font-black"><span className="mr-2 text-blue-600">{index + 1}.</span>{step}</p>
             ))}
           </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function TrustSection() {
+  const items = [
+    "Approved experts only",
+    "Blue Star verified profiles",
+    "Golden Star premium experts",
+    "Expert-set pricing",
+    "Google Meet live delivery",
+    "Secure booking flow",
+    "Reviews and ratings",
+    "Platform support",
+  ];
+
+  return (
+    <section className="py-5">
+      <div className="container-shell">
+        <SectionTitle title="Built for trust before students pay" />
+        <div className="grid gap-3 rounded-3xl border border-slate-200 bg-white p-5 sm:grid-cols-2 lg:grid-cols-4">
+          {items.map((item) => (
+            <div key={item} className="flex items-center gap-3 rounded-2xl bg-slate-50 p-4 text-sm font-black text-slate-700">
+              <CheckCircle2 size={18} className="shrink-0 text-green-600" />
+              {item}
+            </div>
+          ))}
         </div>
       </div>
     </section>
@@ -257,7 +301,7 @@ function RoleLanding({ role, dashboardHref }: { role: AppRole; dashboardHref: st
   const isExpert = role === "Mentor" || role === "Faculty" || role === "Institution";
   const title = isExpert ? "Expert menu workspace" : role === "Admin" ? "Admin control room" : "Student booking workspace";
   const links = isExpert
-    ? [["Dashboard", dashboardHref], ["My Services", "/mentor/services"], ["My Rooms", "/mentor/rooms"], ["Bookings", "/mentor/bookings"], ["Promo Codes", "/mentor/promo-codes"], ["Earnings", "/mentor/earnings"], ["Profile & Verification", "/mentor/verification"]]
+    ? [["Dashboard", dashboardHref], ["My Menu", "/mentor/services"], ["My Rooms", "/mentor/rooms"], ["Bookings", "/mentor/bookings"], ["Promo Codes", "/mentor/promo-codes"], ["Earnings", "/mentor/earnings"], ["Profile & Verification", "/mentor/verification"]]
     : role === "Admin"
       ? [["Admin Dashboard", dashboardHref], ["Approve Experts", "/admin/experts"], ["Manage Services", "/admin/services"], ["Track Bookings", "/admin/bookings"]]
       : [["Dashboard", dashboardHref], ["Expert Menus", "/mentors"], ["My Bookings", "/bookings"], ["My Rooms", "/rooms"], ["Messages", "/messages"], ["Payments", "/payments"], ["Profile", "/profile"]];

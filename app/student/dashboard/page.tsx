@@ -19,7 +19,7 @@ export default async function StudentDashboard() {
         <DashboardHeader
           profile={profile}
           title="Student Dashboard"
-          description={`Hi ${profile.full_name}, find support by need, book expert sessions, join rooms, manage messages, payments, and your profile.`}
+          description={`Hi ${profile.full_name}, browse expert menus by need, book Google Meet sessions, join rooms, manage messages, payments, and your profile.`}
         />
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {[
@@ -36,7 +36,7 @@ export default async function StudentDashboard() {
           ))}
         </div>
         <div className="mt-6 flex flex-wrap gap-3">
-          <Link href="/services" className="btn-primary">Find Support</Link>
+          <Link href="/mentors" className="btn-primary">Expert Menus</Link>
           <Link href="/bookings" className="btn-secondary">My Bookings</Link>
           <Link href="/rooms" className="btn-secondary">My Rooms</Link>
           <Link href="/messages" className="btn-secondary">Messages</Link>
@@ -68,9 +68,9 @@ export default async function StudentDashboard() {
         {items.length === 0 && (
           <div className="card mt-6 p-10 text-center">
             <Search className="mx-auto text-blue-600" />
-            <h2 className="mt-3 text-xl font-black">Start by finding support.</h2>
+            <h2 className="mt-3 text-xl font-black">Start with an expert menu.</h2>
             <p className="mt-2 text-slate-600">Choose a need like resume, interview, project help, skill learning, subject doubt, or career guidance.</p>
-            <Link href="/services" className="btn-primary mt-6">Find Support</Link>
+            <Link href="/mentors" className="btn-primary mt-6">Browse Expert Menus</Link>
           </div>
         )}
       </div>
